@@ -8,6 +8,8 @@ Stage 0 established the core distinction: fresh-context subagents for *scope* (w
 
 **Writing a good subagent brief:** scope clearly rather than vaguely, name the desired output format explicitly (summary, findings list, recommendation), and if multiple independent tasks exist, request them run in parallel rather than issuing them one at a time. Anthropic's guidance treats this as a decomposition skill, not a prompting trick — the actual work is identifying which tasks are self-contained and which specialist should own which domain.
 
+Developer note: make sure we will compile a list of reoccuring tasks where prepreparing scraper/helper scripts and premade prompts for firing off subagents would save on token usage and improve the process.
+
 **When NOT to delegate — the anti-patterns:**
 - Sequential, dependent work where step two needs step one's full output (the isolation that makes subagents useful is exactly what breaks this)
 - Parallel subagents editing the same file (conflicts)
@@ -31,6 +33,18 @@ No skill/extension install needed for either — both are built into current Cop
 Google added subagents to Gemini CLI in v0.36 (April 15, 2026). Same shape as Claude Code's: each subagent gets its own instructions, own context window, and optionally its own restricted tool set, run in parallel rather than sequentially. Google ships several built-in subagents out of the box — a general-purpose assistant, a CLI helper, and a codebase-investigation agent — so nothing needs to be authored from scratch to start using them. One real difference worth knowing: Gemini 2.5 Pro's context window (1M+ tokens) dwarfs Claude's per-subagent window (roughly 200–400K), which matters if a subagent's job is genuinely to hold a huge amount of source material at once rather than to stay scoped.
 
 **Bottom line on the original question:** both Copilot and Gemini CLI now have real subagent primitives, built in, no extra setup — the gap that existed when this was last checked has closed. The concepts transfer directly from Claude Code practice above; the syntax differs per tool.
+
+## Bounded roles vs. unstructured swarms
+
+Worth naming explicitly, since it's easy to conflate "use more subagents" with "better results." The pattern that actually works — implicit in the delegation guidance above, made explicit here — is:
+
+```
+primary agent owns the task
+specialized subagents produce bounded findings
+primary agent integrates and verifies
+```
+
+Not: several agents freely coordinating with each other mid-task with no single owner. An unstructured "swarm" — agents talking to each other, no clear final integrator — mostly produces noise unless it has clear roles, defined artifacts each agent hands back, and explicit merge criteria for how the primary agent reconciles them. This is consistent with, not a change to, the "3-5 concurrent subagents as the practical sweet spot" and "avoid tight coupling between subagent tasks" guidance already above — it's the same finding stated as a named anti-pattern rather than left implicit.
 
 ## Third-party orchestration frameworks — mostly not the relevant layer here
 

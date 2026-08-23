@@ -16,11 +16,11 @@ Start reading at `education/README.md`. The reasoning behind how this repo is pu
 - `prompts/` — reusable ad-hoc prompts. Same global/seed split question as `skills/`, same "not yet" answer.
 - `seed/` — **not created yet.** Once a base project skeleton is worth naming (folder layout, starter `AGENTS.md` template, starter decision-log format) it goes here, versioned, so a new project bootstraps from a known-good copy instead of the ad-hoc port `JooKoi-frontpage-to-the-open-web` got. This is Layer 2 from the original dev-stack-plan research, deferred there for the same reason it's deferred here: extract from real project experience, don't build it speculatively.
 - `planning/` — the curation process itself: staged research, red-lined baselines, decisions. Not distributed content — this is how the stack above got chosen, kept for the trail.
-  - `stage-0-baseline.md` — consensus survey across 11+ topics, red-lined by hand. Marks (`deeper`/`new`/`disagree`/`known`) are the backlog for later stages.
-  - `raw-inspiration-unverified.md` — hand-pasted AI-search-result dump, unverified, quarantined. Leads to check, not content to cite.
-  - `sources.md` — curated reading/watching/following list. **Verified only** — see that file's own header before adding to it.
-  - `decisions/` — one file per curation-stage decision once stages start producing them.
+  - `topic-index.md` — consensus survey across 14 topics, each linking to the deep-dive doc that covers it. Personal raw notes/red-lines live in `local/` (gitignored), not here.
+  - `_inspiration-and-staying-current.md` / `_ai-tooling-recommendations.md` — curated, verified reference lists (who to follow / what to use). **Verified only** — see each file's own header before adding to it.
+  - `decisions/` — one file per curation-stage decision.
+  - `local/` — gitignored: raw personal notes, and a review-status tracker. Not distributed, not sensitive, just not the kind of thing worth a git history entry per status change.
 
 ## Status
 
-Stage 0 done (baseline survey, red-lined). No per-topic curation stages run yet. No tool has been adopted into this stack as a result of this process — everything here so far is research, not picks.
+Baseline survey done, most deep-dive topics researched (14 docs in `planning/`, see `topic-index.md`). A few real picks made — see `decisions/`. Restructuring into a proper crash-course-style reference is planned (`decisions/002-crash-course-naming.md`) once the reading/review pass is finished.

@@ -6,7 +6,7 @@ This repo exists to solve a specific problem: AI-assisted development has gotten
 
 The process here is deliberately staged rather than "pick the popular tools and go":
 
-1. **Stage 0 — baseline.** Survey what's genuinely agreed-upon across the field right now (not a shopping list — a map of what's settled vs. still contested), then read it and mark each topic: already known, new, disagree, or wants a full curation pass. See `planning/stage-0-baseline.md`.
+1. **Stage 0 — baseline.** Survey what's genuinely agreed-upon across the field right now (not a shopping list — a map of what's settled vs. still contested), then read it and mark each topic: already known, new, disagree, or wants a full curation pass. See `planning/topic-index.md`.
 2. **Per-topic stages.** For each topic marked for deeper curation, do the actual research — options, trade-offs, who's behind each one — and present it as choices, not a pick. The person who owns the stack chooses; the research surfaces the options and does the source-checking.
 3. **Only then, adopt.** A tool or practice enters `skills/`, `prompts/`, or `AGENTS.md` after being chosen this way — not because a single research pass mentioned it once.
 
@@ -19,7 +19,7 @@ Two tiers, not one:
 - **De facto standards** (e.g. `SKILL.md`, the `AGENTS.md` convention) are stated as fact without a verification pass — they're settled enough that re-litigating them per curation stage would be wasted effort.
 - **Opinionated choices** (which skill marketplace, which review pattern, which local-model workflow) require real sourcing before they're presented as an option at all: named practitioners with a checkable identity (org affiliation, public repo, publication history), current docs, or repo-health signals (stars, forks, active commits — not a one-person abandoned project). A new-but-promising exception is allowed, but has to be labeled as such, not folded in silently.
 
-Raw material that doesn't clear this bar (e.g. an unverified AI-search-result dump) gets quarantined rather than discarded — see `planning/raw-inspiration-unverified.md` — and only promoted to `planning/sources.md` entry by entry, after checking.
+Raw material that doesn't clear this bar (e.g. an unverified AI-search-result dump) gets checked against the evidence bar and only promoted to `planning/_ai-tooling-recommendations.md` entry by entry — the quarantine trail itself is not kept once every batch is resolved (deleted 2026-08-23 once all 5 batches were processed).
 
 ## Global vs. seed
 

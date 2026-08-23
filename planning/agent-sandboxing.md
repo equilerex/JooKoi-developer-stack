@@ -1,6 +1,6 @@
 # Stage 1 — Agent code-execution sandboxing
 
-Topic: whether "sandboxing" is becoming a real named security standard for AI coding agents, beyond the generic advice already in `stage-1-security.md` ("run unfamiliar tooling in an isolated context"). Options only, no pick made.
+Topic: whether "sandboxing" is becoming a real named security standard for AI coding agents, beyond the generic advice already in [`security-and-supply-chain.md`](./security-and-supply-chain.md) ("run unfamiliar tooling in an isolated context"). Options only, no pick made.
 
 ## 1. Is there an actual named standard?
 
