@@ -12,11 +12,15 @@ Source: user's read-through notes on `planning/memory-and-progress-ledgers.md`, 
 
 ## Undecided - binary files, or Linux files, pluck it on more lockdown corporate environments I could investigate forking it. Then maybe seeing, if we can have a clean version without the problematic ones, they are mainly part of dependencies 
 
-- **Obsidian vault** — worth leaving in the docs as a documented option, but the MCP requirement (+ typically needing binaries blocked by firewall) rules it out for the corporate-environment requirement, which is a hard constraint for this stack. Might try at home for personal use, but not the universal/portable pick.
+- **Obsidian vault** — corporate-environment blocker (Linux-only binary deps flagged by firewall) **resolved 2026-08-23**: user forked the repo, edited the dependency set to be compatible with the work system, and the npm lib itself was scanned and copied securely into the org's own Artifactory. No longer a hard veto for the corporate constraint — worth re-weighing as a real candidate again, not just a documented-but-ruled-out option. Still needs to be weighed against the opinion piece below and the other candidates on their merits, not just "no longer blocked."
 
 ## undecided,  scoped down
 
 - **Periodic extraction scripts mining session transcripts / branch-naming patterns** — not a memory system by itself, but legitimate as an environment-diagnostic helper utility: pattern-match branch names for ticket numbers, mine logs for general takeaways. Useful, keep as a supporting utility, not the core answer.
+
+## Research expansion pass, 2026-08-23 — still not a pick
+
+`memory-and-progress-ledgers.md` was expanded per the user's flag that it was too thin and conflated three separate concerns (repo-scoped context files / personal cross-project second-brain / Graphify). Real market research now exists there: named memory-layer products (Mem0, Letta, Cognee, Zep/Graphiti — Zep dropped its self-hosted CE in 2026), the "does markdown scale" community debate (real, unsettled, sharpened against this project's specific small-curated-set scope), and a correction to Graphify's framing (it has a secondary ledger-adjacent layer, not purely separate). None of this constitutes a pick — the user has not yet read the expanded doc. See that file's "Scope clarification" section for the full three-way split.
 
 ## Still open — needs more research, not yet a real pick
 
@@ -39,9 +43,9 @@ Per `TODO-LIST.md`, topic 10 blocks real picks for topic 1 (context/memory files
 **Relevance to the open proposal above:** doesn't kill the centralized-curated-reference-files idea, but sharpens it. The proposal is explicitly a *small, curated* set (architecture.md, decisions.md per repo) — not a growing personal database of thousands of records, which is the scale where this piece's failure modes actually bite. Markdown likely stays fine for that use case. But it's a real warning against letting it grow into something it was never a database for — if the ledger idea ever grows toward "queryable facts about hundreds of decisions," that's the point to revisit SQLite/graph-DB rather than scaling markdown past its ceiling.
 
 ## Next step
-- Research: vault/storage alternatives to Obsidian that work without linux binaries /MCP in a locked-down environment.
-- Prototype: what the generated-reference-file skill would actually look like (trigger via hook, file naming convention, mirrored folder structure) — this is a Stage 4 design task once the storage question is answered.
-- Once both are resolved, revisit topics 1 and 3 for their own decision files.
+- [x] Research done 2026-08-23: vault/storage alternatives to Obsidian, checked against the corporate no-uv/no-pipx/no-native-binaries/no-MCP/Windows constraint — see `memory-and-progress-ledgers.md` §8. Short version: named vault products (Obsidian, Logseq, Trilium, Joplin, Anytype, Memos, Outline, Tana) mostly fail the filter or aren't plain files at all; Foam is the one that cleanly passes; the real answer is that the design doesn't need a vault product — the closest prior art is the Cline-style "Memory Bank" pattern (a fixed small set of markdown files, no database). Kuzu, the opinion piece's proposed graph-DB backend, is confirmed dead (archived Oct 2025) — that part of the earlier recommendation is stale; plain stdlib SQLite FTS5 is the one queryable backend that needs zero installs, if it's ever needed.
+- Prototype: what the generated-reference-file skill would actually look like (trigger via hook, file naming convention, mirrored folder structure) — this is a Stage 4 design task, now unblocked on research grounds, still not started.
+- Once read by the user and the pick is made, revisit topics 1 and 3 for their own decision files. (Topic 1 now separately has its own deep-dive doc, `base-instruction-files.md`, written 2026-08-23 independent of this pick.)
 
 similat to the install issues here, we also have issues with graphiphy on corporate that needing to be investigated to see if there's a better alternative. or workaround for the fact that install requirex uv or pipx commands, which is not avaliable in the corporate environment (any way to fork it?)
  

@@ -54,6 +54,24 @@ Worth deciding explicitly before adding a new server, not just when policy-block
 
 Where MCP is blocked by policy (your work situation), the pattern already named in Stage 0 — wrap the same capability as an Agent Skill calling a direct API/CLI — works because a Skill doesn't require a standing server process or new network endpoint; it's markdown plus a script, invoked inside your existing session the same way any other Skill is. Concretely: instead of running a GitHub MCP server, a Skill's script shells out to `gh` (already installed, already authenticated) or calls the REST API directly with a token from your existing auth. You lose the live tool/resource schema MCP gives multiple clients "for free," but you gain something MCP explicitly doesn't have yet: the whole thing is auditable as plain text before it ever runs, which is exactly what the tool-poisoning risk in §4 argues you want anyway.
 
+## Correction (2026-08-23): the 2026-07-28 spec revision supersedes §1's session model
+
+Everything in §1-§5 above describes MCP as it stood through the `2025-11-25` spec revision — session-based, `initialize`/`initialized` handshake, stateful client/server negotiation. **A major spec revision landed 2026-07-28** that changes this substantially. Confirmed directly against the primary changelog (`modelcontextprotocol.io/specification/2026-07-28/changelog`) and the official announcement (`blog.modelcontextprotocol.io/posts/2026-07-28/`), cross-checked against independent coverage (Cloudflare, Google Developers Blog, TechCrunch, VentureBeat, The Register) — not a single-source or aggregator-only claim.
+
+**Core shift:** MCP moves "from a bidirectional stateful protocol into a request/response stateless protocol" (official blog's own framing). Concretely:
+
+- **Handshake removed.** The `initialize`/`notifications/initialized` exchange is gone. Every request now carries protocol version and client identity in `_meta` fields (`io.modelcontextprotocol/protocolVersion`, `clientCapabilities`, `clientInfo`). A new `server/discover` RPC lets a client probe supported versions/capabilities up front instead.
+- **Session state removed.** `Mcp-Session-Id` and protocol-level sessions are gone from Streamable HTTP. `tools/list`/`resources/list`/`prompts/list` no longer vary per-connection. Servers needing cross-call state must mint their own explicit handles, passed as ordinary tool arguments — not protocol-managed.
+- **Roots, Sampling, and Logging are deprecated** (12-month minimum deprecation window, not removed yet). Suggested migrations: pass paths via tool parameters instead of Roots, integrate directly with an LLM provider API instead of Sampling, log to stderr/OpenTelemetry instead of the Logging feature.
+- **Caching is now spec-level**, not just a nice-to-have: `tools/list` and friends must return `ttlMs` (freshness hint) and `cacheScope` (`public`/`private`) — this is the "cacheable discovery" behavior the pasted brief described, and it's real.
+- **HTTP header-based routing**: `Mcp-Method`/`Mcp-Name` headers are now required on Streamable HTTP POST requests, letting gateways route/authorize without parsing the JSON body.
+- **Server-initiated interactions redesigned**: the old server-initiated-request pattern (`roots/list`, `sampling/createMessage`, `elicitation/create`) is replaced by a Multi Round-Trip Requests (MRTR) pattern — a result comes back tagged `"input_required"` with what's needed, and the client retries the original request with the answer, rather than the server pushing a separate request mid-flight.
+- **SDK rollout**: all four Tier 1 SDKs (TypeScript, Python, Go, C#) support the new spec at release; Rust SDK in beta.
+
+**What this means for this doc's practical guidance (§2, §5):** the local-vs-external tradeoff, the "worth connecting at home" server list, and the CLI-vs-MCP decision logic in §5 are unaffected in spirit — those are about when to reach for MCP at all, not about handshake mechanics. **What needs a fresh look before actually building anything against MCP:** any server implementation guidance, since a server now needs `server/discover`, `_meta`-based version/capability negotiation, and `ttlMs`/`cacheScope` on list responses instead of the old handshake — the wire format in this doc's §1 is the *previous* revision, not current. Server/tool-poisoning security risk (§4) is not resolved by this update — it's an orthogonal concern (content of a tool description vs. connection lifecycle), still open.
+
+**Not yet independently checked in this pass:** how quickly major clients (Claude Code, Cursor, VS Code, etc.) actually adopt the new spec version versus continuing to negotiate the older one during the deprecation window — worth checking before assuming every MCP server/client pairing in practice already speaks the new wire format.
+
 ## Sources
 
 - modelcontextprotocol.io official documentation (protocol overview, client/server/tools/resources/prompts model)

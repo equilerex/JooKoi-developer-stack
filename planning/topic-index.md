@@ -13,6 +13,8 @@ Every major agentic coding tool now reads a plain-markdown instruction file at p
 
 **Framing correction, also 2026-08-23 — important for whoever does this research:** per the project's system-agnostic requirement (see `founding-context-dev-stack.md`'s "if Claude disappeared tomorrow" test, ported into the other repo, and the same principle stated fresh here), **`AGENTS.md` is the primary, provider-agnostic source of truth — not `CLAUDE.md`.** Every provider-specific file (`CLAUDE.md`, `.github/copilot-instructions.md`, etc.) should be researched and written up as a thin pointer *to* `AGENTS.md`, not as an equal alternative. Provider-specific content is the exception — only for things a specific tool genuinely can't get any other way — not the default framing. Don't let the eventual deep-dive doc default to Claude-Code-centric examples just because that's the tool in hand.
 
+**Resolved 2026-08-23 (cowork research pass):** deep-dive doc now exists — [`base-instruction-files.md`](./base-instruction-files.md). Covers governance/adoption verification, per-provider loading mechanics, the (contradicted) 200-line-length guidance, nested/local-override patterns, ADR-as-context status, drift tooling, and anti-patterns including a confirmed prompt-injection vector via cloned repos' own AGENTS.md files. No pick made — per this doc's own process. Revisiting `~/.claude/CLAUDE.md` against it is still open, per `TODO-LIST.md`.
+
 ## 2. Prompt & skill libraries
 Anthropic's `SKILL.md` format (a folder with a markdown file plus optional scripts/resources, progressively disclosed into context only when triggered) is a de facto standard for Claude Code and is being mirrored by other tools' "custom command" systems. The unsettled part: whether skills should be personal, project-local, or org-distributed as plugins — practice varies by how much the author expects reuse.
 
@@ -56,7 +58,7 @@ Chezmoi is the most-referenced current tool for managing a personal config/dotfi
 ## 10. Personal cross-project memory/ledger
 No single agreed tool here — a real gap, not just an unresearched one. Candidates named: Claude Code's own built-in memory system, plain dated journal files, a personal notes vault (Obsidian-class), periodic extraction scripts mining AI session transcripts, gitignored per-repo notes.
 
-Deep dive: [`memory-and-progress-ledgers.md`](./memory-and-progress-ledgers.md) — full evaluation of all candidates, no pick made yet.
+Deep dive: [`memory-and-progress-ledgers.md`](./memory-and-progress-ledgers.md) — full evaluation of all candidates, no pick made yet. **2026-08-23 addition:** storage/vault-layer research for the corporate-environment-viable design (§8 of that doc) — most named vault products fail the corporate no-native-binaries/no-MCP filter; the closest named prior art is the Cline-style "Memory Bank" pattern, not a vault product.
 
 ## 11. Usage analytics / self-assessment tooling
 Confirmed: **AI Engineering Fluency** (VS Code extension, author Rob Bos / rajbos) — reads local session logs from VS Code, Copilot CLI, Claude Code, Gemini CLI, Cursor and others, surfaces token usage/cost/usage-pattern insights in the editor status bar, local-first. Beyond this one extension, the category is small and not yet consolidated.
@@ -98,6 +100,8 @@ Distinct topic, flagged by the user, not yet researched. Coding agents don't onl
 ## Surfaced 2026-08-23, no deep-dive yet: scanning/verifying third-party skills and repos for malicious content
 
 Distinct from topic 12 (Security) above, which covers verification *practice* and named incidents generally. This is narrower and more concrete: an actual tool/process pick for scanning a specific skill, plugin, or repo for malicious prompts/code before adopting it — not yet researched as its own question. Check `security-and-supply-chain.md` when it's reviewed (still unread) for whether it already answers this; if not, this needs its own research pass.
+
+**Resolved 2026-08-23 (cowork research pass):** deep-dive doc now exists — [`skill-scanning-and-verification.md`](./skill-scanning-and-verification.md). Confirms `security-and-supply-chain.md` does not already answer this (that doc covers general practice/incidents, not a specific scanning tool/process). Key finding: purpose-built scanners are now plentiful (NVIDIA SkillSpector, Snyk agent-scan, Cisco skill-scanner) but largely disagree with each other and are evadable — treat any single scan result as one weak signal, not a verdict. No pick made.
 
 ## Parked, not Stage 0: graphify
 Graphify (turns any input into a queryable knowledge graph with community detection) needs a real corpus to be worth anything. The harness-level instance now has a plausible corpus (this `planning/` folder itself, 14+ docs) worth reconsidering; project-level instances still wait for individual projects to accumulate content. See `education/README.md` → Parked.
