@@ -1,0 +1,87 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1788245800.7920866,
+    "ast_hash": "d40d950778f9a39a8b8ba3fa3cc590f4",
+    "semantic_hash": "d40d950778f9a39a8b8ba3fa3cc590f4"
+  },
+  "package.json": {
+    "mtime": 1788292315.731778,
+    "ast_hash": "8160f233774953988fb99693852f04ac",
+    "semantic_hash": "8160f233774953988fb99693852f04ac"
+  },
+  "utility-scripts/jookoi-graphify-setup/package-scripts-snippet.json": {
+    "mtime": 1788097058.7314627,
+    "ast_hash": "06361b03cad830856e88a50441229814",
+    "semantic_hash": "06361b03cad830856e88a50441229814"
+  },
+  "utility-scripts/jookoi-graphify-setup/setup.sh": {
+    "mtime": 1788097064.324281,
+    "ast_hash": "0ae6a3e74fe095ace5da2ae296c648c1",
+    "semantic_hash": "0ae6a3e74fe095ace5da2ae296c648c1"
+  },
+  "utility-scripts/jookoi-hooks/session-log.sh": {
+    "mtime": 1788249669.1354914,
+    "ast_hash": "45407988ef9a3adf4c6325f3988f1cbb",
+    "semantic_hash": "45407988ef9a3adf4c6325f3988f1cbb"
+  },
+  "utility-scripts/jookoi-hooks/session-start-reminder.sh": {
+    "mtime": 1788249669.1676834,
+    "ast_hash": "e2923533d1580a742d68011a405e0753",
+    "semantic_hash": "e2923533d1580a742d68011a405e0753"
+  },
+  "utility-scripts/npm-help.js": {
+    "mtime": 1788097416.1162095,
+    "ast_hash": "b26fb3ff4b7b2d2f9312520dcb48c765",
+    "semantic_hash": "b26fb3ff4b7b2d2f9312520dcb48c765"
+  },
+  "utility-scripts/vault-sync.js": {
+    "mtime": 1788292551.2480292,
+    "ast_hash": "02e81f3fa70f7c42dc10428cce98d456",
+    "semantic_hash": "02e81f3fa70f7c42dc10428cce98d456"
+  },
+  "my-global-setup/.agents/skills/jookoi-doc/hooks/_common.sh": {
+    "mtime": 1788235465.4940577,
+    "ast_hash": "32ecf85ab45d3c203465956ba2a63d4d",
+    "semantic_hash": "32ecf85ab45d3c203465956ba2a63d4d"
+  },
+  "my-global-setup/.agents/skills/jookoi-doc/hooks/config/claude-code.json": {
+    "mtime": 1788235494.9886134,
+    "ast_hash": "7a51f2ef8fedae299911cb42be53729c",
+    "semantic_hash": "7a51f2ef8fedae299911cb42be53729c"
+  },
+  "my-global-setup/.agents/skills/jookoi-doc/hooks/config/copilot.json": {
+    "mtime": 1788235505.6157603,
+    "ast_hash": "bc068e2c986dc0bb3d775d7e9abc0279",
+    "semantic_hash": "bc068e2c986dc0bb3d775d7e9abc0279"
+  },
+  "my-global-setup/.agents/skills/jookoi-doc/hooks/config/gemini.json": {
+    "mtime": 1788235500.1347806,
+    "ast_hash": "ab13220958a77fd7dd76343ad41d4ce4",
+    "semantic_hash": "ab13220958a77fd7dd76343ad41d4ce4"
+  },
+  "my-global-setup/.agents/skills/jookoi-doc/hooks/doc-gate.sh": {
+    "mtime": 1788235472.7546585,
+    "ast_hash": "2083959d8e68527e9c3ad5d7032523c0",
+    "semantic_hash": "2083959d8e68527e9c3ad5d7032523c0"
+  },
+  "my-global-setup/.agents/skills/jookoi-doc/hooks/preserve.sh": {
+    "mtime": 1788235481.51722,
+    "ast_hash": "20d9922cbd709a6d2b7da1fdf3c69dac",
+    "semantic_hash": "20d9922cbd709a6d2b7da1fdf3c69dac"
+  },
+  "my-global-setup/.agents/skills/jookoi-doc/hooks/rehydrate.sh": {
+    "mtime": 1788293308.3490255,
+    "ast_hash": "c2530f49aa114ba65b57ca87fd7140b3",
+    "semantic_hash": "c2530f49aa114ba65b57ca87fd7140b3"
+  },
+  "my-global-setup/.agents/skills/jookoi-doc/scripts/jookoi-doc.js": {
+    "mtime": 1788249668.936745,
+    "ast_hash": "d629cd480c720f7485ceb918dfe3a314",
+    "semantic_hash": "d629cd480c720f7485ceb918dfe3a314"
+  },
+  "my-global-setup/.claude/settings.json": {
+    "mtime": 1788288546.705686,
+    "ast_hash": "8762858a59a060f9f030ba99f9b34810",
+    "semantic_hash": "8762858a59a060f9f030ba99f9b34810"
+  }
+}

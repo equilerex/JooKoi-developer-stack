@@ -1,0 +1,7 @@
+node_modules/
+_generated/
+_architecture/graphify/
+_jookoi-*
+.git/
+.env
+*.lock

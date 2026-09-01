@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node ~/.claude/skills/jookoi-*/**)",
+      "Bash(grep -n*)"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+# JooKoi Folder Memory Dinosaur — private-file marker.
+# Anything prefixed _jookoi- is personal/private: never committed anywhere,
+# always safe to have around. See _architecture/plans/2026-08-30-jookoi-folder-memory-dinosaur.md
+#
+# This is a literal, droppable file — set as your global excludesFile directly,
+# or merge these lines into an existing ~/.gitignore. Either way _jookoi* itself
+# stays gitignored (private); this file only controls what GIT tracks. It does
+# not affect what Claude Code can read — see README.md "LLM read access" below.
+_jookoi-*
