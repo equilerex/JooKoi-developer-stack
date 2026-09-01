@@ -33,20 +33,19 @@ Terse, zero-fluff. No filler, no apologies, no trailing summaries unless asked. 
 
 ## jookoi-paper-trail
 
-Applies to every repo, not just `JooKoi-developer-stack`. Concept: `jookoi-paper-trail.md`, design: `_architecture/plans/2026-08-30-jookoi-paper-trail.md` — both in `JooKoi-developer-stack`. Skill: `~/.agents/skills/jookoi-doc/`.
+Every repo carries its own written memory: `CONTEXT.md` next to the code it describes, and a project-level `_architecture/` (`TODO.md` for the live working set, `BACKLOG.md`, `ARCHITECTURE.md`, `plans/`, `archive/`). Applies everywhere, not just `JooKoi-developer-stack`.
 
-- **No `_architecture/` or `_jookoi-architecture/` at repo root → create `_jookoi-architecture/` there** before writing any progress/context note for that repo. Gitignored, private, same shape as the tracked version (`current-state.md` etc.) — this is the fallback home for paper-trail output in a repo that hasn't adopted the tracked layout.
-- **Prefix is the privacy switch.** No prefix (`CONTEXT.md`, `AGENTS.md`, `_architecture/`) = committed, shared. `_jookoi-` prefix (`_jookoi-CONTEXT.md`, `_jookoi-AGENTS.md`, `_jookoi-architecture/`) = globally gitignored, private, mirrored to the personal vault. Both can exist side by side in the same folder.
-- **Read when stuck, not always.** Consult the nearest context file at or above the working folder when entering unfamiliar code or lacking understanding — not on every operation.
-- **Update on invalidation.** After a change that makes an existing context file wrong, invoke `jookoi-doc` (or update the file directly if the skill isn't available in this harness) before continuing the original task.
+The `jookoi-paper-trail` skill owns all of it — what goes where, when to flush, file formats. **Invoke the skill** before writing or updating any of those files. Only these apply without it:
+
+- **Read when stuck, not always.** Consult the nearest context file at or above the working folder when entering unfamiliar code — not on every operation. Never read `archive/`; its `index.md` exists so you can decide whether history is worth asking about.
+- **A change that invalidates a context file is not done until the file is fixed.** Invoke the skill before continuing the original task; if the harness has no skills, follow `~/.agents/skills/jookoi-paper-trail/SKILL.md` directly.
+- **Prefix is the privacy switch.** No prefix = committed and shared; `_jookoi-` prefix (`_jookoi-CONTEXT.md`, `_jookoi-architecture/`) = globally gitignored and private. Both can sit side by side in one folder.
+- **Repo with neither `_architecture/` nor `_jookoi-architecture/` at root → create `_jookoi-architecture/`** before writing any note for it. Private fallback for a repo that hasn't adopted the tracked layout.
 - **Delete with the code.** Removing a folder removes its context file with it.
-- **Never read `archive/`** unless history is explicitly requested. Its `index.md` is readable and exists precisely so you can judge whether asking is worthwhile without opening the rest.
-- **Never bulk-generate context files.** A context file earns its place the first time real work happens in that folder — mass-produced context is wrong on arrival and becomes the unmaintained bucket this design exists to avoid.
-- **The project-level files are three time horizons, not three content types.** `current-state.md` is the live session (a standing summary that gets rewritten, plus a session log that gets appended to), `progress.md` is accumulated finished sessions, `archive/YYYY-MM.md` is roll-off. Movement between them is `jookoi-doc flush` and `jookoi-doc rotate`. `progress.md` and `archive/` are never written by hand.
 
 ## Architecture log
 
-- A project-level architecture doc should exist (this stack's convention: `_architecture/architecture.md`; adapt to whatever a given repo already uses — don't impose a new layout on an established one).
+- A project-level architecture doc should exist (this stack's convention: `_architecture/ARCHITECTURE.md`; adapt to whatever a given repo already uses — don't impose a new layout on an established one).
 - Update it when structure, patterns, or key decisions change. Minimal — decisions and shape, not tutorials.
 - For a deep-dive feature, use a separate linked doc rather than inlining detail into the main one.
 

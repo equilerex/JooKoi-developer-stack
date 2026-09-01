@@ -5,7 +5,7 @@ Entry point for catching up on current AI-assisted development practice. This is
 ## Start here
 
 1. **`topic-index.md`** — the baseline survey: eleven-plus topics across AI-assisted dev workflow, local infra, and portability, each marked against real prior experience (known / new / disagree / wants deeper coverage). Read this first — it's the map of what's already settled vs. what's genuinely worth a deeper look, and the marks are the backlog driving everything else in this folder.
-2. **`../_architecture/architecture.md`** — why this repo is structured the way it is, and the evidence bar used before anything gets adopted. Read this to understand *how* to judge anything that shows up later in `_inspiration-and-staying-current.md` and `_ai-tooling-recommendations.md`, not just what's in them.
+2. **`../_architecture/ARCHITECTURE.md`** — why this repo is structured the way it is, and the evidence bar used before anything gets adopted. Read this to understand *how* to judge anything that shows up later in `_inspiration-and-staying-current.md` and `_ai-tooling-recommendations.md`, not just what's in them.
 3. **`_inspiration-and-staying-current.md`** (newsletters, named practitioners, communities) and **`_ai-tooling-recommendations.md`** (repos, products, protocols) — the curated, verified reference lists. Split into two files since they do different jobs: who/where to follow vs. what to actually use.
 
 ## Topic backlog (from Stage 0)
@@ -39,7 +39,7 @@ Surfaced later than the original Stage 0 topics (2026-08-23), via a well-sourced
 
 ## Personal harness architecture
 
-Companion to the entry above, but build-oriented rather than a vocabulary check — see `topics/personal-harness-architecture.md`. Three components for the harness itself: deterministic context bundling before model calls, capability lifecycle management for skills/tools (discover → review → trust → install → scope → activate → update → remove), and task state as a dependency graph rather than a flat list (per `gastownhall/beads`, verified real, 26.5k★). User confirmed running multiple instances of a graphing/knowledge tool (see Parked, below) is architecturally sound at two scopes: one at the harness/global level, one per individual project — matching this repo's existing global-vs-seed split.
+Companion to the entry above, but build-oriented rather than a vocabulary check — see `topics/personal-harness-ARCHITECTURE.md`. Three components for the harness itself: deterministic context bundling before model calls, capability lifecycle management for skills/tools (discover → review → trust → install → scope → activate → update → remove), and task state as a dependency graph rather than a flat list (per `gastownhall/beads`, verified real, 26.5k★). User confirmed running multiple instances of a graphing/knowledge tool (see Parked, below) is architecturally sound at two scopes: one at the harness/global level, one per individual project — matching this repo's existing global-vs-seed split.
 
 ## Also covered (surfaced later, not yet in the reading order above)
 

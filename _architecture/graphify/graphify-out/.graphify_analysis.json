@@ -1,78 +1,45 @@
 {
   "communities": {
     "0": [
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_archdir",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_backlog_status",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdbacklog",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdcheck",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdflush",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdnewdecision",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdnewplan",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdnote",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdrotate",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdstale",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdstatus",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_commands",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_execsync",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_fs",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_joincurrentstate",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_js",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_main",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_markerpath",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_parseentries",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_path",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_readortemplate",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_refusal",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_refuse",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_renderentries",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_reporoot",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_similarity",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_slugify",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_sortentries",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_splitcurrentstate",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_template",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_templates",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_today",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_trigrams",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_updatearchiveindex",
-      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_writemarker"
-    ],
-    "1": [
       "aaif_io_projects_agents_md",
-      "ai-tooling-crash-course-for-developers_AI-TOOLING-RECOMMENDATIONS.md",
-      "ai-tooling-crash-course-for-developers_ARCHITECTURE.md",
-      "ai-tooling-crash-course-for-developers_INSPRATION-AND-STAYING-CURRENT.md",
-      "ai-tooling-crash-course-for-developers_README.md",
-      "ai-tooling-crash-course-for-developers_TODO.md",
-      "ai-tooling-crash-course-for-developers_TOPIC-INDEX.md",
+      "agents_journals",
+      "agents_md",
       "ai_tooling_crash_course_for_developers_topics_base_instruction_files",
+      "aider",
+      "amp",
       "arxiv_2606_07448",
       "autogen",
       "chromadb",
+      "claire_tooling",
+      "claude_code",
+      "claude_memory",
+      "claudem",
+      "cline",
       "continue_dev",
+      "copilot",
       "crewai",
+      "cursor",
+      "damon_mcmillan",
+      "eth_zurich_sri_lab",
+      "gemini",
       "github_com_agentsmd_agents_md",
       "github_com_danny_avila_librechat",
       "github_com_open_webui_open_webui",
       "github_copilot",
-      "infiniflow_ragflow",
+      "google_jules",
       "jetbrains_ide",
       "langchain",
-      "langchain_ai_langchain",
-      "langchain_ai_langgraph",
       "llama_index",
-      "mastra",
       "mem0",
-      "mgifford_accessibility-skills",
-      "microsoft_autogen",
-      "modelcontextprotocol_servers",
-      "netresearch_context7-skill",
-      "pgvector",
+      "opencode",
+      "plain_journal",
+      "prakhar_khatri",
       "qdrant",
-      "run_llama_llama_index",
-      "softaworks_agent-toolkit"
+      "swe_bench_lite",
+      "windsurf",
+      "zed"
     ],
-    "2": [
+    "1": [
       "ai-kit_contexts",
       "ai-kit_prompts",
       "ai-kit_tools",
@@ -106,6 +73,39 @@
       "rotate",
       "session_logs"
     ],
+    "2": [
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_archdir",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_backlog_status",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdbacklog",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdcheck",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdflush",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdnewdecision",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdnewplan",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdstale",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdstatus",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_commands",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_execsync",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_fs",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_jointodo",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_js",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_main",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_markerpath",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_parseentries",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_path",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_readortemplate",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_refusal",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_refuse",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_renderentries",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_reporoot",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_slugify",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_sortentries",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_splittodo",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_template",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_templates",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_today",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_updatearchiveindex",
+      "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_writemarker"
+    ],
     "3": [
       "cross_env",
       "d_repos_serenity_jookoi_developer_stack_package_devdependencies",
@@ -135,29 +135,6 @@
       "d_repos_serenity_jookoi_developer_stack_utility_scripts_npm_help_width"
     ],
     "4": [
-      "agents_journals",
-      "agents_md",
-      "aider",
-      "amp",
-      "claire_tooling",
-      "claude_code",
-      "claude_memory",
-      "claudem",
-      "cline",
-      "copilot",
-      "cursor",
-      "damon_mcmillan",
-      "eth_zurich_sri_lab",
-      "gemini",
-      "google_jules",
-      "opencode",
-      "plain_journal",
-      "prakhar_khatri",
-      "swe_bench_lite",
-      "windsurf",
-      "zed"
-    ],
-    "5": [
       "agent",
       "anthropics_skills",
       "big_query_skill",
@@ -176,7 +153,7 @@
       "skill_creator",
       "skill_repository"
     ],
-    "6": [
+    "5": [
       "agents",
       "agents-md",
       "ai_coding_agents",
@@ -195,11 +172,30 @@
       "triggers",
       "utility-scripts"
     ],
+    "6": [
+      "ai-tooling-crash-course-for-developers_AI-TOOLING-RECOMMENDATIONS.md",
+      "ai-tooling-crash-course-for-developers_ARCHITECTURE.md",
+      "ai-tooling-crash-course-for-developers_INSPRATION-AND-STAYING-CURRENT.md",
+      "ai-tooling-crash-course-for-developers_README.md",
+      "ai-tooling-crash-course-for-developers_TODO.md",
+      "ai-tooling-crash-course-for-developers_TOPIC-INDEX.md",
+      "infiniflow_ragflow",
+      "langchain_ai_langchain",
+      "langchain_ai_langgraph",
+      "mastra",
+      "mgifford_accessibility-skills",
+      "microsoft_autogen",
+      "modelcontextprotocol_servers",
+      "netresearch_context7-skill",
+      "pgvector",
+      "run_llama_llama_index",
+      "softaworks_agent-toolkit"
+    ],
     "7": [
       "Sync Script",
       "Vault",
       "agents_skills_jookoi_doc",
-      "architecture_architecture_docs",
+      "architecture_architecture_architecture_architecture_architecture_docs",
       "architecture_archive",
       "architecture_backlog",
       "architecture_current_state",
@@ -234,7 +230,7 @@
     "9": [
       "add_command",
       "flush_command",
-      "jookoi_doc_scripts_jookoi_doc_script",
+      "jookoi_doc_scripts_jookoi_doc_scripts_jookoi_doc_scripts_jookoi_doc_scripts_jookoi_doc_script",
       "my_global_setup_agents_skills_jookoi_doc_assets_templates_dir",
       "my_global_setup_agents_skills_jookoi_doc_references_file_formats_ref",
       "my_global_setup_agents_skills_jookoi_doc_references_hooks_ref",
@@ -793,11 +789,11 @@
     ]
   },
   "cohesion": {
-    "0": 0.14285714285714285,
-    "1": 0.0625,
-    "2": 0.06854838709677419,
+    "0": 0.05555555555555555,
+    "1": 0.06854838709677419,
+    "2": 0.13978494623655913,
     "3": 0.07692307692307693,
-    "4": 0.09523809523809523,
+    "4": 0.11764705882352941,
     "5": 0.11764705882352941,
     "6": 0.11764705882352941,
     "7": 0.13333333333333333,
@@ -947,7 +943,7 @@
       "degree": 14
     },
     {
-      "id": "jookoi_doc_scripts_jookoi_doc_script",
+      "id": "jookoi_doc_scripts_jookoi_doc_scripts_jookoi_doc_scripts_jookoi_doc_scripts_jookoi_doc_script",
       "label": "Jookoi Documentation Script",
       "degree": 13
     },
@@ -962,28 +958,28 @@
       "degree": 13
     },
     {
-      "id": "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdflush",
-      "label": "cmdFlush()",
-      "degree": 11
-    },
-    {
-      "id": "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdnote",
-      "label": "cmdNote()",
-      "degree": 10
-    },
-    {
       "id": "my_global_setup_agents_skills_jookoi_casual_writer",
       "label": "jookoi-casual-writer",
       "degree": 10
     },
     {
-      "id": "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_refuse",
-      "label": "refuse()",
-      "degree": 9
+      "id": "d_repos_serenity_jookoi_developer_stack_my_global_setup_agents_skills_jookoi_doc_scripts_jookoi_doc_cmdflush",
+      "label": "cmdFlush()",
+      "degree": 10
     },
     {
       "id": "jookoi_doc_full_skill",
       "label": "jookoi doc full skill",
+      "degree": 9
+    },
+    {
+      "id": "pipeline",
+      "label": "Pipeline",
+      "degree": 9
+    },
+    {
+      "id": "planning",
+      "label": "Planning",
       "degree": 9
     }
   ],
@@ -1045,7 +1041,7 @@
     }
   ],
   "tokens": {
-    "input": 152334,
-    "output": 87986
+    "input": 0,
+    "output": 0
   }
 }

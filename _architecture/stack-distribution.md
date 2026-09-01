@@ -1,11 +1,11 @@
 # Stack distribution architecture (topic surfaced later — not in the original 14)
 
-Requirements/open-questions doc for how the shippable layer (`AGENTS.md`, `skills/`, `prompts/`, `utility-scripts/`) should actually be built and distributed. No pick made here — next step is research (cowork), per this project's own "research before adopt" discipline (`_architecture/architecture.md` §"Why curation, not adoption").
+Requirements/open-questions doc for how the shippable layer (`AGENTS.md`, `skills/`, `prompts/`, `utility-scripts/`) should actually be built and distributed. No pick made here — next step is research (cowork), per this project's own "research before adopt" discipline (`_architecture/ARCHITECTURE.md` §"Why curation, not adoption").
 
 ## The four jobs this repo does
 
 1. Documentation + personal guidelines → `personal-guidelines/`.
-2. 101/crash-course education content (separate reorg, tracked in `_architecture/backlog.md`).
+2. 101/crash-course education content (separate reorg, tracked in `_architecture/BACKLOG.md`).
 3. The global drop-in stack folder — `AGENTS.md` + `skills/` + `prompts/` + `utility-scripts/` + possible mini web portal. Some utility scripts won't be corporate-safe — flag per-script, don't assume.
 4. Possible self-built marketplace/plugin-style distribution mechanism — undecided, wants research before choosing over a plain drop-in folder.
 
@@ -16,7 +16,7 @@ This doc covers jobs 3 and 4.
 - Package/dependency-style sync for skills where such a system exists; manual copy-paste + local version control as the fallback for anything it doesn't cover.
 - On any given machine: shareable/global content lives in `~/.agents/`; repo-specific content lives in that repo's own `.agents/`.
 - `utility-scripts/` exists now (created this pass) with no content yet — placeholder only.
-- "Flavor" folders (e.g. Angular/Stencil variants) deferred until a second real flavor exists — same anti-speculative-infrastructure reasoning already applied to deferring `seed/` (`_architecture/architecture.md` §"Repo layout").
+- "Flavor" folders (e.g. Angular/Stencil variants) deferred until a second real flavor exists — same anti-speculative-infrastructure reasoning already applied to deferring `seed/` (`_architecture/ARCHITECTURE.md` §"Repo layout").
 - This repo's own root content (used while curating/maintaining this repo) must not be conflated with the *shippable* content meant to be copied elsewhere — risk of name collisions between this repo's own skills and the user's global `~/.agents` skills, and of maintenance-only skills leaking into the shippable stack.
 
 ## Decision (2026-08-27) — jobs 3 & 4, resolved ad hoc
@@ -42,5 +42,5 @@ Expectations for whoever picks this up (cowork, not inline): identify concrete e
 
 ## Related, not this doc
 
-- Multi-checkout sync + portable ad hoc personal-file convention — split off as its own backlog topic, see `_architecture/backlog.md`.
-- Per-feature-area LLM context files — same, see `_architecture/backlog.md`.
+- Multi-checkout sync + portable ad hoc personal-file convention — split off as its own backlog topic, see `_architecture/BACKLOG.md`.
+- Per-feature-area LLM context files — same, see `_architecture/BACKLOG.md`.

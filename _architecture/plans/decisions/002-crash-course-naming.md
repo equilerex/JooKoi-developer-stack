@@ -33,4 +33,4 @@ Related workflow point settled alongside this decision: the user does not want f
 
 ## Next step
 
-Execute the rename and decide, per file, which staged docs earn a spot in the polished crash-course version and which stay as raw planning trail. Structural follow-on work is tracked as "crash-course structure reorg" in `_architecture/backlog.md`.
+Execute the rename and decide, per file, which staged docs earn a spot in the polished crash-course version and which stay as raw planning trail. Structural follow-on work is tracked as "crash-course structure reorg" in `_architecture/BACKLOG.md`.

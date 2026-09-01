@@ -6,7 +6,7 @@ Not a product, not a framework, not a database. It's a filing discipline: fixed 
 
 - What it is: this file.
 - Why it's shaped this way, and what prior art it was checked against: `_architecture/plans/2026-08-30-jookoi-paper-trail.md`.
-- The tool that maintains it: `my-global-setup/.agents/skills/jookoi-doc/`.
+- The tool that maintains it: `my-global-setup/.agents/skills/jookoi-paper-trail/`.
 
 ---
 
@@ -56,17 +56,15 @@ Project level is `_architecture/` at the repo root (or `_jookoi-architecture/` f
 
 ```
 _architecture/
-├── architecture.md      why the repo is shaped this way. Static.
-├── next-steps.md        forward-looking only, sequenced.
-├── current-state.md     the live session: standing summary + session log.
-├── progress.md          accumulated finished sessions. Line-capped.
-├── backlog.md           logged, not yet scoped.
+├── ARCHITECTURE.md      why the repo is shaped this way. Static.
+├── TODO.md              the live working set: Context header + checklist. Persists.
+├── BACKLOG.md           logged, not yet scoped.
 ├── plans/
 │   ├── YYYY-MM-DD-topic.md      one file per planning session, kept.
 │   └── decisions/NNN-slug.md    one call each, with reasoning. Kept.
 └── archive/
     ├── index.md         readable: what each file covers, date range.
-    └── YYYY-MM.md       roll-off. Read on explicit request only.
+    └── YYYY-MM.md       flushed TODO.md snapshots. Read on explicit request only.
 ```
 
 Feature level is `CONTEXT.md` (or `_jookoi-CONTEXT.md`) sitting beside the code it describes, at feature-area granularity. Four fixed sections plus an `updated:` date:
@@ -87,30 +85,26 @@ Plans live in the repo, not in harness session storage. A plan held in a proprie
 
 ### 3. The pipeline
 
-The three logs are three time horizons, not three content types.
+One stage, on model judgement, not a schedule.
 
 ```
-  during session          at session end          when progress hits cap
-┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
-│ current-state.md │───▶│   progress.md    │───▶│  archive/YYYY-MM │
-│  · standing      │    │  one entry per   │    │  oldest entries  │
-│    summary       │    │  session,        │    │  roll off whole  │
-│    (rewritten)   │    │  newest first,   │    │                  │
-│  · session log   │    │  capped ~200     │    │  index.md gains  │
-│    (emptied)     │    │                  │    │  a pointer       │
-└──────────────────┘    └──────────────────┘    └──────────────────┘
+       persists across sessions, untouched by default
+┌────────────────────┐                    ┌────────────────────┐
+│      TODO.md        │ ───── flush ────▶ │  archive/YYYY-MM.md │
+│  · Context          │                    │  one entry, whole   │
+│    (rewritten)      │                    │  TODO.md verbatim    │
+│  · Checklist        │                    │  index.md gains a    │
+│    (hand-edited)    │                    │  pointer              │
+└────────────────────┘                    └────────────────────┘
          │
-         └── unfinished / newly surfaced ──▶ next-steps.md  (sequenced)
-                                          └▶ backlog.md     (unscoped)
+         └── still relevant, not yet flushed ──▶ BACKLOG.md (moved there first)
 ```
 
-Content moves on a schedule, never on a judgement about what kind of thing it is. That's the whole point. Routing-by-judgement is what produced near-duplicate files the first time around.
+`TODO.md` replaces the old current-state/next-steps split. It has two blocks that behave differently. `## Context` gets rewritten wholesale whenever it goes stale, present tense, short: what a cold session needs to not re-derive it. `## Checklist` is `- [ ]`/`- [x]`, hand-maintained directly, mixing done, in-progress and pending items on purpose. Neither block empties on a cadence. Flush triggers on model judgement only, a chunk of work finished or the checklist run dry, never per-session and never because a hook demanded it.
 
-`current-state.md` holds two blocks that behave differently. The standing summary gets rewritten in place at every flush and is never appended to. It's what a cold session reads first, and rewriting is what keeps it short and true. The session log is the append target during the session, and it survives compaction, which is the only reason the file exists separately.
+Flush takes the whole of `TODO.md` — both blocks — and archives it as one entry, verbatim, then resets the file. It does not try to separate done from pending; that's why anything still relevant has to move to `BACKLOG.md` *before* flush runs, not after.
 
-All three stages share one entry grammar: `## YYYY-MM-DD — Title`, newest first. That's load-bearing. It makes flush and rotate verbatim block moves instead of rewrites, so a script can do them with no model call and no reformatting risk.
-
-`progress.md` and `archive/` are never written by hand. They're outputs of `flush` and `rotate`.
+Archive entries share the same entry grammar as everything else: `## YYYY-MM-DD — Title`, newest first. `archive/` is never written by hand, only by `flush`, and it's explicitly human-facing: read it back only when history is asked for or genuinely needed, never by default.
 
 ### 4. The behaviour rules
 
@@ -130,16 +124,16 @@ When context contradicts the code, the code wins, and the context gets corrected
 
 Two scripts and one skill. All optional in principle, since the convention is readable and writable by hand.
 
-`jookoi-doc` is the skill (`my-global-setup/.agents/skills/jookoi-doc/`). It splits the labour along one line:
+`jookoi-paper-trail` is the skill (`my-global-setup/.agents/skills/jookoi-paper-trail/`). It splits the labour along one line:
 
 - The script owns bookkeeping: dating, heading grammar, newest-first insertion, duplicate detection, the line cap, roll-off, archive-index pointers, `NNN` allocation, `updated:` bumping, template instantiation.
 - The model owns judgement: what happened, where it belongs, and the standing-summary rewrite.
 
 That split came out of evidence. Every defect found in the first months of dogfooding was a bookkeeping defect, and bookkeeping across sessions is exactly what an LLM does badly.
 
-Commands: `note`, `add`, `flush`, `rotate`, `status`, `stale`, `new-decision`, `new-plan`. The script refuses rather than guesses when a file doesn't match its expected shape, and it never reformats content it didn't write.
+Commands: `backlog`, `flush`, `status`, `stale`, `check`, `new-decision`, `new-plan`. The script refuses rather than guesses when a file doesn't match its expected shape, and it never reformats content it didn't write.
 
-Hooks ship for Claude Code, Gemini CLI and GitHub Copilot CLI. The useful one is the end-of-turn gate: it blocks the turn ending when the tree is dirty *and* the session log is unflushed, injecting an instruction to flush. Flushing clears the condition, so it never fires twice. Session-end and pre-compaction events can only write to disk, not inject, so they keep the job they can actually do.
+Hooks ship for Claude Code, Gemini CLI and GitHub Copilot CLI. The useful one is the end-of-turn gate, and it no longer asks for a flush: it blocks the turn ending when the tree is dirty *and* `TODO.md` hasn't been touched this session, injecting a reminder to update it. Touching `TODO.md` clears the condition, so it never fires twice. Flush stays entirely the model's call. Session-end and pre-compaction events can only write to disk, not inject, so they keep the job they can actually do.
 
 `vault-sync.js` mirrors `_jookoi-` files into a personal vault repo, manual invocation only. Push is additive, because a stale branch must never delete content written from a newer one. Pull writes only into folders that already exist. Conflicts produce a report, never a silent overwrite.
 
@@ -168,9 +162,9 @@ The only thing that crosses environments is this repo, which carries the mechani
 ## Adopting it
 
 1. Add `_jookoi-*` to your global gitignore (`git config --global core.excludesFile`).
-2. Copy `my-global-setup/.agents/` to `~/.agents/` for the global ruleset and the `jookoi-doc` skill.
+2. Copy `my-global-setup/.agents/` to `~/.agents/` for the global ruleset and the `jookoi-paper-trail` skill.
 3. In a new repo, start from `my-repo-setup/AGENTS.md` and create `_architecture/` with the file set above.
-4. Register the end-of-turn hook from `jookoi-doc/hooks/config/` for your harness.
+4. Register the end-of-turn hook from `jookoi-paper-trail/hooks/config/` for your harness.
 5. Optionally, create an empty vault repo beside your checkouts and run `vault-sync.js`.
 
 Every step is a copy. There's deliberately no setup script, because generated config is hard to browse, visualise and modify, which is the opposite of what this whole thing optimises for.

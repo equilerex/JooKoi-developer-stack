@@ -6,7 +6,7 @@ Status: TRIAL
 
 ## Problem
 
-The curation research surfaced several design-oriented skills. Nothing had yet been tried, and the repo's own rule (`_architecture/architecture.md`, step 3 "Only then, adopt") is that a tool enters `skills/`/`prompts/`/`AGENTS.md` only after being chosen from demonstrated need. A record was needed of which candidates were being taken to a trial, so that "tried it" and "adopted it" don't blur.
+The curation research surfaced several design-oriented skills. Nothing had yet been tried, and the repo's own rule (`_architecture/ARCHITECTURE.md`, step 3 "Only then, adopt") is that a tool enters `skills/`/`prompts/`/`AGENTS.md` only after being chosen from demonstrated need. A record was needed of which candidates were being taken to a trial, so that "tried it" and "adopted it" don't blur.
 
 ## Options considered
 

@@ -22,16 +22,16 @@ Intended outcome: a pipeline that moves on its own at session boundaries, with f
 
 Measured across `_architecture/` on 2026-09-01.
 
-**Unowned file types (4 of 8).** `plans/`, `plans/decisions/`, `backlog.md`, `archive/YYYY-MM.md` appear nowhere in `SKILL.md`.
+**Unowned file types (4 of 8).** `plans/`, `plans/decisions/`, `BACKLOG.md`, `archive/YYYY-MM.md` appear nowhere in `SKILL.md`.
 
 **Format divergence (7 points).**
 
 | # | Divergence | Where |
 |---|---|---|
-| 1 | Entry heading grammar: `## YYYY-MM-DD — Title` vs `## Title (YYYY-MM-DD)` vs flat `- [x] DATE — text` vs undated `## Topic` | `current-state.md` / `archive/2026-08.md` / `progress.md` / `backlog.md` |
+| 1 | Entry heading grammar: `## YYYY-MM-DD — Title` vs `## Title (YYYY-MM-DD)` vs flat `- [x] DATE — text` vs undated `## Topic` | `current-state.md` / `archive/2026-08.md` / `progress.md` / `BACKLOG.md` |
 | 2 | Date direction: newest-first vs mixed — `progress.md` lines 4–7 are newest-first, then the file becomes append-at-bottom | `current-state.md` vs `progress.md` |
 | 3 | Verbatim duplicate entry | `progress.md` lines 19 and 23, identical text |
-| 4 | Policy HTML comment present in 3 of 5 files | absent from `backlog.md`, `archive/2026-08.md` |
+| 4 | Policy HTML comment present in 3 of 5 files | absent from `BACKLOG.md`, `archive/2026-08.md` |
 | 5 | Unmodeled trailing prose outside the pointer list | `archive/index.md:6` |
 | 6 | Backlog status in heading suffix, 6 different styles | `(resolved design, not built)`, `— moved`, `— confirmed research gap`, `— not currently relevant`, `— explicitly do NOT start yet`, `— designed, not built` |
 | 7 | Decision-record `Status:` in 3 styles; `## Next step` in 5 of 7, dropped by the newest (007) | `plans/decisions/001`–`007` |
@@ -76,7 +76,7 @@ Measured across `_architecture/` on 2026-09-01.
 └──────────────────┘    └──────────────────┘      └──────────────────┘
          │
          └── unfinished / newly surfaced ──▶ next-steps.md  (sequenced)
-                                          └▶ backlog.md     (unscoped)
+                                          └▶ BACKLOG.md     (unscoped)
 ```
 
 **`current-state.md` — two blocks, two behaviours.**
@@ -102,7 +102,7 @@ The standing summary is the answer to "what does a fresh session need to not re-
 1. Session-log entries move verbatim into `progress.md`, merged into one entry per session under `## YYYY-MM-DD — <session title>`.
 2. Session log is emptied.
 3. Model rewrites the standing summary against the new state.
-4. Unfinished and newly-surfaced work routes to `next-steps.md` (sequenced) or `backlog.md` (unscoped).
+4. Unfinished and newly-surfaced work routes to `next-steps.md` (sequenced) or `BACKLOG.md` (unscoped).
 5. If `progress.md` now exceeds its cap, `rotate` runs.
 
 Steps 1, 2 and 5 are script-only. Steps 3 and 4 need judgement and are the model's.
@@ -124,9 +124,9 @@ Evaluated top to bottom, first match wins.
 | Folder-local context for code, needed by whoever works in that folder? | `CONTEXT.md` in that folder |
 | A call that was made — picked, rejected, deferred — with reasoning that will be asked about later? | `plans/decisions/NNN-slug.md` |
 | The record of a design or planning session, multi-part, one sitting? | `plans/YYYY-MM-DD-topic.md` |
-| Durable and structural — why the repo is shaped this way? | `architecture.md` |
+| Durable and structural — why the repo is shaped this way? | `ARCHITECTURE.md` |
 | Intended work, sequenced? | `next-steps.md` |
-| Intended work, not yet scoped or ordered? | `backlog.md` |
+| Intended work, not yet scoped or ordered? | `BACKLOG.md` |
 | Something that happened this session? | `current-state.md` session log |
 | A standing fact that is now different? | `current-state.md` standing summary (rewrite, don't append) |
 
@@ -173,7 +173,7 @@ jookoi-doc/
 │   └── operations.md           find / remove / staleness / section-surgical
 └── assets/templates/
     ├── CONTEXT.md              current-state.md      progress.md
-    ├── next-steps.md           backlog.md            archive-index.md
+    ├── next-steps.md           BACKLOG.md            archive-index.md
     ├── archive-month.md        plan-session.md       decision-record.md
 ```
 
@@ -245,7 +245,7 @@ Loop prevention is mandatory: hook input carries `stop_hook_active: true` once t
 - **`~/.agents/AGENTS.md`**: dead path `personal-guidelines/jookoi-folder-memory-dinosaur.md` repointed; re-synced from the repo copy so the two stop drifting.
 - **Both `AGENTS.md` copies + repo root `AGENTS.md`**: the "where status actually lives" descriptions updated to the pipeline.
 - **`my-repo-setup/AGENTS.md`**: mentions the convention only inside an HTML comment and never mentions `jookoi-doc`. Seeded with the four behaviour rules so a new repo starts conformant.
-- **`_architecture/architecture.md`**: silent on the memory system despite it being the dominant thing `_architecture/` holds. Gains a short section pointing at the design doc and the skill.
+- **`_architecture/ARCHITECTURE.md`**: silent on the memory system despite it being the dominant thing `_architecture/` holds. Gains a short section pointing at the design doc and the skill.
 
 ---
 
@@ -258,7 +258,7 @@ Loop prevention is mandatory: hook input carries `stop_hook_active: true` once t
 5. `references/operations.md` — find, remove, staleness, section-surgical.
 6. `SKILL.md` — triggers, routing tree, flush protocol, bundled-assets table.
 7. Hooks — `references/hooks.md`, then `hooks/{doc-gate,preserve,rehydrate}.sh` plus the three `hooks/config/` fragments. Register the Claude Code set in `.claude/settings.json`; existing three hooks untouched. Verify blocking support on Gemini `AfterAgent` and Copilot `Stop` before relying on it.
-8. One-time canonicalisation of `_architecture/`: split `current-state.md` into standing summary + session log; promote `progress.md`'s flat bullets to headed entries and merge them into per-session entries; dedupe lines 19/23; normalise `archive/2026-08.md`'s heading; drop `archive/index.md`'s trailing prose; add `Status:` lines to `backlog.md`; bring `decisions/001`–`007` onto the fixed section set; refresh `next-steps.md` against what `progress.md` says is actually done.
+8. One-time canonicalisation of `_architecture/`: split `current-state.md` into standing summary + session log; promote `progress.md`'s flat bullets to headed entries and merge them into per-session entries; dedupe lines 19/23; normalise `archive/2026-08.md`'s heading; drop `archive/index.md`'s trailing prose; add `Status:` lines to `BACKLOG.md`; bring `decisions/001`–`007` onto the fixed section set; refresh `next-steps.md` against what `progress.md` says is actually done.
 9. Copy the bundle to `~/.agents/skills/jookoi-doc/`; re-sync `~/.agents/AGENTS.md`.
 10. Doc reconciliation per above.
 

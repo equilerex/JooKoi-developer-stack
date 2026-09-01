@@ -18,7 +18,7 @@ Surfaced from a ChatGPT conversation the user had, reframed by them from Angular
 - Which stage-1 docs exist and their one-line scope (a table of contents, not the content)
 - What's already in [`_ai-tooling-recommendations.md`](./_ai-tooling-recommendations.md) (so research forks don't re-verify something already promoted)
 - Whether a similar claim was already checked and discarded before (see the "Checked and discarded" notes in `_ai-tooling-recommendations.md`)
-- Open items from `backlog.md` / decision records
+- Open items from `BACKLOG.md` / decision records
 
 **Where this sits relative to MCP/skills.** Per [`mcp-model-context-protocol.md`](./mcp-model-context-protocol.md)'s CLI-vs-MCP section (added by a parallel research pass): this is squarely a CLI-script job, not an MCP server — deterministic, local, versioned with the repo, no need for a standardized external protocol.
 

@@ -4,7 +4,7 @@ Drop-in seed for a new repo's own root `AGENTS.md`. Fill in the bracketed parts;
 
 ## What this repo is
 
-<!-- One or two sentences: what it is, and a pointer to wherever the fuller "why" lives (an architecture.md, a README section). -->
+<!-- One or two sentences: what it is, and a pointer to wherever the fuller "why" lives (an ARCHITECTURE.md, a README section). -->
 
 ## Repo-specific conventions
 

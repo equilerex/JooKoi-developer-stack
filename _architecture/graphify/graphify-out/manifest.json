@@ -60,9 +60,9 @@
     "semantic_hash": "ab13220958a77fd7dd76343ad41d4ce4"
   },
   "my-global-setup/.agents/skills/jookoi-doc/hooks/doc-gate.sh": {
-    "mtime": 1788235472.7546585,
-    "ast_hash": "2083959d8e68527e9c3ad5d7032523c0",
-    "semantic_hash": "2083959d8e68527e9c3ad5d7032523c0"
+    "mtime": 1788300310.7950425,
+    "ast_hash": "c44d9ed6756a3743870b23ab33b8f54d",
+    "semantic_hash": "c44d9ed6756a3743870b23ab33b8f54d"
   },
   "my-global-setup/.agents/skills/jookoi-doc/hooks/preserve.sh": {
     "mtime": 1788235481.51722,
@@ -70,14 +70,14 @@
     "semantic_hash": "20d9922cbd709a6d2b7da1fdf3c69dac"
   },
   "my-global-setup/.agents/skills/jookoi-doc/hooks/rehydrate.sh": {
-    "mtime": 1788293308.3490255,
-    "ast_hash": "c2530f49aa114ba65b57ca87fd7140b3",
-    "semantic_hash": "c2530f49aa114ba65b57ca87fd7140b3"
+    "mtime": 1788303027.9287517,
+    "ast_hash": "01f2b4a3a79a189c8b90c6d58b8dfb25",
+    "semantic_hash": "01f2b4a3a79a189c8b90c6d58b8dfb25"
   },
   "my-global-setup/.agents/skills/jookoi-doc/scripts/jookoi-doc.js": {
-    "mtime": 1788249668.936745,
-    "ast_hash": "d629cd480c720f7485ceb918dfe3a314",
-    "semantic_hash": "d629cd480c720f7485ceb918dfe3a314"
+    "mtime": 1788303090.0128846,
+    "ast_hash": "3e6d3499b64ef9ab5d5725b9a4b05aa7",
+    "semantic_hash": "3e6d3499b64ef9ab5d5725b9a4b05aa7"
   },
   "my-global-setup/.claude/settings.json": {
     "mtime": 1788288546.705686,

@@ -3,14 +3,14 @@
     "Stop": [
       {
         "hooks": [
-          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/my-global-setup/.agents/skills/jookoi-doc/hooks/doc-gate.sh\"" }
+          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/my-global-setup/.agents/skills/jookoi-paper-trail/hooks/doc-gate.sh\"" }
         ]
       }
     ],
     "SubagentStop": [
       {
         "hooks": [
-          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/my-global-setup/.agents/skills/jookoi-doc/hooks/doc-gate.sh\"" }
+          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/my-global-setup/.agents/skills/jookoi-paper-trail/hooks/doc-gate.sh\"" }
         ]
       }
     ],

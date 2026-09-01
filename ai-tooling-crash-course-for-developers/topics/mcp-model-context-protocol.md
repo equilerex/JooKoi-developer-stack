@@ -28,7 +28,7 @@ Things like Slack, Notion, or enterprise data-warehouse connectors are the "over
 - **`modelcontextprotocol/servers`** (github.com/modelcontextprotocol/servers) — Anthropic's own reference-implementation repo, ~79k stars. Includes Filesystem, Git, Fetch, and an "Everything" test server. Explicitly framed as reference/educational rather than hardened production code — a reasonable starting point, but read what you install rather than trusting "official" alone.
 - **`punkpeye/awesome-mcp-servers`** — the actively-maintained community curated list, ~92.7k stars, ongoing commit activity. This is the better catalog to browse for "what exists" today.
 - **`appcypher/awesome-mcp-servers`** — a second curated list, ~5.8k stars — **archived as of August 2026, read-only.** Don't treat it as current; use `punkpeye`'s list instead.
-- **Serena** — currently running as an MCP server in this project's own environment; not yet actually evaluated for what it does or whether it's worth keeping. Flagged 2026-08-26 as needing a real look before it factors into any pick — logged here rather than in `backlog.md` since it's specifically an MCP-server question.
+- **Serena** — currently running as an MCP server in this project's own environment; not yet actually evaluated for what it does or whether it's worth keeping. Flagged 2026-08-26 as needing a real look before it factors into any pick — logged here rather than in `BACKLOG.md` since it's specifically an MCP-server question.
 
 ## 4. Security — MCP-specific
 

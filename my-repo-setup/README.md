@@ -10,11 +10,9 @@ my-repo-setup/
 ├── .agents/
 │   └── skills/            repo-scoped skills, empty until the repo earns one
 └── _architecture/         jookoi-paper-trail context-file templates (optional)
-    ├── current-state.md   live session state
-    ├── architecture.md    why the repo is shaped this way
-    ├── progress.md        finished sessions (auto-managed)
-    ├── next-steps.md      sequenced forward plan
-    ├── backlog.md         logged, not-yet-scoped items
+    ├── TODO.md            live working set: Context header + checklist
+    ├── ARCHITECTURE.md    why the repo is shaped this way
+    ├── BACKLOG.md         logged, not-yet-scoped items
     ├── archive/
     │   └── index.md       pointer to archived sessions (auto-managed)
     ├── plans/

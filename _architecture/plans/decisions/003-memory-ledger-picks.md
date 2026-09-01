@@ -30,7 +30,7 @@ Obsidian is the first system being trialed rather than something custom: git-bac
 The user's proposed shape for the personal/cross-project layer, still to be designed in detail:
 
 - Centralized location (e.g. `~/.agents`) with a **skill** (possibly global) that generates a folder structure mirroring the user's actual repos/directories.
-- Each mirrored folder holds a small set of curated reference files under conventional names (`architecture.md`, `decisions.md`) — the must-haves that aren't obvious from code or context.
+- Each mirrored folder holds a small set of curated reference files under conventional names (`ARCHITECTURE.md`, `decisions.md`) — the must-haves that aren't obvious from code or context.
 - Entries are AI-authored, not hand-maintained — likely triggered by a session-start/session-end hook that tells the agent to log work done.
 - Explicitly not a transcript dump: raw session logs are rich but expensive to search and recover from.
 

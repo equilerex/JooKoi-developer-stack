@@ -53,7 +53,7 @@ The picks that shape everything else, most of them habits rather than tooling:
 
 - **Sessions stay short.** Instruction adherence decays measurably as a session grows. One coherent unit of work, then clear. Fresh context is the primary compliance mechanism and it costs nothing.
 - **Ask, don't tell.** Never state a conclusion before requesting review. Stating certainty raises sycophancy, and phrasing beats any system-prompt instruction at suppressing it.
-- **Load-bearing rules must be re-injected, not merely present.** Compaction silently drops standing instructions, so anything that must hold lives where it gets re-injected from disk or is pushed back in by a hook. This is what `current-state.md`'s standing summary and the end-of-turn flush gate are for.
+- **Load-bearing rules must be re-injected, not merely present.** Compaction silently drops standing instructions, so anything that must hold lives where it gets re-injected from disk or is pushed back in by a hook. This is what `TODO.md`'s Context header and the end-of-turn update gate are for.
 - **Compiler and tests are the only oracle.** Model prose is uncorrelated with correctness, and a model endorses a large share of its own drift. Iteration capped at two, because past that it's noise. Static analysis stays for style, not correctness.
 - **Consensus is not evidence.** Multiple agents agreeing is correlated error. A cold reader from a distant model family is worth more than any number of self-critique passes.
 - **No new dependency without a registry check.** Package hallucination is model-agnostic and asking a second model does not help, because the same names get invented by all of them.
@@ -94,7 +94,7 @@ These are separate from the researched content on purpose. Everything in `person
 
 | | |
 |---|---|
-| [`my-global-setup/`](./my-global-setup/) | Goes to `~/.agents/`. Global `AGENTS.md`, the gitignore snippet, and the skills meant to ship anywhere (`jookoi-doc`, `find-docs`, `jookoi-casual-writer`). |
+| [`my-global-setup/`](./my-global-setup/) | Goes to `~/.agents/`. Global `AGENTS.md`, the gitignore snippet, and the skills meant to ship anywhere (`jookoi-paper-trail`, `find-docs`, `jookoi-casual-writer`). |
 | [`my-repo-setup/`](./my-repo-setup/) | Goes to a new repo's root. Seed-template `AGENTS.md` with bracketed slots to fill. |
 | [`utility-scripts/`](./utility-scripts/) | Build tooling for *this* repo only: `vault-sync.js`, graphify config, repo-local hooks. Not shipped. |
 | [`prompts/`](./prompts/) | Reusable ad-hoc prompts. Barely started. |
@@ -107,7 +107,7 @@ There are three `AGENTS.md` instances and they're never conflated: the global on
 |---|---|
 | [`jookoi-paper-trail.md`](./jookoi-paper-trail.md) | What it is: privacy switch, folder layout, pipeline, behaviour rules, tooling. Read this one. |
 | [`_architecture/plans/2026-08-30-jookoi-paper-trail.md`](./_architecture/plans/2026-08-30-jookoi-paper-trail.md) | Why it's shaped that way, the prior art it was checked against, and where the build diverged from the design. |
-| [`my-global-setup/.agents/skills/jookoi-doc/`](./my-global-setup/.agents/skills/jookoi-doc/) | The skill that maintains it. |
+| [`my-global-setup/.agents/skills/jookoi-paper-trail/`](./my-global-setup/.agents/skills/jookoi-paper-trail/) | The skill that maintains it. |
 
 **This repo's own paper trail**
 
@@ -115,13 +115,12 @@ There are three `AGENTS.md` instances and they're never conflated: the global on
 
 | | |
 |---|---|
-| [`architecture.md`](./_architecture/architecture.md) | Why the repo is shaped this way, and the evidence bar. Static. |
-| [`current-state.md`](./_architecture/current-state.md) | Where things actually stand. Read first on a cold start. |
-| [`next-steps.md`](./_architecture/next-steps.md) | Sequenced forward plan. |
-| [`backlog.md`](./_architecture/backlog.md) | Logged, not yet scoped. |
+| [`ARCHITECTURE.md`](./_architecture/ARCHITECTURE.md) | Why the repo is shaped this way, and the evidence bar. Static. |
+| [`TODO.md`](./_architecture/TODO.md) | Where things actually stand: a durable Context header plus a hand-maintained checklist. Read first on a cold start. |
+| [`BACKLOG.md`](./_architecture/BACKLOG.md) | Logged, not yet scoped. |
 | [`plans/decisions/`](./_architecture/plans/decisions/) | Numbered decision records. What was picked, what was rejected, why. |
 | [`plans/`](./_architecture/plans/) | One file per planning session, kept permanently. |
-| [`progress.md`](./_architecture/progress.md) and [`archive/`](./_architecture/archive/) | Finished sessions and roll-off. Written only by `jookoi-doc`, never by hand. |
+| [`archive/`](./_architecture/archive/) | Flushed `TODO.md` snapshots, human-facing. Written only by `jookoi-paper-trail flush`, never by hand. |
 
 `_jookoi-architecture/` is the gitignored private counterpart. If you're reading this on GitHub, it isn't there, which is the point of the `_jookoi-` prefix.
 
@@ -129,4 +128,4 @@ There are three `AGENTS.md` instances and they're never conflated: the global on
 
 Baseline survey and deep-dive research are done. The crash course was restructured 2026-08-30 ([decision 002](./_architecture/plans/decisions/002-crash-course-naming.md)). `jookoi-paper-trail` is designed, built and running on this repo itself.
 
-Live status always lives in `_architecture/current-state.md` and `next-steps.md`, not here.
+Live status always lives in `_architecture/TODO.md`, not here.

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # jookoi-paper-trail — deterministic session-end / pre-compact capture.
-# Not a jookoi-doc write (that needs agent judgement) — just logs a timestamped
+# Not a jookoi-paper-trail write (that needs agent judgement) — just logs a timestamped
 # marker + git state so the next session's SessionStart hook can flag it for
-# curation into current-state.md.
+# curation into TODO.md.
 set -euo pipefail
 
 root="${CLAUDE_PROJECT_DIR:-.}"

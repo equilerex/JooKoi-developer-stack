@@ -9,7 +9,7 @@ Status: DECIDED
 This dev-stack work originally started in a Cowork session, was ported into `D:/repos/Serenity/JooKoi-frontpage-to-the-open-web/.agents/`, then split out into this separate repo. The split happened before the port was fully verified. A sweep of the old location on 2026-08-23 found:
 
 - **Lost, not just misplaced:** `discovery-phase-review.md` (critique of the product concept, four-claims test, original repo skeleton) was never ported anywhere — not to `.agents/context/decisions/` (no `000-discovery.md`), not even to `_raw/`. Only files 1, 2, 3, 5, 6, 7 and 8 of the original eight made it across.
-- **Still pending in the old location, per its own `_raw/README.md`:** founding-context Part A (personal values/constraints) was never folded into `~/.agents/AGENTS.md` — the same open question this repo's `backlog.md` already tracked, so one question tracked in two places.
+- **Still pending in the old location, per its own `_raw/README.md`:** founding-context Part A (personal values/constraints) was never folded into `~/.agents/AGENTS.md` — the same open question this repo's `BACKLOG.md` already tracked, so one question tracked in two places.
 - Cosmetic only: `personal-ai-dev-stack-blueprint_.md` carries a stray trailing underscore in its filename.
 
 ## Options considered
@@ -28,11 +28,11 @@ Recover via handoff, audit the rest, port only confirmed gaps, and write the pla
    - `personal-ai-dev-stack-blueprint_.md` — **not audited line-by-line.** Per the user, this was the original project-definition doc, superseded by design once detailed per-topic research began (which is why the 14 planning docs exist). Treated as already handled by the process, not diffed.
    - `planning-before-implementation.md` — **confirmed real gap.** No topic in `topic-index.md` covered planning methodology; the file's own stated destination in the old `00-START-HERE.md` was "cross-project reference," and it was never copied anywhere. Ported verbatim to `ai-tooling-crash-course-for-developers/topics/planning-before-implementation.md`, added to `topic-index.md` under "Surfaced from cross-repo consolidation," and added to `review-status.md` as unread.
    - `staying-current-ai-dev-2026.md` vs `_ai-tooling-recommendations.md` + `_inspiration-and-staying-current.md` — **checked, not a gap.** The split (marketplaces/skills/references → the first; articles/people/communities → the second) had already happened, and `_ai-tooling-recommendations.md` covers the marketplace/registry content in more depth than the old file.
-   - Founding-context Part A / `~/.agents/AGENTS.md` merge question — one open question, already tracked in `backlog.md`. No duplicate tracking to resolve.
+   - Founding-context Part A / `~/.agents/AGENTS.md` merge question — one open question, already tracked in `BACKLOG.md`. No duplicate tracking to resolve.
 3. **Pull forward** — done for the one confirmed gap. Nothing else needed it.
 4. **Freeze the old location** — not done. Needs explicit go-ahead before editing that separate repo.
 5. **Licensing/copyright on crawled content** — separate open question, not resolved by this plan. Ties to `ai-tooling-crash-course-for-developers/topics/security-and-supply-chain.md`.
-6. **Durable-record mechanism** — confirmed sufficient (`next-steps.md`/`backlog.md` plus `plans/decisions/NNN-*.md`). No new system needed.
+6. **Durable-record mechanism** — confirmed sufficient (`next-steps.md`/`BACKLOG.md` plus `plans/decisions/NNN-*.md`). No new system needed.
 
 ## Why not the alternatives
 

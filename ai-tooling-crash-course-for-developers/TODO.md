@@ -1,6 +1,6 @@
 # Crash-course TODO — subtopics not yet written
 
-Pending research/writing passes for this folder, tracked here instead of in `_architecture/backlog.md` so the crash-course's own open work lives beside the docs it belongs to.
+Pending research/writing passes for this folder, tracked here instead of in `_architecture/BACKLOG.md` so the crash-course's own open work lives beside the docs it belongs to.
 
 ## Corporate/restricted developer environments
 
