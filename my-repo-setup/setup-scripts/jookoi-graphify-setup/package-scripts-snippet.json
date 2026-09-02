@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "gr": "graphify extract . --out _architecture/graphify --backend claude --token-budget 3000 --max-concurrency 1 --api-timeout 86400",
+    "gr:ollama": "cross-env OLLAMA_BASE_URL=http://localhost:11434/v1 GRAPHIFY_OLLAMA_NUM_CTX=32768 GRAPHIFY_MAX_OUTPUT_TOKENS=16384 GRAPHIFY_API_TIMEOUT=86400 graphify extract . --out _architecture/graphify --backend ollama --model deepseek-r1:8b-llama-distill-q4_K_M --token-budget 3000 --max-concurrency 1",
+    "gr:gemini": "graphify extract . --out _architecture/graphify --backend gemini --token-budget 3000 --max-concurrency 1",
+    "gr:c": "graphify extract . --out _architecture/graphify --code-only",
+    "gr:i": "graphify install && graphify hook install",
+    "gr:query": "graphify query --graph _architecture/graphify/graphify-out/graph.json",
+    "gr:tree": "graphify tree --graph _architecture/graphify/graphify-out/graph.json --output _architecture/graphify/graphify-out/GRAPH_TREE.html"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  }
+}

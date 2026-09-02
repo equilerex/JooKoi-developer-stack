@@ -5,3 +5,5 @@ _jookoi-*
 .git/
 .env
 *.lock
+# Mirrors package.json's scripts; ingesting both collides node ids and drops one.
+my-repo-setup/setup-scripts/jookoi-graphify-setup/package-scripts-snippet.json

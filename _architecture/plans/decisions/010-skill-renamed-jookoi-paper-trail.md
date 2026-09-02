@@ -8,6 +8,12 @@ Status: DECIDED
 
 Decision 008 named the convention `jookoi-paper-trail` but left the skill that maintains it named `jookoi-doc` — the tool and the thing it implements no longer shared a name, which is exactly the mismatch 008 fixed once already (it also matched `jookoi-doc` / `_jookoi-*` against the old four-word name at the time).
 
+## Options considered
+
+1. Rename the skill to `jookoi-paper-trail`, matching the convention.
+2. Leave the skill as `jookoi-doc` and treat the two names as tool-vs-convention on purpose.
+3. Rename the convention back to something `jookoi-doc`-shaped, so the tool name stays put.
+
 ## Decision
 
 Renamed the skill to `jookoi-paper-trail`, matching the convention name exactly:
@@ -20,10 +26,10 @@ Renamed the skill to `jookoi-paper-trail`, matching the convention name exactly:
 
 Historical records were left untouched on purpose: `_architecture/plans/2026-08-30-jookoi-paper-trail.md`, `_architecture/plans/2026-09-01-jookoi-doc-full-skill.md`, `_architecture/plans/2026-09-02-jookoi-doc-redesign.md` (filename itself unchanged — it names the redesign, not the current skill), `_architecture/archive/*.md`, and decisions 008/009 all describe what was true when they were written or name a specific historical build; they keep the name that was live at the time.
 
-## Not yet done
+## Why not the alternatives
 
-`~/.agents/skills/jookoi-doc/` (the deployed global copy) still needs the same rename applied and the stale copy removed — tracked in `_architecture/TODO.md`'s checklist, not done here since this repo is the source and the deployed copy is a manual mirror step.
+Option 2 costs a lookup on every single reference — the user, and any cold session, has to remember that the thing called `jookoi-doc` maintains the thing called `jookoi-paper-trail`. Decision 008 already paid to remove exactly that gap once; keeping a second instance of it would mean 008 fixed the symptom rather than the pattern. Option 3 inverts a name that had just been chosen deliberately, and the convention name is the one that appears in prose and in other repos, so it is the more expensive of the two to change. Renaming the tool is the cheaper side of the mismatch: it is mechanical, contained to paths and identifiers, and the script enforces its own filenames anyway.
 
 ## Next step
 
-None beyond the pending mirror sync above.
+None. The deployed mirror at `~/.agents/skills/jookoi-paper-trail/` was verified byte-identical to this repo's copy on 2026-09-02 and the stale `~/.agents/skills/jookoi-doc/` is gone.

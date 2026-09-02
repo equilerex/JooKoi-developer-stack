@@ -1,5 +1,5 @@
 # Backlog — logged, not yet scoped
-<!-- Unordered. Promote to next-steps.md when an item gets a real slot. See AGENTS.md. -->
+<!-- Unordered. Promote into TODO.md's checklist when an item gets a real slot. See AGENTS.md. -->
 
 ## <Item title>
 

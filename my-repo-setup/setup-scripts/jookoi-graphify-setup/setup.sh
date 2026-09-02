@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Applies the JooKoi opinionated graphify setup to the current repo.
 # Canonical, git-tracked copy lives in this folder, inside JooKoi-developer-stack.
+# Runs in place — never copied into the target repo.
 #
 # Usage: run from the target repo's root:
-#   bash /path/to/jookoi-graphify-setup/setup.sh
+#   bash /path/to/JooKoi-developer-stack/my-repo-setup/setup-scripts/jookoi-graphify-setup/setup.sh
 set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

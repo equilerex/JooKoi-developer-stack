@@ -3,6 +3,8 @@
 
 Draft/logged only. Not fleshed out, not ready for implementation — see `_architecture/TODO.md`'s checklist for the actively-worked items.
 
+Triaged 2026-09-02 (`plans/decisions/013-…`): what this file holds is repo-structure work, crash-course content work, and speculative tooling, mixed. Only the first kind finalizes the repo — the rest waits regardless of how interesting it reads.
+
 ## Multi-checkout / multi-repo personal-file sync
 
 Status: OPEN
@@ -76,9 +78,9 @@ Not applicable to this repo right now (commit is allowed here) — logged so the
 
 ## Stray root `graphify-out/`
 
-Status: OPEN
+Status: CLOSED
 
-Spotted 2026-09-01 while indexing the repo for the README. A `graphify-out/` folder sits at the repo root, untracked *and* not gitignored, holding a `cache/` subfolder. `AGENTS.md` puts graphify output at `_architecture/graphify/`, which also exists and is the tracked one. Either a stray run wrote to a default path or the `gr` script's output dir drifted. Check `package.json`'s `gr*` scripts, then delete the stray or repoint the script. Cheap, just needs a look.
+Resolved 2026-09-02. Not a misconfiguration: root `graphify-out/` is the `/graphify` *skill's* hardcoded output path (cwd-relative, `--out` ignored), separate from the npm `gr*` scripts which target `_architecture/graphify/`. It is gitignored; the "not gitignored" premise was wrong. Output-location call recorded as decision 012.
 
 ## Hooks / dotfiles — standalone deep-dive doc gap
 
@@ -161,3 +163,9 @@ Read in full 2026-09-01. Per user direction ("leave the old file in place... fol
 **Time-decaying, not evergreen** — the vendor situation report (Part 6: Copilot's 2026-06-01 usage-based billing cliff, JetBrains' Codex-over-Junie default and WebStorm/Claude Code plugin recommendation, Gemini Code Assist individuals deprecation) is a snapshot of vendor state as of August 2026, not stable crash-course content. Worth a glance if picking tooling right now; not worth writing into a topic doc that's meant to stay useful past this quarter.
 
 No pick made on which of the above gets a real research/writing pass — this entry only inventories the gap per the routing tree's "intended work, not yet scoped" bucket.
+
+## Decide when a repo actually earns a graphify pass
+
+Status: OPEN
+
+The setup bundle documents how and why, but not when — no rule for which repos justify the extraction cost, or how often to re-run. Open question carried over from the bundle's placeholder context file.

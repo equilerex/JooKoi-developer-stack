@@ -1,87 +1,87 @@
 {
   ".claude/settings.json": {
-    "mtime": 1788245800.7920866,
-    "ast_hash": "d40d950778f9a39a8b8ba3fa3cc590f4",
-    "semantic_hash": "d40d950778f9a39a8b8ba3fa3cc590f4"
+    "mtime": 1788303569.612547,
+    "ast_hash": "d0a5eeca44a3643f37c97e2ec853ca18",
+    "semantic_hash": "d0a5eeca44a3643f37c97e2ec853ca18"
   },
   "package.json": {
     "mtime": 1788292315.731778,
     "ast_hash": "8160f233774953988fb99693852f04ac",
     "semantic_hash": "8160f233774953988fb99693852f04ac"
   },
-  "utility-scripts/jookoi-graphify-setup/package-scripts-snippet.json": {
-    "mtime": 1788097058.7314627,
-    "ast_hash": "06361b03cad830856e88a50441229814",
-    "semantic_hash": "06361b03cad830856e88a50441229814"
-  },
-  "utility-scripts/jookoi-graphify-setup/setup.sh": {
-    "mtime": 1788097064.324281,
-    "ast_hash": "0ae6a3e74fe095ace5da2ae296c648c1",
-    "semantic_hash": "0ae6a3e74fe095ace5da2ae296c648c1"
-  },
   "utility-scripts/jookoi-hooks/session-log.sh": {
-    "mtime": 1788249669.1354914,
-    "ast_hash": "45407988ef9a3adf4c6325f3988f1cbb",
-    "semantic_hash": "45407988ef9a3adf4c6325f3988f1cbb"
+    "mtime": 1788303620.879799,
+    "ast_hash": "f39a5fc067eab0658aa1a1f67e10c5a5",
+    "semantic_hash": "f39a5fc067eab0658aa1a1f67e10c5a5"
   },
   "utility-scripts/jookoi-hooks/session-start-reminder.sh": {
-    "mtime": 1788249669.1676834,
-    "ast_hash": "e2923533d1580a742d68011a405e0753",
-    "semantic_hash": "e2923533d1580a742d68011a405e0753"
+    "mtime": 1788303622.9419332,
+    "ast_hash": "7a698d21d388e56241fc4eb9357658fc",
+    "semantic_hash": "7a698d21d388e56241fc4eb9357658fc"
   },
   "utility-scripts/npm-help.js": {
-    "mtime": 1788097416.1162095,
-    "ast_hash": "b26fb3ff4b7b2d2f9312520dcb48c765",
-    "semantic_hash": "b26fb3ff4b7b2d2f9312520dcb48c765"
+    "mtime": 1788307565.9012573,
+    "ast_hash": "3ee8e3eef674b0ef346c02a6e162a01d",
+    "semantic_hash": "3ee8e3eef674b0ef346c02a6e162a01d"
   },
   "utility-scripts/vault-sync.js": {
     "mtime": 1788292551.2480292,
     "ast_hash": "02e81f3fa70f7c42dc10428cce98d456",
     "semantic_hash": "02e81f3fa70f7c42dc10428cce98d456"
   },
-  "my-global-setup/.agents/skills/jookoi-doc/hooks/_common.sh": {
-    "mtime": 1788235465.4940577,
-    "ast_hash": "32ecf85ab45d3c203465956ba2a63d4d",
-    "semantic_hash": "32ecf85ab45d3c203465956ba2a63d4d"
-  },
-  "my-global-setup/.agents/skills/jookoi-doc/hooks/config/claude-code.json": {
-    "mtime": 1788235494.9886134,
-    "ast_hash": "7a51f2ef8fedae299911cb42be53729c",
-    "semantic_hash": "7a51f2ef8fedae299911cb42be53729c"
-  },
-  "my-global-setup/.agents/skills/jookoi-doc/hooks/config/copilot.json": {
-    "mtime": 1788235505.6157603,
-    "ast_hash": "bc068e2c986dc0bb3d775d7e9abc0279",
-    "semantic_hash": "bc068e2c986dc0bb3d775d7e9abc0279"
-  },
-  "my-global-setup/.agents/skills/jookoi-doc/hooks/config/gemini.json": {
-    "mtime": 1788235500.1347806,
-    "ast_hash": "ab13220958a77fd7dd76343ad41d4ce4",
-    "semantic_hash": "ab13220958a77fd7dd76343ad41d4ce4"
-  },
-  "my-global-setup/.agents/skills/jookoi-doc/hooks/doc-gate.sh": {
-    "mtime": 1788300310.7950425,
-    "ast_hash": "c44d9ed6756a3743870b23ab33b8f54d",
-    "semantic_hash": "c44d9ed6756a3743870b23ab33b8f54d"
-  },
-  "my-global-setup/.agents/skills/jookoi-doc/hooks/preserve.sh": {
-    "mtime": 1788235481.51722,
-    "ast_hash": "20d9922cbd709a6d2b7da1fdf3c69dac",
-    "semantic_hash": "20d9922cbd709a6d2b7da1fdf3c69dac"
-  },
-  "my-global-setup/.agents/skills/jookoi-doc/hooks/rehydrate.sh": {
-    "mtime": 1788303027.9287517,
-    "ast_hash": "01f2b4a3a79a189c8b90c6d58b8dfb25",
-    "semantic_hash": "01f2b4a3a79a189c8b90c6d58b8dfb25"
-  },
-  "my-global-setup/.agents/skills/jookoi-doc/scripts/jookoi-doc.js": {
-    "mtime": 1788303090.0128846,
-    "ast_hash": "3e6d3499b64ef9ab5d5725b9a4b05aa7",
-    "semantic_hash": "3e6d3499b64ef9ab5d5725b9a4b05aa7"
-  },
   "my-global-setup/.claude/settings.json": {
     "mtime": 1788288546.705686,
     "ast_hash": "8762858a59a060f9f030ba99f9b34810",
     "semantic_hash": "8762858a59a060f9f030ba99f9b34810"
+  },
+  "my-global-setup/.agents/skills/jookoi-paper-trail/hooks/_common.sh": {
+    "mtime": 1788303506.8115335,
+    "ast_hash": "e543bde1343e19fe3f9aec7dff1bdf2e",
+    "semantic_hash": "e543bde1343e19fe3f9aec7dff1bdf2e"
+  },
+  "my-global-setup/.agents/skills/jookoi-paper-trail/hooks/config/claude-code.json": {
+    "mtime": 1788303506.6321194,
+    "ast_hash": "c12bbfc0fcee83f9fe9c91512b2aa907",
+    "semantic_hash": "c12bbfc0fcee83f9fe9c91512b2aa907"
+  },
+  "my-global-setup/.agents/skills/jookoi-paper-trail/hooks/config/copilot.json": {
+    "mtime": 1788303506.6628194,
+    "ast_hash": "82474a5d3bf581c53f2af0fab3628338",
+    "semantic_hash": "82474a5d3bf581c53f2af0fab3628338"
+  },
+  "my-global-setup/.agents/skills/jookoi-paper-trail/hooks/config/gemini.json": {
+    "mtime": 1788303506.694179,
+    "ast_hash": "c38b7f013478f4e195466797f15d8fdd",
+    "semantic_hash": "c38b7f013478f4e195466797f15d8fdd"
+  },
+  "my-global-setup/.agents/skills/jookoi-paper-trail/hooks/doc-gate.sh": {
+    "mtime": 1788303506.7243176,
+    "ast_hash": "84b03a726374c85cbc871f3e51cd681f",
+    "semantic_hash": "84b03a726374c85cbc871f3e51cd681f"
+  },
+  "my-global-setup/.agents/skills/jookoi-paper-trail/hooks/preserve.sh": {
+    "mtime": 1788303506.7534544,
+    "ast_hash": "df5a6e0407b9f10d1129d60fbd231567",
+    "semantic_hash": "df5a6e0407b9f10d1129d60fbd231567"
+  },
+  "my-global-setup/.agents/skills/jookoi-paper-trail/hooks/rehydrate.sh": {
+    "mtime": 1788303506.7807298,
+    "ast_hash": "2bf951dc881023df0b2a1507c95a28f1",
+    "semantic_hash": "2bf951dc881023df0b2a1507c95a28f1"
+  },
+  "my-global-setup/.agents/skills/jookoi-paper-trail/scripts/jookoi-paper-trail.js": {
+    "mtime": 1788303512.4605136,
+    "ast_hash": "a40a25fd9e1b40759e501d4d55d36978",
+    "semantic_hash": "a40a25fd9e1b40759e501d4d55d36978"
+  },
+  "my-repo-setup/setup-scripts/jookoi-graphify-setup/package-scripts-snippet.json": {
+    "mtime": 1788306688.1762269,
+    "ast_hash": "66809c03b5823c12b739f158d4be4694",
+    "semantic_hash": "66809c03b5823c12b739f158d4be4694"
+  },
+  "my-repo-setup/setup-scripts/jookoi-graphify-setup/setup.sh": {
+    "mtime": 1788307536.723184,
+    "ast_hash": "6d8ab84bd840508d7188f67044fcb95d",
+    "semantic_hash": "6d8ab84bd840508d7188f67044fcb95d"
   }
 }

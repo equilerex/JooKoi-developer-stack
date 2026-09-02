@@ -3,7 +3,10 @@
 // so descriptions live here instead of in package.json.
 const descriptions = {
   help: 'Show this list.',
-  gr: 'Full graphify extract via local Ollama (deep, slow — whole repo).',
+  gr: 'Full graphify extract via Claude (deep, whole repo — costs API credits).',
+  ollama: 'Start the local deepseek model gr:ollama expects.',
+  'gr:ollama': 'Full graphify extract via local Ollama (free, slow — needs `ollama` running).',
+  'gr:gemini': 'Full graphify extract via Gemini.',
   'gr:c': 'Quick code-only graphify extract (no LLM, fast).',
   'gr:i': 'Install/refresh the graphify CLI + hook for this repo.',
   'gr:query': 'Query the existing graph (needs gr or gr:c run first).',
