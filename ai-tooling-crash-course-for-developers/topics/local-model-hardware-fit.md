@@ -1,14 +1,16 @@
 # Stage 1 — Local Model Use
 
-Normally, when you chat with an AI, your words travel over the internet to a company's giant computers, get processed there, and the answer travels back. Running a model "locally" means instead putting a smaller version of that AI directly on your own computer, so it works without an internet connection and nothing you type ever leaves your machine. Worth knowing about if you own a decent gaming PC and care about privacy, offline use, or avoiding per-use fees; skip it if you're happy using AI through a website or app and don't own powerful hardware.
+Normally, chatting with an AI sends your words to a company's servers and back. Running a model "locally" puts a smaller version of that AI on your own machine instead — works offline, nothing you type leaves the computer.
+
+Worth knowing if you own a decent gaming PC and care about privacy, offline use, or avoiding per-use fees. Skip if you're happy using AI through a website or app and don't own powerful hardware.
 
 Builds on Stage 0's consensus framing (8GB-class GPUs are an opportunistic batch tier, not a coding-assistant tier) with what's actually realistic on this specific rig — RTX 3070, 8GB VRAM, 64GB system RAM — and what else is worth knowing given hands-on 27B runs are already happening. No pick made; these are options.
 
 ## What "running a model locally" means
 
-A model is two things: a file of **weights** (the trained numbers — a few GB to hundreds of GB depending on model size and quantization, explained below) and a **runtime** that loads those weights and executes them to produce output. "Running locally" means both live on your own machine — the runtime does the inference (the actual forward pass through the model that turns your prompt into a response) on your own CPU/GPU, instead of your request going over the network to a provider's servers. No API key, no per-request network call, no data leaving the machine unless you send it somewhere yourself.
+A model is two things: a file of **weights** (the trained numbers — a few GB to hundreds of GB depending on size and quantization) and a **runtime** that loads those weights and executes them. "Running locally" means both live on your machine — the runtime does the inference (the forward pass that turns your prompt into a response) on your own CPU/GPU instead of over the network. No API key, no per-request call, no data leaving the machine unless you send it somewhere yourself.
 
-This is a genuinely different setup from calling a hosted API (Claude, GPT, Gemini, etc.) where the weights and runtime are entirely on the provider's infrastructure and you only ever send/receive text over HTTP.
+Different from a hosted API (Claude, GPT, Gemini) where weights and runtime live entirely on the provider's infrastructure and you only send/receive text over HTTP.
 
 ### Two different scales of "local"
 
@@ -19,7 +21,7 @@ Worth separating these, since they get lumped together but are very different in
 
 ### Why bother, given cloud frontier models are usually faster and better
 
-For most coding tasks, a hosted frontier model will out-perform anything you can run on a single consumer GPU, and will usually respond faster too. Local is worth it for specific situations, not as a general replacement:
+For most coding tasks, a hosted frontier model outperforms anything on a single consumer GPU, and responds faster too. Local is worth it for specific situations, not as a general replacement:
 
 - **Privacy/sensitive data** — content that shouldn't leave the machine regardless of relative model quality (proprietary code, regulated data, anything under an NDA).
 - **Offline use** — no network connection available or wanted.
@@ -44,11 +46,13 @@ Practical middle ground several sources converge on: use LM Studio to evaluate/c
 
 ## What's realistic on this hardware
 
-The reported 27B runs are almost certainly running **partially offloaded to system RAM**, not fully in VRAM — worth naming explicitly since it explains the multi-hour runtime. A 27B model at a typical Q4_K_M quantization is roughly 17GB, well past the 3070's 8GB. Benchmarking sources put a fully-in-VRAM ceiling for this card at around a 9B model (Q4_K_M fits at ~7GB, delivering 50+ tokens/sec); anything larger spills layers to system RAM over PCIe, which is exactly the slowdown already being observed and traded off against for overnight bulk work.
+The reported 27B runs are almost certainly **partially offloaded to system RAM**, not fully in VRAM — that's what explains the multi-hour runtime. A 27B model at Q4_K_M quantization is roughly 17GB, well past the 3070's 8GB.
 
-This means there's a real choice being made without necessarily naming it: **stay at ~9B and get full-VRAM speed**, or **go larger (27B+) and accept the RAM-offload slowdown** because the task is bulk/overnight anyway and latency doesn't matter. Both are legitimate depending on the job — a 9B model at full speed may be perfectly adequate for straightforward classification/extraction, while a slower 27B might genuinely produce better output for something like content curation or synthesis. Worth treating as a per-task decision rather than a fixed setup.
+Fully-in-VRAM ceiling for this card: around a 9B model (Q4_K_M fits at ~7GB, 50+ tokens/sec). Anything larger spills layers to system RAM over PCIe — the slowdown already being traded off for overnight bulk work.
 
-64GB system RAM gives real headroom for the offload approach — general guidance for offloaded setups suggests provisioning roughly 2x the GPU's VRAM in system RAM as a comfortable minimum, and this rig is well past that ratio.
+So it's a real, unnamed choice: **stay at ~9B for full-VRAM speed**, or **go 27B+ and accept the RAM-offload slowdown** because the job's bulk/overnight and latency doesn't matter. Both are legitimate depending on the job — 9B is fine for straightforward classification/extraction, a slower 27B might produce better output for content curation or synthesis. Decide per task, not once for the whole setup.
+
+64GB system RAM gives real headroom for offloading — general guidance suggests ~2x the GPU's VRAM in system RAM as a comfortable minimum, and this rig is well past that ratio.
 
 ## Good-fit use cases, and which ones actually benefit from local
 

@@ -6,19 +6,30 @@ New topic, not covered by Topic #10 ([`memory-and-progress-ledgers.md`](./memory
 
 **This is not a naming collision. It is the same project**, and the security incident documented in [`security-and-supply-chain.md`](./security-and-supply-chain.md) is directly relevant, not a false alarm.
 
-OpenClaw (github.com/openclaw/openclaw) is a real, extremely large open-source project: a local-first AI gateway that runs on your own machine and talks to you through whatever chat app you already use (WhatsApp, Telegram, Signal, etc.). Origin: Peter Steinberger (the developer behind the PDF SDK used in Dropbox/Slack/Box) pushed it to GitHub in November 2025 as "Warelay," renamed to "Moltbot," then to "OpenClaw" after a trademark dispute. It became one of the fastest-growing open-source projects on record — 247,000 stars and 47,700 forks by March 2026. Steinberger joined OpenAI in February 2026; the project moved to an independent foundation and stayed open, later shipping native iOS/Android apps.
+OpenClaw (github.com/openclaw/openclaw) is real, and large: a local-first AI gateway that runs on your own machine and talks to you through whatever chat app you already use (WhatsApp, Telegram, Signal, etc.).
 
-Its extensibility model is "claws" — installable plugins, distributed through **ClawHub**, the same skill registry [`security-and-supply-chain.md`](./security-and-supply-chain.md) documents as systematically poisoned in a February 2026 campaign (30+ malicious skills at peak infection, SlowMist flagging 472; Snyk's ToxicSkills scan found 36.8% of scanned ClawHub/skills.sh skills had at least one security flaw, 13.4% critical). This is not two different "OpenClaw"s — it's the core project's own plugin marketplace that was compromised, and the structural reason is the same one already noted: publishing to ClawHub requires only a `SKILL.md` and a week-old account, no code signing or default sandboxing.
+- **Origin:** Peter Steinberger (the developer behind the PDF SDK used in Dropbox/Slack/Box) pushed it to GitHub in November 2025 as "Warelay," renamed "Moltbot," then "OpenClaw" after a trademark dispute.
+- **Scale:** one of the fastest-growing open-source projects on record — 247,000 stars, 47,700 forks by March 2026.
+- Steinberger joined OpenAI in February 2026. The project moved to an independent foundation, stayed open, later shipped native iOS/Android apps.
 
-**Practical read:** OpenClaw itself (core gateway, self-hosted, no third-party claws installed) is a real, actively maintained, large project — not a scam or a hallucination. The risk is specifically in what you install *from ClawHub*, same as the general skill-marketplace risk already documented. If evaluating OpenClaw, treat any third-party "claw" exactly like any other unaudited MCP server or skill per the vetting checklist in [`security-and-supply-chain.md`](./security-and-supply-chain.md) — don't install broadly just because the core project is legitimate and huge.
+Its extensibility model is "claws" — installable plugins distributed through **ClawHub**. That's the same skill registry [`security-and-supply-chain.md`](./security-and-supply-chain.md) documents as systematically poisoned in the February 2026 campaign (30+ malicious skills at peak infection, SlowMist flagging 472; Snyk's ToxicSkills scan found 36.8% of scanned ClawHub/skills.sh skills had a security flaw, 13.4% critical). Not two different "OpenClaw"s — the core project's own plugin marketplace got compromised, for the same structural reason already noted: publishing to ClawHub needs only a `SKILL.md` and a week-old account, no code signing or default sandboxing.
+
+**Practical read:** OpenClaw itself (core gateway, self-hosted, no third-party claws installed) is real, actively maintained, legitimate — not a scam or a hallucination. The risk is specifically in what you install *from ClawHub*. Treat any third-party "claw" like any other unaudited MCP server or skill, per the vetting checklist in [`security-and-supply-chain.md`](./security-and-supply-chain.md) — don't install broadly just because the core project is huge and legitimate.
 
 ## 2. "Open Human" — resolved, real project under a different exact name
 
-The claim ("Rust-based personal super-intelligence, encrypted memory tree over docs/emails/meetings, MCP integration") maps to a real project: **OpenHuman** (github.com/tinyhumansai/openhuman), not "Open Human" as a separate name. Built in Rust + Tauri, GPL3-licensed, maintained by an org called Tiny Humans AI. Description matches closely: it summarizes and compresses documents/emails/chats into a "memory graph," supports on-device encryption, an approval gate, OS-keyring secrets, opt-in sandboxing, and a "Privacy Mode" that keeps all inference local. It exposes memory over MCP and can drive MCP servers itself (including OAuth flows). Real, checkable maintainer org, active project — the original dump's sourcing (a single YouTube video) undersold something that does have primary documentation once you have the correct name.
+The claim ("Rust-based personal super-intelligence, encrypted memory tree over docs/emails/meetings, MCP integration") maps to a real project: **OpenHuman** (github.com/tinyhumansai/openhuman) — not "Open Human," a separate name.
+
+- Built in Rust + Tauri, GPL3-licensed, maintained by Tiny Humans AI.
+- Summarizes/compresses documents, emails, chats into a "memory graph."
+- Supports on-device encryption, an approval gate, OS-keyring secrets, opt-in sandboxing, a "Privacy Mode" that keeps all inference local.
+- Exposes memory over MCP, and can drive MCP servers itself (including OAuth flows).
+
+Real, checkable maintainer org, active project. The original dump's sourcing (a single YouTube video) undersold something that has real primary documentation once you have the correct name.
 
 ## 3. Established RAG-over-personal-context architecture (consensus, not a new claim)
 
-The pattern in the pasted dump is standard, current, and worth stating as consensus rather than re-verifying piece by piece:
+The pattern in the pasted dump is standard, current, and settled enough to state as consensus rather than re-verify piece by piece:
 
 ```
 [ Ingestion ]              [ Vector store ]           [ LLM / interface ]
@@ -38,9 +49,9 @@ Other named projects from the dump, checked and real: **Dify** (visual RAG-pipel
 
 Per this repo's own anti-speculative-infrastructure stance (`docs/reasoning.md`: extract from real need, don't build ahead of it) and the hardware already analyzed in [`local-model-hardware-fit.md`](./local-model-hardware-fit.md):
 
-- **Worth trying now, low-cost entry point**: Continue.dev + Ollama, pointed at just this repo's own docs/decisions/planning files (not a general RAG stack yet). This directly extends work already in progress here rather than standing up new infrastructure — closest thing to "the next three-times-repeated need" the prompt→skill→script→service ladder calls for before building more.
-- **Premature right now**: a full ingestion pipeline (Slack/Jira export → vector DB → dedicated UI) for a solo, pre-product-code repo. There isn't yet enough accumulated project history (commits, tickets, chat threads) to make retrieval over it meaningfully better than just reading the files directly — the same "don't build `seed/` before a second real project proves the shape" logic applies here to "don't build a memory graph before there's much to remember."
-- **Skip entirely for now**: OpenClaw and OpenHuman specifically as *personal-assistant-with-messaging-integration* products — they solve a broader "AI assistant across your whole digital life" problem, not the narrower "RAG over my own codebase" one this stage was scoped to. Worth knowing they exist (especially OpenHuman's MCP-native memory-graph approach, which is architecturally close to what Topic #10 already discussed), not worth adopting yet.
+- **Worth trying now:** Continue.dev + Ollama, pointed at just this repo's docs/decisions/planning files — not a general RAG stack yet. Extends work already in progress here instead of standing up new infrastructure.
+- **Premature right now:** a full ingestion pipeline (Slack/Jira export → vector DB → dedicated UI) for a solo, pre-product-code repo. Not enough accumulated history yet to make retrieval meaningfully better than reading the files directly.
+- **Skip entirely for now:** OpenClaw and OpenHuman as *personal-assistant-with-messaging-integration* products — they solve a broader "AI across your whole digital life" problem, not the narrower "RAG over my own codebase" one this stage was scoped to. Worth knowing they exist (OpenHuman's MCP-native memory-graph approach is architecturally close to Topic #10), not worth adopting yet.
 
 ## Open questions / weak sourcing
 

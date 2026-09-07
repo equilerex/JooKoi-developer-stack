@@ -1,9 +1,10 @@
 # AI Tooling Crash Course for Developers — self-study index
 
-Entry point for catching up on current AI-assisted development practice. This is a reading path, not a reference manual — it points at the topic docs in `topics/` rather than duplicating them. Renamed from `education/` 2026-08-30 per `_architecture/plans/decisions/002-crash-course-naming.md`; general-education docs promoted here, process/decision-trail docs live in `_architecture/plans/decisions/` instead — there is no `planning/` folder any more, everything redistributed into the designed file set.
+Entry point for catching up on current AI-assisted development practice. This is a reading path, not a reference manual — it points at the topic docs in `topics/` rather than duplicating them. Renamed from `education/` 2026-08-30 per `_architecture/plans/decisions/002-crash-course-naming.md`. General-education docs live here now; process/decision-trail docs live in `_architecture/plans/decisions/` instead. There's no `planning/` folder any more — everything redistributed into this file set.
 
 ## Start here
 
+0. **`0-how-llms-actually-work-under-the-hood.md`** — the actual mechanism: tokenization, attention, pretraining vs. post-training (RLHF/RL), reasoning models, mixture-of-experts, why context windows aren't memory. Read this first if the internals are still fuzzy — the rest of this folder assumes this mental model already.
 1. **`topic-index.md`** — the baseline survey: eleven-plus topics across AI-assisted dev workflow, local infra, and portability, each marked against real prior experience (known / new / disagree / wants deeper coverage). Read this first — it's the map of what's already settled vs. what's genuinely worth a deeper look, and the marks are the backlog driving everything else in this folder.
 2. **`../_architecture/ARCHITECTURE.md`** — why this repo is structured the way it is, and the evidence bar used before anything gets adopted. Read this to understand *how* to judge anything that shows up later in `_inspiration-and-staying-current.md` and `_ai-tooling-recommendations.md`, not just what's in them.
 3. **`_inspiration-and-staying-current.md`** (newsletters, named practitioners, communities) and **`_ai-tooling-recommendations.md`** (repos, products, protocols) — the curated, verified reference lists. Split into two files since they do different jobs: who/where to follow vs. what to actually use.
@@ -35,11 +36,19 @@ Marked `correct`, open follow-up:
 
 ## Harness engineering, agent loops, context engineering, repository legibility
 
-Surfaced later than the original Stage 0 topics (2026-08-23), via a well-sourced ChatGPT breakdown — see `topics/harness-engineering-vocabulary.md`. Not a pick, a vocabulary/completeness pass: names and connects things this repo already does in practice (task-state files, decision records, progressive-disclosure skills) plus flags one real gap worth revisiting later (executable/automated convention-drift checking, once `skills/`/`prompts/` have enough real content to make it worthwhile). ACP and A2A protocols are a related but separate topic — see the next entry.
+Surfaced later than the original Stage 0 topics (2026-08-23), via a well-sourced ChatGPT breakdown — see `topics/harness-engineering-vocabulary.md`. Not a pick, a vocabulary/completeness pass: names and connects things this repo already does in practice (task-state files, decision records, progressive-disclosure skills).
+
+One real gap flagged for later: executable/automated convention-drift checking, once `skills/`/`prompts/` have enough real content to make it worthwhile. ACP and A2A protocols are a related but separate topic, covered below.
 
 ## Personal harness architecture
 
-Companion to the entry above, but build-oriented rather than a vocabulary check — see `topics/personal-harness-ARCHITECTURE.md`. Three components for the harness itself: deterministic context bundling before model calls, capability lifecycle management for skills/tools (discover → review → trust → install → scope → activate → update → remove), and task state as a dependency graph rather than a flat list (per `gastownhall/beads`, verified real, 26.5k★). User confirmed running multiple instances of a graphing/knowledge tool (see Parked, below) is architecturally sound at two scopes: one at the harness/global level, one per individual project — matching this repo's existing global-vs-seed split.
+Companion to the entry above, build-oriented rather than a vocabulary check — see `topics/personal-harness-ARCHITECTURE.md`. Three components for the harness itself:
+
+- Deterministic context bundling before model calls.
+- Capability lifecycle management for skills/tools (discover → review → trust → install → scope → activate → update → remove).
+- Task state as a dependency graph rather than a flat list (per `gastownhall/beads`, verified real, 26.5k★).
+
+User confirmed running multiple instances of a graphing/knowledge tool (see Parked, below) is architecturally sound at two scopes — harness/global level and per-project — matching this repo's existing global-vs-seed split.
 
 ## Also covered (surfaced later, not yet in the reading order above)
 
@@ -57,4 +66,6 @@ Companion to the entry above, but build-oriented rather than a vocabulary check 
 
 ## Parked
 
-- **Graphify** (knowledge-graph-from-any-input) — user confirmed the harness-level and project-level instances are architecturally separate and both plausible (mirrors global-vs-seed). Project-level instances still wait for individual projects to accumulate real content, unchanged. The harness-level instance is worth reconsidering sooner than "not yet" — this repo's own former `planning/` staging area held 11+ stage-1 research docs (now redistributed — general topics into `topics/` here, process/decisions into `_architecture/plans/decisions/`), a real accumulated corpus that could plausibly justify a first pass. Still not started; noting the "needs a real corpus" blocker is now partially satisfied rather than fully open.
+- **Graphify** (knowledge-graph-from-any-input) — user confirmed the harness-level and project-level instances are architecturally separate and both plausible (mirrors global-vs-seed). Project-level instances still wait for individual projects to accumulate real content, unchanged.
+
+  The harness-level instance is worth reconsidering sooner than "not yet": this repo's former `planning/` staging area held 11+ stage-1 research docs (now redistributed — general topics into `topics/`, process/decisions into `_architecture/plans/decisions/`), a real accumulated corpus that could justify a first pass. Still not started; the "needs a real corpus" blocker is now partially satisfied rather than fully open.

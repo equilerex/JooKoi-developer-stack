@@ -1,168 +1,161 @@
 # Planning Before Implementation — An Evidence-Based Approach
 
-This is about whether a computer helper should stop and explain what it's about to do before it actually starts making changes, the same way a contractor might sketch out a plan before knocking down a wall. Doing that first catches mistakes while they're still just words on a page instead of after something's already broken. Worth knowing if you ever direct one of these helpers to make changes for you and want fewer surprises; skip it if you never touch anything like that.
+Should a coding agent stop and explain its plan before touching files, the way a contractor sketches a plan before knocking down a wall? Doing that catches mistakes as words on a page instead of after something's broken. Useful if you direct an agent to make changes and want fewer surprises. Skip if you never do that.
 
 ## What "planning" means here
 
-When an AI coding agent (a tool that reads a prompt, then autonomously edits files, runs commands, and calls other tools to get a task done) is given a task, it can do one of two things: start editing immediately, or first produce a written description of what it intends to do — which files it will touch, what approach it will take, what order it will do things in — and have that description checked before any code changes happen. That written, checked description is "the plan." Planning is not a separate tool; it's a phase of the same session where output is text describing intended changes instead of the changes themselves.
+Given a task, an agent can start editing immediately, or first write a description of what it intends to do — files touched, approach, order — and have that checked before any changes happen. That written, checked description is "the plan." It's not a separate tool, just a phase of the same session: text describing intended changes instead of the changes themselves.
 
-**What changes when an agent plans first, versus diving straight into edits:** without a plan, the agent starts writing code on its first interpretation of the request and course-corrects only if something breaks (a failing test, an error) or if you notice something's wrong mid-edit. With a plan, the agent commits its interpretation to text *before* touching files — so a misunderstanding, a missed edge case, or a wrong architectural assumption is visible and fixable while it's still just a paragraph, not a diff across ten files. The trade-off is time and tokens spent producing and reviewing something that isn't the deliverable itself.
+**What changes with a plan first:** without one, the agent acts on its first interpretation and course-corrects only when something breaks (failing test, error) or you notice mid-edit. With one, the interpretation is visible and fixable while it's still a paragraph, not a diff across ten files. Trade-off: time and tokens spent on something that isn't the deliverable.
 
-**How planning is normally triggered:** three common ways. (1) You ask for it explicitly — "write a plan first, don't edit anything yet." (2) A dedicated **planning mode** or command that many coding-agent CLIs and IDE integrations offer (e.g. a mode flag that restricts the agent to read-only exploration and drafting until you approve the plan). (3) A **skill** — a reusable, pre-written instruction set the agent loads for a given kind of task — that enforces planning as a step before implementation regardless of how the request was phrased.
+**How planning gets triggered:**
+1. You ask for it explicitly.
+2. A dedicated **planning mode** many CLIs/IDEs offer — read-only exploration and drafting until you approve.
+3. A **skill** that enforces planning before implementation regardless of phrasing.
 
-**When planning helps:** a change spanning multiple files or subsystems; requirements that are ambiguous or only partly specified; anything with a high "blast radius" — where a wrong turn is expensive to unwind (a schema change, an authentication flow, a public API shape) — or where the work will span more than one session and something needs to hold the shared intent between them.
+**Plan when:** the change spans multiple files/subsystems, requirements are ambiguous, blast radius is high (schema change, auth flow, public API), or work spans sessions and something needs to hold shared intent between them.
 
-**When it's unnecessary overhead:** a one-line fix, a change confined to a file the agent has already read this session, anything with a fast deterministic feedback loop (a failing test that will just tell you if it worked), or exploratory one-off work where you're still discovering the shape of the problem and a written plan would just lock in a guess too early.
-
-The rest of this document goes deeper on when planning is worth it, how to run it well, and where the common instincts around it (self-review, multi-agent consensus, heavy spec ceremony) hold up against actual evidence.
+**Skip planning when:** a one-line fix, a file the agent already read this session, a fast deterministic feedback loop (a failing test will just tell you), or you're still discovering the shape of the problem and a plan would lock in a guess too early.
 
 ---
 
-A note on the evidence before anything else, because you're right to demand it: most cited papers here are 2025–2026 arXiv preprints, typically written 2–4 months before this document. In a field moving as fast as agentic coding, a paper measuring GPT-5-mini or Claude 4.5 in February may already be testing a stale model by August. Two things survive that problem and two don't:
+A note on the evidence: most cited papers are 2025-2026 arXiv preprints, written 2-4 months before this doc. A paper measuring GPT-5-mini or Claude 4.5 in February may test a stale model by August. Two things survive that and two don't:
 
-- **Survives:** *mechanisms* — the shape of a failure mode, the reason a technique works or fails. "Self-review doesn't catch semantic drift because the model that made the error shares the blind spot that produced it" is a structural claim about how these systems work, not a benchmark score. It doesn't expire when the next model ships.
-- **Doesn't survive:** *magnitudes* — "80-point cliff," "31.7%," "3% effect." These are true of the specific models tested, on that date. Treat every number in this document as "this was the shape of the effect in mid-2026," not as a constant you can plan a budget around.
+- **Survives:** *mechanisms* — the shape of a failure mode, why a technique works or fails. "Self-review misses semantic drift because the model sharing the blind spot produced the error" is structural, not a benchmark score.
+- **Doesn't survive:** *magnitudes* — "80-point cliff," "31.7%," "3% effect." True of the specific models tested, on that date.
 
-So read this for direction, verify magnitude yourself if a decision hinges on it, and re-test anything numeric after a major model release. Where a finding is contested or thin, I've said so.
+Read this for direction. Verify magnitude yourself if a decision hinges on it. Re-test anything numeric after a major model release.
 
 ---
 
 # Part 1 — Should you even plan?
 
-This is the question everyone skips, and it's the one with the clearest evidence behind it.
+**Core finding, and it cuts against "always plan first":** a controlled ablation (16,991 SWE-bench trajectories, plan-removal design) found removing an upfront plan barely affected strong models but collapsed weaker ones — planning substitutes for capability more than it adds to it. A second study found planning helped only on tasks past the model's unaided ceiling; on easy tasks, imposing a plan actively hurt by constraining exploration. In the ablation, removing the plan let models solve dozens of instances the plan had been blocking.
 
-**The core finding, and it cuts against the instinct to always plan first:** a controlled ablation (16,991 SWE-bench trajectories, plan-removal design) found that removing an upfront plan barely affected strong models but collapsed weaker ones — meaning planning substitutes for capability more than it adds to it. A second study found planning representations helped *only* on tasks past the model's unaided ceiling; on easy tasks, imposing a plan actively hurt, by constraining exploration that would otherwise have found a better solution. In the ablation, removing the plan let models solve dozens of instances the plan had been preventing them from reaching.
-
-**The practical test, then, is not "is this a big task" — it's "would I bet on the agent one-shotting this unaided?"**
+**The real test: not "is this a big task" but "would I bet on the agent one-shotting this unaided?"**
 
 **Skip planning when:**
-- The change touches one or a few files the agent has already read this session
-- There's a fast deterministic feedback loop — a failing test, a type error, a stack trace — where try-and-fix converges faster than deliberation
+- The change touches files the agent already read this session
+- Fast deterministic feedback loop exists (failing test, type error, stack trace) — try-and-fix beats deliberation
 - The change is cheaply reversible
-- You're still discovering the shape of the problem (a plan here locks in the wrong shape)
+- You're still discovering the shape of the problem
 
 **Plan when:**
-- The task is past what you'd bet the agent can one-shot
-- The work spans multiple sessions, so nothing else will hold the shared intent
+- Past what you'd bet the agent can one-shot
+- Work spans multiple sessions, nothing else holds shared intent
 - A wrong architectural choice would be expensive to discover late
-- Multiple people (or multiple future-you sessions) need to agree on scope before work starts
+- Multiple people (or future-you sessions) need to agree on scope first
 
-**The corollary that's easy to miss:** an unreviewed plan is worse than no plan. It's pure cost — your time producing it, the agent's tokens executing against it — plus a false-confidence surcharge, because a plan someone approved *feels* validated even when nobody actually checked it against the codebase. The plan is not the artifact that matters. **Your review of the plan is the load-bearing step.** Everything downstream of this document assumes you're actually reading what comes out, not rubber-stamping it because it looks coherent.
+**Easy to miss:** an unreviewed plan is worse than no plan. Pure cost — your time, the agent's tokens — plus false confidence, since an approved plan *feels* validated even when nobody checked it against the codebase. **Your review of the plan is the load-bearing step**, not the plan itself.
 
-That caution is not abstract. In the one industrial-scale randomized trial available (16 experienced developers, 246 real tasks), developers using AI tools were **19% slower** while believing they were **20% faster**. Your felt sense that a planning session "went well" is exactly the kind of self-assessment that study showed to be unreliable. Don't trust the vibe; check the artifact.
+Not abstract: in the one industrial-scale randomized trial available (16 experienced developers, 246 real tasks), developers using AI tools were **19% slower** while believing they were **20% faster**. Don't trust the vibe, check the artifact.
 
 ---
 
 # Part 2 — Elicitation: getting the requirements out of your head
 
-You already do this informally with a "grill me" prompt. Here's the systematic version and where your instinct was right or wrong.
+### 2.1 Keep the interrogation prompt thin
 
-### 2.1 Keep the interrogation prompt thin, not heavy
+A minimal interviewer prompt elicits *more* requirements and more context-adaptive questions than a heavy structured framework. The heavy prompt gives better-formed questions and a tidier summary, at the cost of exploration. **Rule: start with "ask me what you need to know to build this, one question at a time" — save checklist rigor for a second pass.**
 
-Counterintuitively, a minimal interviewer prompt elicits *more* requirements and more context-adaptive questions than a long, structured elicitation framework. The heavy prompt produces better-formed questions and a tidier summary, but at the cost of exploration. **Practical rule: start with something close to "ask me what you need to know to build this, one question at a time" — save the checklist rigor for a second pass, not the first.**
+### 2.2 Never ask the model to self-report ambiguity
 
-### 2.2 Never ask the model to self-report what's ambiguous
+When models flag ambiguity in their own understanding, detection precision sits around chance, localization is worse. An underspecified prompt doesn't produce incoherent output — the model confidently picks one plausible reading and won't tell you it guessed. Coherent output isn't evidence of correct understanding.
 
-This is the single most common move in AI-assisted planning and it has direct disconfirming evidence. When models are asked to flag ambiguity in their own understanding of a task, detection precision sits around chance and localization is worse. The mechanism explains why: an underspecified prompt doesn't produce incoherent output — the model converges *confidently* on one plausible reading and won't tell you it guessed. Coherent, articulate, internally consistent output is not evidence the model understood you correctly.
+**Do this instead: generate divergence, look at the diff.** Ask the same question twice (different model families if you have them, higher temperature if not) and compare the *interpretations*, not the code. Disagreement is a real signal of underspecification. Agreement is weaker evidence of clarity than it feels, but still better than the model grading its own homework.
 
-**What to do instead: generate divergence, then look at the diff.** Ask the same question twice — different model families if you have them (Claude + a Codex/Gemini second opinion), or the same model at a higher temperature if you don't — and compare the *interpretations*, not the code. Disagreement between the two readings is a real, measured signal of underspecification. Agreement is weaker evidence of clarity than it feels like, but it's still better than asking the model to grade its own homework.
+### 2.3 Use a small ambiguity taxonomy
 
-### 2.3 Structure the interrogation around a small ambiguity taxonomy
+Four categories catch most of it: missing goals, missing constraints/premises, vague terminology, structural/syntactic ambiguity. **Vague domain terminology is consistently the worst offender.** A project glossary (what do *you* mean by "trusted," "verified," "source") is probably higher-leverage than a better plan template. Write it once, keep it in persistent context.
 
-Four categories catch most of what matters: missing goals, missing constraints/premises, vague terminology, and structural/syntactic ambiguity. Of these, **vague domain terminology is consistently the worst offender** across every study that measured it — worse than missing structure. The practical implication: a project glossary (what do *you* mean by "trusted," by "verified," by "source") is probably higher-leverage than a better plan template. Write it once, put it in your persistent context, and the interrogation gets sharper for free.
+### 2.4 Write acceptance criteria in EARS form, with real tests
 
-### 2.4 Write acceptance criteria in EARS form, with real tests, not prose
+EARS notation — "When \<trigger\>, the \<system\> shall \<response\>" — forces checkable statements instead of vague prose. Old requirements-engineering format, not AI-specific, but it eliminates the worst source of failure. AWS Kiro's spec workflow defaults to it for this reason.
 
-EARS notation — "When \<trigger\>, the \<system\> shall \<response\>" — forces you out of vague prose into checkable statements. It's an old requirements-engineering format (not AI-specific), but it mechanically eliminates the vagueness category that's empirically the worst source of failure, and it's what AWS Kiro's spec workflow defaults to for exactly this reason.
-
-The stronger and better-evidenced move: **put a handful of concrete failing tests in the plan itself**, not just prose criteria. Studies of test-first generation consistently show meaningful gains, largest for messier or more ambiguous tasks — exactly the tasks where you bothered to plan in the first place. One caveat that matters: a *few sharp tests* beat a large suite pasted into context — dumping many tests degrades the model's attention to the ones that matter. Two or three well-chosen tests, not twenty.
+Stronger move: **put a handful of concrete failing tests in the plan**, not just prose criteria. Test-first generation shows consistent gains, largest for messier/ambiguous tasks — exactly the tasks worth planning. Caveat: a few sharp tests beat a large suite pasted into context — dumping many tests degrades attention to the ones that matter. Two or three, not twenty.
 
 ### 2.5 What must stay yours
 
-The elicitation research is consistent on where an agent-conducted interview breaks down: it fabricates plausible-sounding costs and effort estimates, misses privacy/scope implications a human would flag by instinct, and has no read on the difference between what a stakeholder said and what they actually meant. Translating to your situation: **scope boundaries, cost/effort tradeoffs, which invariant wins when two requirements conflict, and what "done" actually means** are decisions you make, not decisions you delegate to the interrogation. The agent's job is to surface the question; yours is to answer it.
+The agent fabricates plausible-sounding costs and effort estimates, misses privacy/scope implications a human would flag by instinct, and can't tell what a stakeholder said from what they meant. **Scope boundaries, cost/effort tradeoffs, which invariant wins when requirements conflict, and what "done" means** are yours to decide, not delegate. The agent surfaces the question; you answer it.
 
 ---
 
-# Part 3 — Research before planning: worth it, but less than the rhetoric claims
+# Part 3 — Research before planning: worth it, less than the rhetoric claims
 
-The "explore the codebase before you plan" pattern is widely preached. The one controlled test of it found a real but small effect — roughly a 3% quality improvement, not the transformative gain the pattern's advocates imply. More interesting: within that same study, **checking the plan against the actual repo (validation) outperformed reading the repo before writing the plan (discovery)** by a wide margin. And in a blinded human comparison, reviewers actually *preferred* the ungrounded output more often than the grounded one — the grounding didn't obviously read as better to a human judge, even where it scored higher on automated metrics.
+"Explore the codebase before you plan" is widely preached. The one controlled test found a real but small effect — ~3% quality improvement, not transformative. More interesting: **checking the plan against the actual repo (validation) beat reading the repo before writing the plan (discovery)** by a wide margin. And in a blinded human comparison, reviewers actually preferred the ungrounded output more often — grounding didn't obviously read as better even where it scored higher on automated metrics.
 
-**Practical reading: don't over-invest in an elaborate research phase. Do invest in a cheap validation pass** — after the plan is drafted, have an agent (or yourself) check that the files, symbols, and APIs the plan references actually exist and behave as assumed. That's a mechanical check, not a research essay, and it's the part with the stronger evidence behind it.
+**Practical reading: don't over-invest in an elaborate research phase. Do invest in a cheap validation pass** — after drafting, check that the files/symbols/APIs the plan references actually exist and behave as assumed. Mechanical, not a research essay, and better evidenced.
 
-**One place research genuinely earns its keep, with the strongest evidence in this whole area: writing down what the codebase can't tell the agent.** A study on this found compliance with product decisions and prior rulings — the "we decided X and here's why" facts that live nowhere in the code — jumped from roughly half compliant to near-total once written into plan-time context, while decisions already visible in the code were near-100% either way regardless of extra context. **Translation: your plan-time research budget should go toward product intent and prior decisions, not toward re-reading code the agent can already see.** This is exactly what an ADR practice is for — if it's written down there, the agent doesn't need to rediscover it, and it stops being a place research effort gets wasted.
+**Where research genuinely earns its keep — strongest evidence in this whole area: writing down what the codebase can't tell the agent.** Compliance with product decisions and prior rulings — facts that live nowhere in the code — jumped from roughly half compliant to near-total once written into plan-time context, while decisions already visible in the code stayed near-100% either way. **Translation: spend plan-time research on product intent and prior decisions, not re-reading code the agent can already see.** This is exactly what an ADR practice is for.
 
-If you do run a research phase, run it as an isolated sub-agent that returns a condensed brief (roughly a page, not a transcript) rather than dumping its full exploration into your planning context. The mechanism here is simply arithmetic about context budget, not a measured finding, but it's cheap to do and costs nothing if it doesn't help.
+If you run a research phase, run it as an isolated sub-agent returning a condensed brief (roughly a page, not a transcript), not a full exploration dump into your planning context. Just arithmetic about context budget, cheap either way.
 
 ---
 
 # Part 4 — Decomposition: cutting the plan into executable pieces
 
-**The one thing with real evidence: units of work need an explicit, independently-checkable output, and need to be retryable alone.** A study measuring decomposition strategies found that a rigid ordered task chain was *worse* than not decomposing at all when something failed partway through — because a downstream failure forced re-running the entire chain from the top. Decomposition that allowed selective retry of just the failed unit cut recovery cost sharply compared to both the ordered-chain and the no-decomposition baselines.
+**The one thing with real evidence: units of work need an explicit, independently-checkable output, and need to be retryable alone.** A rigid ordered task chain was *worse* than not decomposing at all when something failed partway — a downstream failure forced re-running the entire chain from the top. Decomposition allowing selective retry of just the failed unit cut recovery cost sharply vs. both the ordered-chain and no-decomposition baselines.
 
-**What this means practically: don't write a plan as "step 1, step 2, step 3" where step 3 assumes step 1 and 2 succeeded in some fragile way.** Write each step so it has its own pass/fail condition, checkable without re-running everything before it. If step 3 fails, you should be able to fix step 3 alone.
+**Practically: don't write "step 1, step 2, step 3" where step 3 assumes step 1 and 2 succeeded in some fragile way.** Each step needs its own pass/fail condition, checkable without re-running everything before it.
 
-**On "vertical slices vs horizontal layers"** — you'll see this argued constantly as settled wisdom. It isn't; no study has actually measured the two against each other for agent execution. The one adjacent finding (retryable independent units win) happens to favor vertical slices as a rationalization, but that's inference dressed as evidence. Treat it as reasonable default taste, not as something you need to defend with a citation.
+**On "vertical slices vs horizontal layers"** — argued constantly as settled wisdom, but no study has actually measured the two against each other for agent execution. The one adjacent finding (retryable independent units win) happens to favor vertical slices as a rationalization — that's inference dressed as evidence. Reasonable default taste, not something to defend with a citation.
 
-**Static plan, minimal replanning.** A plan regenerated mid-execution measurably underperforms a plan written once and executed — dynamic replanning in these studies produced action loops and lost track of what had actually been tried. Write the plan, execute against it, and only regenerate on a hard failure that genuinely invalidates the approach — not every time something looks slightly off.
+**Static plan, minimal replanning.** A plan regenerated mid-execution measurably underperforms a plan written once and executed — dynamic replanning produced action loops and lost track of what had been tried. Write once, execute against it, regenerate only on a hard failure that genuinely invalidates the approach.
 
 ---
 
 # Part 5 — Critiquing the plan before you execute it
 
-This is where your existing instinct ("grill me") needs the most correction, because the two most natural moves — asking the model to critique its own plan, and asking several agents to agree on it — are the two with the strongest evidence *against* them.
+The two most natural moves — self-critique, multi-agent consensus — are the two with the strongest evidence *against* them.
 
 ### 5.1 Self-critique is not a gate
 
-A model reviewing its own plan misses roughly a third of its own semantic errors on average, and the failure is bimodal — some models catch nearly everything they got wrong, others catch almost nothing, and you generally don't know which regime yours is in without testing it. Worse, this happens even when the model can *articulate* the exact rule it violated when asked directly — it knows the rule, it just doesn't apply it to its own output. **Use self-critique as a cheap first pass if you want, never as the thing that clears a plan for execution.**
+A model reviewing its own plan misses roughly a third of its own semantic errors on average, and the failure is bimodal — some models catch nearly everything, others almost nothing, and you don't know which regime yours is in without testing. This happens even when the model can *articulate* the exact rule it violated when asked directly — it knows the rule, doesn't apply it to its own output. **Use self-critique as a cheap first pass, never as clearance for execution.**
 
 ### 5.2 Consensus is not evidence
 
-Multiple agents agreeing on a plan is not a stronger signal than one agent agreeing with itself — it can be weaker. The clearest demonstration: a stage-gated review pipeline once had 80-plus agents *unanimously* endorse a security vulnerability that didn't exist, and only running actual code caught it. Multi-agent "debate" and "council of experts" patterns are popular and expensive, and after dozens of studies of the general pattern, none cleanly show it beats one strong model with the same token budget — the documented failure modes are sycophancy between agents and premature convergence on a shared wrong answer. **If you're tempted to spin up three agents to "vote" on a plan, don't. It looks like rigor and isn't.**
+Multiple agents agreeing on a plan isn't a stronger signal than one agent agreeing with itself — can be weaker. Clearest demonstration: a stage-gated review pipeline once had 80-plus agents *unanimously* endorse a security vulnerability that didn't exist — only running actual code caught it. Multi-agent "debate"/"council of experts" patterns are popular and expensive, and after dozens of studies, none cleanly show it beats one strong model with the same token budget. Documented failure modes: sycophancy between agents, premature convergence on a shared wrong answer. **Don't spin up three agents to vote on a plan. Looks like rigor, isn't.**
 
-### 5.3 What does work: a cold-start critic, from a different model family, demanding evidence
+### 5.3 What works: a cold-start critic, different model family, demanding evidence
 
-Two things compound here and both have real backing:
+Two things compound, both real:
 
-- **Cross-family, not same-family.** A critic from a different model lineage, with no memory of how the plan was produced, catches things a same-family reviewer misses — because training-data-correlated blind spots are shared within a family and not across them. Fresh context matters as much as different vendor: don't hand the critic your original prompt or reasoning, just the artifact.
-- **Force a typed verdict, not a general critique.** "What do you think of this plan?" invites agreement. Structured review that requires an explicit verdict — agree with evidence, disagree with evidence, or disagree as a concern needing follow-up — measurably outperforms open-ended critique, and the mechanism is straightforward: two agreeable agents can converge on being wrong together, but forcing an explicit disagreement type breaks that.
+- **Cross-family, not same-family.** A critic from a different model lineage, with no memory of how the plan was produced, catches things a same-family reviewer misses — training-data-correlated blind spots are shared within a family, not across. Fresh context matters as much as different vendor — don't hand the critic your original prompt or reasoning, just the artifact.
+- **Force a typed verdict, not general critique.** "What do you think?" invites agreement. Requiring an explicit verdict — agree with evidence, disagree with evidence, or concern needing follow-up — measurably outperforms open-ended critique. Two agreeable agents can converge on being wrong together; forcing explicit disagreement breaks that.
 
-And underneath all of it: **nothing here substitutes for something actually running.** The strongest-performing review pipeline in this research area kills the large majority of its own candidate findings, and the stage that does the real work is the one requiring runtime evidence — not the critique stages. If a plan makes a factual claim about how something behaves, the question isn't "does this sound right to a second model" — it's "did we run it."
+**Underneath it all: nothing substitutes for something actually running.** The strongest-performing review pipeline in this research kills most of its own candidate findings, and the stage doing the real work requires runtime evidence, not critique. If a plan claims how something behaves, the question is "did we run it," not "does this sound right to a second model."
 
-### 5.4 The one structured technique with a real (if narrower than advertised) effect: the premortem
+### 5.4 The premortem — real, narrower than advertised
 
-"Imagine this plan failed — why?" The best-controlled study of this technique found it improved calibration — people's confidence became more accurate — but did *not* show a significant effect on actual plan comprehension. That's a real, useful effect, just a narrower one than the "premortems surface 30% more failure causes" claim you'll see repeated. It's cheap and worth doing; don't expect it to be the thing that catches the failure mode self-critique misses.
+"Imagine this plan failed — why?" The best-controlled study found it improved calibration (confidence became more accurate) but showed no significant effect on actual plan comprehension. Real, useful, cheap — just narrower than the "premortems surface 30% more failure causes" claim you'll see repeated. Don't expect it to catch what self-critique misses.
 
 ---
 
-# Part 6 — When you're right to say no to a heavyweight process
+# Part 6 — When to say no to a heavyweight process
 
-You asked specifically about when *not* to use something, so here it is plainly, because this is where the evidence is sharpest and least ambiguous.
+**Full spec-driven ceremony — constitution, spec, plan, tasks, a formal multi-artifact pipeline — is a default to be skeptical of.** The most carefully measured critique found full ceremony produced less code for more total time than a normal iterative loop, most of that extra time spent by the *human* reviewing plan artifacts, and it still shipped an undetected bug. An independent assessment across three spec-driven tools found no quantitative data supporting the approach anywhere, plus a case where the tool turned a small bug fix into over a dozen formal acceptance criteria. Supportive evidence that does exist is real but thin: an unreplicated vendor-internal number, an "up to" figure that's an explicit upper bound, a pilot its own authors call illustrative, not controlled. **What survives: agents perform better against a written, human-reviewed statement of intent. That argues for writing a plan, not for a five-stage formal pipeline.**
 
-**Full spec-driven ceremony — constitution, spec, plan, tasks, a formal multi-artifact pipeline — is a default to be skeptical of, not adopted wholesale.** The most carefully measured critique found the full-ceremony approach produced less code for more total time than a normal iterative loop, with the majority of that extra time spent by the *human* reviewing plan artifacts rather than by the agent working — and it still shipped an undetected bug. An independent assessment across three different spec-driven tools found no quantitative data supporting the approach anywhere, plus a case where the tool turned a small bug fix into over a dozen formal acceptance criteria — ceremony applied to a task that didn't need it. The genuinely supportive evidence for spec-driven development that does exist is real but thin: an unreplicated vendor-internal number, an "up to" figure that's explicitly an upper bound, and a pilot its own authors call illustrative rather than a controlled result. **The line that survives every version of this critique, supportive or not: agents perform better against a written, human-reviewed statement of intent. That's an argument for writing a plan. It is not an argument for a five-stage formal pipeline.**
+**Automated drift-reconciliation** — tooling that tries to keep a spec and its code in sync automatically — has no published measurement despite being flagged as the single biggest unsolved problem in this space. Reconciling two documents with an LLM inherits the same silent-confident-wrong failure mode it's meant to fix. Keep the plan and code in sync by discipline (update the plan file in the same commit that changes the approach), not automation.
 
-**Automated drift-reconciliation between a spec and the code it's meant to describe** — tooling that tries to keep the two in sync as the codebase evolves — has no published measurement behind it despite being flagged by practitioners as the single biggest unsolved problem in this whole space. Reconciling two documents with an LLM inherits the exact failure mode (silent, confident, wrong) it's meant to fix. Don't build a workflow that depends on this working; keep the plan and the code in sync by discipline — updating the plan file in the same commit that changes the approach — not by automation.
-
-**Match ceremony to the actual size of the change.** The most common self-inflicted failure across every practitioner account here is running the heavyweight process on a task that didn't warrant it — a two-file bug fix wrapped in a formal spec, review time eating the entire benefit. Circle back to Part 1: the size of the task doesn't determine whether you plan. Whether you'd bet on the agent one-shotting it does.
+**Match ceremony to the actual size of the change.** The most common self-inflicted failure: running the heavyweight process on a task that didn't warrant it — a two-file bug fix wrapped in a formal spec, review time eating the whole benefit. Back to Part 1: task size doesn't determine whether you plan. Whether you'd bet on one-shotting it does.
 
 ---
 
 # Part 7 — A concrete workflow
 
-Putting the evidence together into something you'd actually run.
+**Step 0 — Gate.** Would you bet on the agent one-shotting this unaided? If yes, skip everything below.
 
-**Step 0 — Gate.** Would you bet on the agent one-shotting this unaided? If yes, skip everything below and just do it.
+**Step 1 — Elicit, thin-first.** Minimal interrogation prompt, not a heavy framework. Four-category taxonomy (goals, constraints, terminology, structure), extra attention to domain vocabulary against your glossary. Never ask the model if it's confident it understood — ask the same question twice, compare readings, probe divergence.
 
-**Step 1 — Elicit, thin-first.** Open with a minimal interrogation prompt, not a heavy framework. Structure follow-ups around the four-category ambiguity taxonomy (goals, constraints, terminology, structure), with extra attention to domain vocabulary — check it against your project glossary if you have one. Never ask the model whether it's confident it understood you; if you want a real ambiguity signal, ask the same question twice, compare the readings, and probe where they diverge.
+**Step 2 — Write down what the code can't tell the agent.** Product intent, prior rulings, constraints with reasons no longer visible in the code. Highest-leverage plan-time context. If it's in an ADR, reference it.
 
-**Step 2 — Write down what the code can't tell the agent.** Product intent, prior rulings, constraints that exist for reasons no longer visible in the code. This is your highest-leverage plan-time context, better evidenced than re-reading the codebase. If it's already in an ADR, reference it — this is why the ADR practice pays off here specifically.
+**Step 3 — Draft one static plan.** EARS-form acceptance criteria, two or three sharp failing tests, steps each with its own independent output contract, retryable alone. Skip formal spec ceremony unless the task is genuinely large and multi-person.
 
-**Step 3 — Draft one static plan.** Concrete acceptance criteria in EARS form, two or three sharp failing tests rather than a large suite, decomposed into steps each with its own independent output contract that can be retried alone if it fails. Skip formal spec-pipeline ceremony unless the task is genuinely large and multi-person.
+**Step 4 — Validate against the repo.** Do the referenced files/symbols/APIs actually exist and behave as assumed? Better evidenced than a research phase, and cheaper.
 
-**Step 4 — Validate the plan against the repo.** Do the referenced files, symbols and APIs actually exist and behave as the plan assumes? This mechanical check is better evidenced than a research phase before drafting, and cheaper.
+**Step 5 — Critique once, correctly.** Cold-start review, different model family, no shared context with the authoring session, forced typed verdict (agree-with-evidence / disagree-with-evidence / concern). Add a premortem if stakes justify it — sharpens calibration, doesn't catch bugs by itself. No voting, no self-critique as clearance.
 
-**Step 5 — Critique once, correctly.** A cold-start review from a different model family, no shared context with the authoring session, forced into a typed verdict (agree-with-evidence / disagree-with-evidence / concern) rather than open prose. Add a premortem if the stakes justify it — expect it to sharpen your calibration, not to catch bugs by itself. Do not run three agents to vote; do not accept the plan's own self-critique as clearance.
-
-**Step 6 — You review it. This is not optional and it is not delegable.** The plan is worthless as a safety mechanism if nobody actually reads it before execution starts.
+**Step 6 — You review it.** Not optional, not delegable. The plan is worthless as a safety mechanism if nobody actually reads it before execution starts.
 
 **Step 7 — Execute without replanning.** Regenerate only on a hard failure that genuinely invalidates the approach.
 
@@ -170,10 +163,11 @@ Putting the evidence together into something you'd actually run.
 
 ## What this doesn't cover
 
-Execution discipline once implementation starts — session boundaries, state handoff across sessions, keeping a multi-day build aligned to the plan, review economics at scale, recovery from a bad step — is a distinct phase with its own evidence base, never written up as its own document. Flagged as an open gap in the original `00-START-HERE.md` porting notes too — still open here.
+Execution discipline once implementation starts — session boundaries, state handoff across sessions, keeping a multi-day build aligned to the plan, review economics at scale, recovery from a bad step — is its own phase with its own evidence base, never written up here. Flagged as an open gap in the original `00-START-HERE.md` porting notes too — still open.
 
 ---
 
 ## A note on confidence
 
-Where a finding above rests on a single study, it's stated as "one study found" rather than settled. Where multiple independent lines of evidence converge — self-review being unreliable, consensus not being evidence, execution feedback beating static analysis — it's stated more plainly, because independent convergence is closer to what "durable" looks like in a field this young. Re-test the parts that matter to a real decision; don't take any of it, including this document, as more certain than the research it's built from actually was.
+Where a finding rests on a single study, it's stated as "one study found," not settled. Where multiple independent lines converge — self-review being unreliable, consensus not being evidence, execution feedback beating static analysis — it's stated more plainly. Re-test what matters to a real decision; don't take any of this, including this document, as more certain than the research behind it actually was.
+</content>

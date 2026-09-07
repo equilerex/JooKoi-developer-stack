@@ -24,6 +24,15 @@ The bet is that **plain files outlive vendors**. Nothing here needs migrating wh
 
 This fits best when you are **not** working under a repo-level agreed system: solo work, a repo you don't own, a team that hasn't converged. Where a team has real shared infrastructure, use theirs.
 
+### This repo vs. the plugin marketplace
+
+```
+JooKoi Developer Stack   → portable baseline (this repo)
+JooKoi Plugins           → optional richer tooling (separate repo, not yet created)
+```
+
+This repo stays the universal baseline: global `AGENTS.md`, small loose skills, prompts, conventions, research and decision records — things wanted essentially everywhere, copy-out, no install step. Richer optional tooling — framework-specific workflows, domain-specific skill bundles, anything needing shared assets/scripts or eventually hooks/MCP — belongs in a separate personal plugin repo that layers on top of this one rather than replacing it: the baseline works standalone, the plugin repo is opt-in. See [decision 014](./_architecture/plans/decisions/014-personal-plugin-marketplace-as-optional-extension-layer.md) and `_architecture/stack-distribution.md`.
+
 ### Four layers, and what's tracked
 
 The whole public/private split comes from one rule: the **`_jookoi-` prefix**. No prefix means committed. `_jookoi-` means globally gitignored (`~/.gitignore: _jookoi-*`) and mirrored to a private vault instead. Both live side by side in the same folder, so a shared base file can carry a private layer beside it. No negation rules, no per-repo setup, and the default fails safe. Forget to configure something and nothing leaks. Worst case a note doesn't get committed.

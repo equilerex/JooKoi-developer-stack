@@ -1,6 +1,6 @@
 # Stage 1 — Agent code-execution sandboxing
 
-AI coding tools can sometimes go off the rails — delete the wrong file, poke around somewhere they shouldn't, or send information somewhere it shouldn't go. A "sandbox" is a safety fence around the tool so that even if it tries something wrong, the damage is contained to a small, harmless area instead of spreading to your whole computer. Worth knowing about if you use any AI coding assistant that can run commands on your computer; skip it if you only ever chat with an AI in a browser.
+AI coding tools can misbehave — delete the wrong file, read something they shouldn't, send data somewhere it shouldn't go. A sandbox restricts what the tool's process can actually do at the OS level, so a bad action stays contained instead of reaching the rest of the machine. Relevant if you use an AI coding assistant that runs commands on your machine; skip it if you only chat with an AI in a browser.
 
 Topic: whether "sandboxing" is becoming a real named security standard for AI coding agents, beyond the generic advice already in [`security-and-supply-chain.md`](./security-and-supply-chain.md) ("run unfamiliar tooling in an isolated context"). Options only, no pick made.
 
@@ -17,15 +17,19 @@ A coding agent that can read files, run shell commands, and make network request
 
 **What can stop working inside a sandbox**: anything the allow-list doesn't cover. A build step that reaches an unlisted package registry, a script that needs to read a credential file outside the project directory, or a tool that needs a network domain nobody thought to allow — all fail, often with a permission error rather than an obvious explanation. Loosening a sandbox to fix this reintroduces exactly the risk it existed to contain, so the practical work of using one is mostly tuning the allow-list, not fighting the concept.
 
-**Why a developer would turn one on**: it's cheap insurance. Most sandbox implementations cost nothing to enable and cost little in day-to-day friction once the allow-list is tuned, in exchange for containing the worst case — the difference between an agent's mistake staying inside a working directory versus reaching the rest of the machine.
+**Why a developer would turn one on**: most sandbox implementations cost nothing to enable and cost little day-to-day friction once the allow-list is tuned, in exchange for containing the worst case — an agent's mistake staying inside a working directory versus reaching the rest of the machine.
 
-**Sandboxed is not the same as safe.** A sandbox limits *blast radius* — what an agent can reach if something goes wrong — it does not limit what the agent can do *within* its allowed scope. An agent with write access to the whole working directory and network access to your package registry can still delete the wrong file, commit broken code, or leak a secret that happens to live inside the sandboxed path. Sandboxing is a containment control, not a correctness or trust guarantee; it's worth pairing with the usual practices (review diffs, don't blanket-trust a cloned repo's instructions, scope credentials narrowly) rather than treated as a substitute for them.
+**Sandboxed is not the same as safe.** A sandbox limits *blast radius* — what an agent can reach if something goes wrong. It does not limit what the agent can do *within* its allowed scope. An agent with write access to the whole working directory and network access to your package registry can still delete the wrong file, commit broken code, or leak a secret living inside the sandboxed path.
+
+It's a containment control, not a correctness or trust guarantee. Pair it with the usual practices — review diffs, don't blanket-trust a cloned repo's instructions, scope credentials narrowly — rather than treating it as a substitute for them.
 
 The rest of this document covers the deeper mechanics: what's actually converging across vendors, and how specific tools (Claude Code's `/sandbox` among them, as one example of several) implement this.
 
 ## 1. Is there an actual named standard?
 
-No single cross-vendor spec for sandboxing itself. 2026's agentic-AI standards convergence is real but it's happening one layer up: [MCP](https://modelcontextprotocol.io/) (tool connectivity, governed by Anthropic/community), [A2A](https://github.com/a2aproject/A2A) (agent-to-agent, now under the Linux Foundation), [WebMCP](https://github.com/webmachinelearning/webmcp) (browser-facing tool exposure, W3C Community Group draft). Sandboxing is not one of those layers — it's infrastructure each vendor still implements independently, using a shared *pool* of underlying isolation tech rather than a shared *protocol*. So: convergence on primitives, fragmentation on interface. If the user saw text describing "an emerging security standard," it's more accurately "a converging set of practices around a shared toolkit" than a ratified spec — worth being precise about since the difference matters for how much to trust any single vendor's docs as authoritative.
+No single cross-vendor spec for sandboxing itself. 2026's agentic-AI standards convergence is real, but it's happening one layer up: [MCP](https://modelcontextprotocol.io/) (tool connectivity, governed by Anthropic/community), [A2A](https://github.com/a2aproject/A2A) (agent-to-agent, now under the Linux Foundation), [WebMCP](https://github.com/webmachinelearning/webmcp) (browser-facing tool exposure, W3C Community Group draft).
+
+Sandboxing isn't one of those layers. Each vendor still implements it independently, from a shared *pool* of isolation tech rather than a shared *protocol* — convergence on primitives, fragmentation on interface. If you've seen "an emerging security standard" claimed somewhere, it's more accurately "a converging set of practices around a shared toolkit" than a ratified spec.
 
 ## 2. The shared toolkit (what's actually converging)
 
@@ -44,7 +48,7 @@ Named vendor choices, each confirmed against current docs/blog sources (not aggr
 
 ## 3. Convergence or fragmentation?
 
-Fragmented at the interface level, converging at the primitive level. Every serious vendor has landed on "OS-level enforcement, not prompt-level trust" as the design principle — that part is now closer to settled consensus than contested opinion, worth stating as near-fact. But there's no equivalent of MCP for sandboxes: no shared config format, no portable "sandbox descriptor" a tool from one vendor could hand to another. One relevant real signal: Anthropic's Claude Code sandbox runtime was released as an open source npm package ([`@anthropic-ai/sandbox-runtime`](https://github.com/anthropic-experimental/sandbox-runtime)) usable outside Claude Code itself — a step toward a shared primitive, not yet a standard other vendors have adopted.
+Fragmented at the interface level, converging at the primitive level. Every serious vendor has landed on "OS-level enforcement, not prompt-level trust" as the design principle — that part is now closer to settled consensus than contested opinion. But there's no equivalent of MCP for sandboxes: no shared config format, no portable "sandbox descriptor" a tool from one vendor could hand to another. One relevant real signal: Anthropic's Claude Code sandbox runtime was released as an open source npm package ([`@anthropic-ai/sandbox-runtime`](https://github.com/anthropic-experimental/sandbox-runtime)) usable outside Claude Code itself — a step toward a shared primitive, not yet a standard other vendors have adopted.
 
 ## 4. Practical takeaway for a solo home-dev setup
 

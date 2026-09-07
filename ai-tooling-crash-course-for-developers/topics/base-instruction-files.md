@@ -1,38 +1,60 @@
 # Stage 1 — Base Instruction Files (AGENTS.md / CLAUDE.md)
 
-Picture a note you leave taped to your desk for a new coworker, explaining how things work around here before they ask a single question. A base instruction file is that same idea but for a computer helper: a short written file it reads automatically, every time, before doing any work on a project, so it doesn't have to guess or be told the same things over and over. Worth knowing if you use any of these helpers on your own projects and want them to stop making the same wrong assumptions; skip it if you never set one up yourself.
+A base instruction file is a short file an AI coding tool reads automatically, before doing any work on a project. It stops the agent guessing your conventions or getting told the same things every session.
 
-Deep-dive on baseline topic #1, split out from topic #10 per the 2026-08-23 correction logged in `topic-index.md` — this is about the base instruction file itself (what goes in it, root-vs-nested precedence, provider loading mechanics), not the cross-project memory/ledger question `memory-and-progress-ledgers.md` covers. Some raw research already existed as a byproduct of that doc's expansion (its "Repo-scoped context files" subsection) — promoted into this doc rather than re-researched from scratch.
+Relevant if you use one of these tools and want it to stop making wrong assumptions. Skip if you've never set one up.
 
-**Framing constraint, per `topic-index.md`'s 2026-08-23 correction**: `AGENTS.md` is treated here as the primary, provider-agnostic source of truth — not `CLAUDE.md`. Provider-specific files are researched as thin pointers *to* it, not as equal alternatives. No pick is made in this doc — options and evidence only, per `docs/reasoning.md`'s process.
+Deep-dive on baseline topic #1, split out from topic #10 per the 2026-08-23 correction in `topic-index.md`. This doc covers the file itself: what goes in it, root-vs-nested precedence, provider loading mechanics. Cross-project memory/ledgers are a separate question — see `memory-and-progress-ledgers.md`.
+
+**Framing constraint** (per `topic-index.md`'s 2026-08-23 correction): `AGENTS.md` is the primary, provider-agnostic source of truth here — not `CLAUDE.md`. Provider files are researched as thin pointers *to* it. No pick is made in this doc, options and evidence only.
 
 ## What is a base instruction file?
 
-A base instruction file is a plain Markdown file, checked into a repo (or placed in a user config folder), that a coding agent reads automatically before it starts working — no prompt required. The two names that matter: [`AGENTS.md`](https://agents.md/), a provider-agnostic convention now read by 30+ tools, and `CLAUDE.md`, [Claude Code](https://code.claude.com/docs/en/memory)'s own filename for the same idea. Cursor, Copilot, Gemini CLI, and most other agents have similar files under their own names (see the table below).
+A plain Markdown file, checked into a repo (or a user config folder), that a coding agent reads before it starts — no prompt required.
 
-**Why this exists at all.** An agent starting cold on a repo has no idea how you build, test, deploy, or what conventions you follow — it has to guess, or ask, every session. A base instruction file is the fix: a standing answer to "how does this project work" that the agent loads once per session instead of you re-explaining it every time. It's the same problem a README solves for humans, aimed at a different reader with different needs (executable commands over prose, explicit boundaries over onboarding narrative).
+Two names that matter:
+- [`AGENTS.md`](https://agents.md/) — provider-agnostic, read by 30+ tools.
+- `CLAUDE.md` — [Claude Code](https://code.claude.com/docs/en/memory)'s own name for the same idea.
 
-**What belongs in it**: build/test/lint commands (with real flags, not just "run the tests"), code-style conventions the agent should match, where things live in the repo, what's off-limits (files not to touch, patterns not to introduce), and project-specific gotchas an agent would otherwise trip over. What doesn't belong: general product documentation, architecture explainers meant for new hires, anything a human reads but an agent never acts on — that's what a README or `docs/ARCHITECTURE.md` is for.
+Cursor, Copilot, Gemini CLI, and most other agents have their own equivalents (table below).
 
-**Global vs. repository-local.** Most agents support two scopes: a file in the repo (shared with everyone who clones it, checked into git) and a file in your personal config directory (`~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, etc. — applies across every project you touch, never shared). Global holds your personal preferences and habits; repo-local holds what's true about *this* codebase regardless of who's working on it.
+**Why it exists.** An agent starting cold on a repo has no idea how you build, test, deploy, or what conventions you follow. It has to guess or ask, every session. This file is a standing answer to "how does this project work," loaded once per session instead of re-explained every time. Same problem a README solves for humans — different reader, different needs: executable commands over prose, explicit boundaries over onboarding narrative.
 
-**Root vs. nested.** A single root-level file covers the whole repo. Some agents also support one file per subdirectory — a `frontend/AGENTS.md` alongside `backend/AGENTS.md` — loaded only when the agent is actually working in that subtree, so a monorepo doesn't force every session to load rules for parts of the codebase it isn't touching. Support for this varies by tool (see §2).
+**What belongs in it:**
+- Build/test/lint commands, with real flags — not "run the tests."
+- Code-style conventions the agent should match.
+- Where things live in the repo.
+- What's off-limits (files not to touch, patterns not to introduce).
+- Project-specific gotchas the agent would otherwise trip over.
 
-**Provider-agnostic vs. provider-specific.** `AGENTS.md` is meant to work unmodified across any agent that reads it; `CLAUDE.md` and other vendor-named files are read only by their own tool. A common pattern is to write one `AGENTS.md` and have provider-specific files import or symlink to it, so switching or mixing agents doesn't mean maintaining duplicate instructions.
+**What doesn't:** general product docs, architecture explainers for new hires, anything a human reads but an agent never acts on. That's a README or `docs/ARCHITECTURE.md`'s job.
 
-**Why a developer would want one**: less time re-explaining the same project context every session, more consistent output (the agent matches your actual conventions instead of generic defaults), and a place to encode hard constraints ("never touch `migrations/`", "always run `make lint` before finishing") that would otherwise only live in your head.
+**Global vs. repo-local.** Most agents support two scopes:
+- A repo file (checked into git, shared with everyone who clones it).
+- A personal config file (`~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`) — applies across every project, never shared.
+
+Global holds your personal habits. Repo-local holds what's true about *this* codebase regardless of who's working on it.
+
+**Root vs. nested.** A single root file covers the whole repo. Some agents also support one file per subdirectory (`frontend/AGENTS.md` alongside `backend/AGENTS.md`), loaded only when the agent works in that subtree — so a monorepo doesn't force every session to load rules for parts it isn't touching. Support varies by tool (§2).
+
+**Provider-agnostic vs. provider-specific.** `AGENTS.md` works unmodified across any agent that reads it. `CLAUDE.md` and other vendor-named files are read only by their own tool. Common pattern: write one `AGENTS.md`, have provider files import or symlink to it — no duplicate instructions to maintain.
+
+**Why bother:** less time re-explaining project context every session, more consistent output (agent matches your conventions instead of generic defaults), and a place to encode hard constraints ("never touch `migrations/`") that would otherwise only live in your head.
 
 ## 1. Governance, and the "60,000 repositories" claim
 
-`AGENTS.md` is a real, governed convention, not an informal one. Released by OpenAI in August 2025, it's now one of three anchor project contributions (alongside [MCP](https://modelcontextprotocol.io/) from Anthropic and [`goose`](https://github.com/block/goose) from Block) to the **Agentic AI Foundation (AAIF)**, announced by the [Linux Foundation on 2025-12-09](https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation) — confirmed against the [spec's own site](https://agents.md/), which states it is "now stewarded by the Agentic AI Foundation under the Linux Foundation." Founding Platinum members: AWS, Anthropic, Block, Bloomberg, Cloudflare, Google, Microsoft, OpenAI.
+`AGENTS.md` is a real, governed convention. Released by OpenAI in August 2025, it's now one of three anchor project contributions to the **Agentic AI Foundation (AAIF)** — alongside [MCP](https://modelcontextprotocol.io/) (Anthropic) and [`goose`](https://github.com/block/goose) (Block). Announced by the [Linux Foundation on 2025-12-09](https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation), confirmed against [`agents.md`](https://agents.md/) itself: "now stewarded by the Agentic AI Foundation under the Linux Foundation." Founding Platinum members: AWS, Anthropic, Block, Bloomberg, Cloudflare, Google, Microsoft, OpenAI.
 
-The spec itself is thin by design — the canonical repo, [`agentsmd/agents.md`](https://github.com/agentsmd/agents.md), states plainly: "AGENTS.md is just standard Markdown. Use any headings you like." No mandatory fields, no schema.
+The spec is thin by design. The canonical repo, [`agentsmd/agents.md`](https://github.com/agentsmd/agents.md), states plainly: "AGENTS.md is just standard Markdown. Use any headings you like." No mandatory fields, no schema.
 
-The **"60,000+ repositories" adoption figure**, repeated in the Linux Foundation press release and on `agents.md` itself, traces to a single origin — the project's own self-reporting — with no independent third party found reproducing the count. It's also a December 2025 figure being carried forward as current. Treat it as a marketing data point, not a verified metric. <!-- VERIFY: no independent count of AGENTS.md adoption found; figure is self-reported by the AAIF/agents.md project --> (A different, unrelated number — 60.03% file-level agent-adoption among newly created GitHub projects, from [arXiv:2606.07448](https://arxiv.org/abs/2606.07448) — measures something else entirely and shouldn't be conflated with it.)
+The **"60,000+ repositories" adoption figure** (repeated in the Linux Foundation release and on `agents.md` itself) traces to a single origin: the project's own self-reporting. No independent third party reproduces the count, and it's a December 2025 figure still being carried forward as current. Treat it as a marketing data point, not a verified metric.
+<!-- VERIFY: no independent count of AGENTS.md adoption found; figure is self-reported by the AAIF/agents.md project -->
+
+A different, unrelated number — 60.03% file-level agent-adoption among newly created GitHub projects, from [arXiv:2606.07448](https://arxiv.org/abs/2606.07448) — measures something else entirely. Don't conflate the two.
 
 ## 2. Per-provider loading mechanics
 
-Confirmed against official docs where available; cells marked "not documented" mean the vendor's own docs don't state it, not that the answer is unknown to this pass.
+Confirmed against official docs where available. "Not documented" means the vendor's own docs don't state it — not that the answer is unknown.
 
 | Tool | Reads AGENTS.md natively? | Nested discovery | Documented precedence | Global/user file |
 |---|---|---|---|---|
@@ -50,52 +72,89 @@ Confirmed against official docs where available; cells marked "not documented" m
 | Aider | No — no auto-discovery of any kind | n/a | n/a | Explicit `--read`/config only |
 | Google Jules | Yes | Root only | n/a | Not documented |
 
-Two things worth flagging: `agents.md`'s own "supported tools" list includes [Aider](https://aider.chat/docs/usage/conventions.html), whose own docs contradict it — treat that list as a self-claim, not a compatibility matrix. And precedence is mostly unpublished — only Codex, opencode, Zed, Amp, and Cursor state a resolution order; Copilot CLI explicitly disclaims having one.
+Two flags:
+- `agents.md`'s own "supported tools" list includes [Aider](https://aider.chat/docs/usage/conventions.html), whose own docs contradict it. Treat that list as a self-claim, not a compatibility matrix.
+- Precedence is mostly unpublished — only Codex, opencode, Zed, Amp, and Cursor state a resolution order. Copilot CLI explicitly disclaims having one.
 
 Provider docs checked: [Claude Code memory](https://code.claude.com/docs/en/memory), [Cursor rules](https://cursor.com/docs/context/rules), [GitHub Copilot docs](https://docs.github.com/copilot), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [opencode rules](https://opencode.ai/docs/rules/), [Zed AI rules](https://zed.dev/docs/ai/rules), [Amp manual](https://ampcode.com/manual), [Devin/Cascade AGENTS.md docs](https://docs.devin.ai/desktop/cascade/agents-md), [Cline rules](https://docs.cline.bot/customization/cline-rules), [Aider conventions](https://aider.chat/docs/usage/conventions.html), [Google Jules docs](https://jules.google/docs).
 
 ## 3. What actually belongs in the file — official guidance vs. the empirical record
 
-[Anthropic's own docs](https://code.claude.com/docs/en/memory) state a concrete target: "under 200 lines per CLAUDE.md file... longer files consume more context and reduce adherence." No measurement is published behind that guidance.
+[Anthropic's own docs](https://code.claude.com/docs/en/memory) give a concrete target: "under 200 lines per CLAUDE.md file... longer files consume more context and reduce adherence." No measurement is published behind that guidance.
 
 **The only controlled tests of this specific claim contradict it.** Three independent studies, checked directly:
 
 - **ETH Zurich SRI Lab** ([arXiv:2602.11988](https://arxiv.org/abs/2602.11988), Gloaguen/Mündler/Müller/Raychev/Vechev) — SWE-bench Lite + a 138-issue benchmark, 4 agents including Claude Code and Codex. Context files did not generally improve task success (−0.5% to −2% for LLM-generated files, +4% for developer-written ones) and increased inference cost 19–23% regardless. Repository overviews specifically — "despite being popular and recommended" — proved unhelpful.
-- **Damon McMillan** ([arXiv:2605.10039](https://arxiv.org/abs/2605.10039), solo author, weaker provenance) — a factorial study across 1,650 real Claude Code sessions varying file length 25–500 lines, rule position, and structure: no detectable contrast on compliance after correction for multiple testing. The one real effect found was **within-session decay**: roughly 5.6% lower compliance odds per additional function generated, regardless of file design.
-- **Prakhar Khatri** ([arXiv:2607.27250](https://arxiv.org/abs/2607.27250), independent researcher, weakest provenance) — 288 runs, no significant effect on correctness from having a context file at all; near-miss failures traced to implementation skill, not missing repo knowledge.
+- **Damon McMillan** ([arXiv:2605.10039](https://arxiv.org/abs/2605.10039), solo author, weaker provenance) — factorial study across 1,650 real Claude Code sessions, varying file length 25–500 lines, rule position, structure. No detectable contrast on compliance after correction for multiple testing. The one real effect: **within-session decay** — roughly 5.6% lower compliance odds per additional function generated, regardless of file design.
+- **Prakhar Khatri** ([arXiv:2607.27250](https://arxiv.org/abs/2607.27250), independent researcher, weakest provenance) — 288 runs, no significant effect on correctness from having a context file at all. Near-miss failures traced to implementation skill, not missing repo knowledge.
 
-**The honest synthesis**: having a file at all matters (compliance went from 0% to 67.7% with vs. without one, per McMillan); its length and internal structure are not shown to. If anything decays adherence, it's session length, not file length — which is a stronger argument for hooks (deterministic enforcement) than for editing file structure.
+**Honest synthesis:** having a file at all matters — compliance went from 0% to 67.7% with vs. without one, per McMillan. Its length and internal structure are not shown to matter. If anything decays adherence, it's session length, not file length — a stronger argument for hooks (deterministic enforcement) than for editing file structure.
 
-Descriptively, [GitHub's own analysis of 2,500+ repositories](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) (Matt Nigh, GitHub Blog, 2025-11-19) found effective files converge on executable commands with flags, testing practices, real code-style examples over prose description, and explicit boundaries — "one real code snippet showing your style beats three paragraphs describing it." No length prescription given.
+Descriptively, [GitHub's own analysis of 2,500+ repositories](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) (Matt Nigh, GitHub Blog, 2025-11-19) found effective files converge on executable commands with flags, testing practices, real code-style examples over prose — "one real code snippet showing your style beats three paragraphs describing it." No length prescription given.
 
-**Compaction, answered directly by the docs**: root-level `CLAUDE.md` survives `/compact` — Claude re-reads it from disk and re-injects it. Nested files and `paths:`-scoped rules reload only when Claude reads files they apply to, so they effectively decay under compaction until re-triggered. A real argument for keeping load-bearing rules at root.
+**Compaction, answered directly by the docs:** root-level `CLAUDE.md` survives `/compact` — Claude re-reads it from disk and re-injects it. Nested files and `paths:`-scoped rules reload only when Claude reads files they apply to, so they decay under compaction until re-triggered. Argument for keeping load-bearing rules at root.
 
 ## 4. Nested files and the local-override pattern
 
-Nested `AGENTS.md` (root for global rules, per-subtree files only where a subtree genuinely differs) is a named, repeatable practice — confirmed via [Maximiliano Contieri](https://dev.to/mcsee/ai-coding-tip-014-use-nested-agentsmd-files-3iec) (O'Reilly author, cross-posted Medium/Substack/DEV) and [Simon Boudrias](https://dev.to/datadog-frontend-dev/steering-ai-agents-in-monorepos-with-agentsmd-13g0) (Datadog, DEV.to), who adds a useful counter-argument: proximity-based discovery only works if the agent is already working from that subfolder or is told to `@`-reference it — his fix is a root-level router file that explicitly dispatches to nested files by task type, not nesting alone.
+Nested `AGENTS.md` (root for global rules, per-subtree files only where a subtree genuinely differs) is a named, repeatable practice — confirmed via [Maximiliano Contieri](https://dev.to/mcsee/ai-coding-tip-014-use-nested-agentsmd-files-3iec) (O'Reilly author) and [Simon Boudrias](https://dev.to/datadog-frontend-dev/steering-ai-agents-in-monorepos-with-agentsmd-13g0) (Datadog).
 
-The local-override filename is `AGENTS.local.md`, not `AGENTS.md.local`. It's mostly convention, not tooling — Contieri himself hedges "support varies by tool; check your documentation." What's actually native: **Claude Code's `CLAUDE.local.md`** is documented and gitignore-friendly (with a real gotcha — it only exists in the worktree it was created in; use an `@~/.claude/...` import to share across worktrees), and **Codex CLI's `AGENTS.override.md`** is checked before `AGENTS.md` at both global and per-directory scope. opencode explicitly declined this ([issue #16110](https://github.com/anomalyco/opencode/issues/16110), closed "not planned"). Everywhere else, a file by that name is simply not read.
+Boudrias adds a counter-argument: proximity-based discovery only works if the agent is already working from that subfolder, or is told to `@`-reference it. His fix: a root-level router file that explicitly dispatches to nested files by task type, not nesting alone.
+
+The local-override filename is `AGENTS.local.md`, not `AGENTS.md.local`. Mostly convention, not tooling — Contieri himself hedges "support varies by tool; check your documentation."
+
+What's actually native:
+- **Claude Code's `CLAUDE.local.md`** — documented, gitignore-friendly. Real gotcha: it only exists in the worktree it was created in; use an `@~/.claude/...` import to share across worktrees.
+- **Codex CLI's `AGENTS.override.md`** — checked before `AGENTS.md` at both global and per-directory scope.
+- opencode explicitly declined this ([issue #16110](https://github.com/anomalyco/opencode/issues/16110), closed "not planned"). Everywhere else, a file by that name is simply not read.
 
 ## 5. ADRs as agent context — folklore, not yet a spec
 
-Both sources cited for a 2026 "agent-optimized ADR" trend check out as real, and are both vendor content marketing ([BrainGrid](https://www.braingrid.ai/blog/architecture-decision-records-for-ai-coding-agents), and [Actual AI](https://www.actual.ai/blog/agent-optimized-adrs)) rather than independent research — no quantitative validation in either. The mechanism-level argument (an agent blind to *why* a decision was made will confidently refactor the reason away) is plausible and untested. [`adr.github.io`](https://adr.github.io/) itself has no agent-related content as of this pass. The one attempt at a real standard, [`me2resh/agent-decision-record`](https://github.com/me2resh/agent-decision-record) ("AgDR" — records decisions *made by* an agent, not decisions fed *to* one, a different problem), sits at low star count, effectively solo-maintained. **Bottom line: there is no canonical agent-optimized ADR format yet** — worth knowing the idea, not worth adopting a specific template.
+Both sources cited for a 2026 "agent-optimized ADR" trend check out as real — [BrainGrid](https://www.braingrid.ai/blog/architecture-decision-records-for-ai-coding-agents) and [Actual AI](https://www.actual.ai/blog/agent-optimized-adrs) — but both are vendor content marketing, not independent research. No quantitative validation in either.
+
+The mechanism-level argument (an agent blind to *why* a decision was made will confidently refactor the reason away) is plausible and untested. [`adr.github.io`](https://adr.github.io/) itself has no agent-related content as of this pass.
+
+The one attempt at a real standard, [`me2resh/agent-decision-record`](https://github.com/me2resh/agent-decision-record) ("AgDR"), records decisions *made by* an agent, not decisions fed *to* one — a different problem. Low star count, effectively solo-maintained.
+
+**Bottom line: no canonical agent-optimized ADR format yet.** Worth knowing the idea, not worth adopting a specific template.
 
 ## 6. Drift, linting, and generation tooling — traction flagged bluntly
 
 - **[`agent-sh/agnix`](https://github.com/agent-sh/agnix)** — a real linter/LSP (400+ self-claimed rules across 9 tools) with editor plugins and a GitHub Action. The only tool in this category with anything resembling a real project around it.
-- One-person / near-zero traction, worth knowing but not depending on: [`severity1/claude-code-auto-memory`](https://github.com/severity1/claude-code-auto-memory) (auto-maintains CLAUDE.md via isolated agents, healthiest of the small ones but still solo, pre-1.0), [`BitRaptors/Archie`](https://github.com/BitRaptors/Archie) (near-zero forks — a low-adoption signal), [`giacomo/agents-lint`](https://github.com/giacomo/agents-lint) (the one tool that checks whether the file still matches the codebase, right idea, no adoption), [`felixgeelhaar/cclint`](https://github.com/felixgeelhaar/cclint) (the only one with an explicit size budget, ~10KB default warning threshold).
-- The CI check pattern (fail the build if `CLAUDE.md` isn't a symlink or a one-line `@AGENTS.md` import) is real and matches Anthropic's own suggested pattern — but note Windows needs Administrator/Developer Mode for symlinks, so the `@AGENTS.md` import is the portable version of this check.
-- Demand for native AGENTS.md support in Claude Code is real: [`anthropics/claude-code#6235`](https://github.com/anthropics/claude-code/issues/6235), open since 2025-08-21 with 5,000+ reactions — the largest open feature request on the tracker. Secondary reporting says Anthropic indicated in May 2026 that native support is "not planned for now"; no primary Anthropic statement was found to confirm this directly. <!-- VERIFY: primary source for Anthropic's "not planned" response to claude-code#6235 --> The documented workaround remains a symlink or `@AGENTS.md` import (see §4, §6 CI pattern above).
+- One-person / near-zero traction, worth knowing but not depending on:
+  - [`severity1/claude-code-auto-memory`](https://github.com/severity1/claude-code-auto-memory) — auto-maintains CLAUDE.md via isolated agents, healthiest of the small ones, still solo, pre-1.0.
+  - [`BitRaptors/Archie`](https://github.com/BitRaptors/Archie) — near-zero forks, a low-adoption signal.
+  - [`giacomo/agents-lint`](https://github.com/giacomo/agents-lint) — checks whether the file still matches the codebase, right idea, no adoption.
+  - [`felixgeelhaar/cclint`](https://github.com/felixgeelhaar/cclint) — the only one with an explicit size budget, ~10KB default warning threshold.
+- The CI check pattern (fail the build if `CLAUDE.md` isn't a symlink or a one-line `@AGENTS.md` import) is real and matches Anthropic's own suggested pattern. Windows needs Administrator/Developer Mode for symlinks, so the `@AGENTS.md` import is the portable version.
+- Demand for native AGENTS.md support in Claude Code is real: [`anthropics/claude-code#6235`](https://github.com/anthropics/claude-code/issues/6235), open since 2025-08-21 with 5,000+ reactions — the largest open feature request on the tracker. Secondary reporting says Anthropic indicated in May 2026 that native support is "not planned for now"; no primary Anthropic statement confirms this directly.
+<!-- VERIFY: primary source for Anthropic's "not planned" response to claude-code#6235 -->
+  Workaround: a symlink or `@AGENTS.md` import (§4, above).
 
 ## 7. Anti-patterns and failure modes
 
-**The strongest-sourced risk in this whole doc: a cloned repo's own AGENTS.md is a live prompt-injection vector, not a theoretical one.** [NVIDIA's AI Red Team](https://developer.nvidia.com/blog/mitigating-indirect-agents-md-injection-attacks-in-agentic-environments/) (Daniel Teixeira, 2026-04-20) demonstrated a real chain: a malicious dependency detects it's running inside an agent's environment, writes an `AGENTS.md` claiming "absolute authority" that supersedes the user's own instructions, and — worse — instructs the agent's own PR-summarization step to hide the change from reviewers. Separately, [Backslash Security](https://www.backslash.security/blog/openai-codex-injection-in-agents-md-exfiltrating-credentials) (2026-07-06) found OpenAI Codex CLI's non-interactive `exec` mode would silently follow attacker-controlled AGENTS.md instructions to exfiltrate AWS/npm/git credentials; OpenAI shipped a partial model-level fix, but the underlying claim — safety gating is mode-dependent, not invariant — stands unaddressed. **Practical read: don't auto-trust a cloned repo's instruction file the way you'd trust your own.**
+**The strongest-sourced risk in this doc: a cloned repo's own AGENTS.md is a live prompt-injection vector, not a theoretical one.**
 
-Other named failure modes: Anthropic's own docs admit contradictory rules get resolved arbitrarily, and explicitly ship a `claudeMdExcludes` setting because monorepo ancestor files from *other teams* pollute context by default. [Clay Tercek's independent critique, "AGENTS.md Is Not a README"](https://tercek.me/blog/agents-md-is-not-readme/) adds two sharp points: committing an instruction file imposes one person's workflow on a whole team, and personal local files don't track your git branch, so they go stale by construction. A widely-reported (but not independently primary-sourced in this pass) 2026 incident — Apple shipping internal `CLAUDE.md` files inside a consumer app — is worth logging as a category example (committed instruction files leaking internal context), even though the specifics aren't independently confirmed here.
+[NVIDIA's AI Red Team](https://developer.nvidia.com/blog/mitigating-indirect-agents-md-injection-attacks-in-agentic-environments/) (Daniel Teixeira, 2026-04-20) demonstrated a real chain: a malicious dependency detects it's running inside an agent's environment, writes an `AGENTS.md` claiming "absolute authority" that supersedes the user's own instructions — and instructs the agent's own PR-summarization step to hide the change from reviewers.
+
+[Backslash Security](https://www.backslash.security/blog/openai-codex-injection-in-agents-md-exfiltrating-credentials) (2026-07-06) found OpenAI Codex CLI's non-interactive `exec` mode would silently follow attacker-controlled AGENTS.md instructions to exfiltrate AWS/npm/git credentials. OpenAI shipped a partial model-level fix; the underlying claim — safety gating is mode-dependent, not invariant — stands unaddressed.
+
+**Practical read: don't auto-trust a cloned repo's instruction file the way you'd trust your own.**
+
+Other named failure modes:
+- Anthropic's own docs admit contradictory rules get resolved arbitrarily, and ship a `claudeMdExcludes` setting because monorepo ancestor files from *other teams* pollute context by default.
+- [Clay Tercek's critique, "AGENTS.md Is Not a README"](https://tercek.me/blog/agents-md-is-not-readme/) adds two sharp points: committing an instruction file imposes one person's workflow on a whole team, and personal local files don't track your git branch, so they go stale by construction.
+- A widely-reported (but not independently primary-sourced here) 2026 incident — Apple shipping internal `CLAUDE.md` files inside a consumer app — worth logging as a category example (committed instruction files leaking internal context), even unconfirmed.
 
 ## 8. Practical read for this setup
 
-Consistent with `topic-index.md`'s framing constraint: research and write any future instruction-file work provider-agnostically, `AGENTS.md` first, `CLAUDE.md`/others as thin `@`-imports — not the reverse. The empirical record (§3) argues against spending effort trimming file length and toward: keep root-level content load-bearing (it survives compaction; nested content doesn't until re-triggered), don't blanket-trust a cloned repo's own instruction file (§7), and treat within-session decay as the thing hooks should compensate for, not file editing. Once `~/.claude/CLAUDE.md` is revisited per `_architecture/BACKLOG.md`'s flagged item (unreviewed merge of an old personal version and an AI-suggested rewrite), this doc's §2–4 is the reference to check it against.
+Consistent with `topic-index.md`'s framing constraint: research and write any future instruction-file work provider-agnostically — `AGENTS.md` first, `CLAUDE.md`/others as thin `@`-imports, not the reverse.
+
+The empirical record (§3) argues against spending effort trimming file length, and toward:
+- Keep root-level content load-bearing — it survives compaction, nested content doesn't until re-triggered.
+- Don't blanket-trust a cloned repo's own instruction file (§7).
+- Treat within-session decay as the thing hooks should compensate for, not file editing.
+
+Once `~/.claude/CLAUDE.md` is revisited per `_architecture/BACKLOG.md`'s flagged item (unreviewed merge of an old personal version and an AI-suggested rewrite), this doc's §2–4 is the reference to check it against.
 
 ## Sources
 

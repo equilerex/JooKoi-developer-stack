@@ -17,44 +17,11 @@ The durability half of this is the same shape as `_architecture/plans/decisions/
 
 Needs its own research pass before any decision. Not every open question here needs a full topic doc first, though — a narrower "what's current best practice for X" question can just be ad hoc discovery (research it, present findings, let the user decide), same as this whole planning round did. Reserve a full doc for things that earn a lasting reference.
 
-## Memory system
-
-Status: MOVED
-
-Full design done 2026-08-30, lives in `_architecture/plans/2026-08-30-jookoi-paper-trail.md`. Not a backlog item any more; build order 0–8 is in that doc, status tracked in `_architecture/TODO.md`.
-
-What it settled, so it isn't re-solved here: the `_jookoi-` prefix as the public/private switch, the project-level file set (`ARCHITECTURE.md`, `TODO.md`, `BACKLOG.md`, `plans/`, `archive/`), feature-local `CONTEXT.md`, the vault repo layout, the bidirectional manual sync script, and one skill (`jookoi-paper-trail`) rather than two.
-
-The multi-checkout sync item above, the hook-triggered knowledge-file idea, and the global-developer-location question are all answered by that design — reconcile against it, don't solve independently. `decisions/003-memory-ledger-picks.md`'s open centralized-memory design is the vault.
-
-Vault hosting is settled too: one vault per environment, never shared — home and each employer keep their own, and this repo is the only thing that crosses, as the seed. No open blockers.
-
-## AGENTS.md instances — one file per context, not one file
+## AGENTS.md instances — repo-flavour variants
 
 Status: OPEN
 
-A single `AGENTS.md` can't serve every context. Three distinct instances, resolved 2026-08-30:
-
-- **Global instance** — `~/.agents/AGENTS.md`, the machine-level personal ruleset, inherited everywhere. Written.
-- **This repo's own instance** — repo-root `AGENTS.md`, rules for developing *this* repo specifically. Not a template. Written.
-- **Seed-template instance** — a copyable bootstrap `AGENTS.md` for brand-new projects. Written 2026-09-01 as `my-repo-setup/AGENTS.md` (a bracketed starter template, not this repo's own ruleset) — no separate `seed/` folder; `my-repo-setup/` fills that role.
-
-Still open, not resolved by the above:
-
-- **Repo-flavour instances (possible)** — variants per project type (e.g. Angular vs. Stencil), layered on top of the seed instance once it exists. Gated on a second real flavour existing.
-- How instances compose (inherit? override? both?) once more than one is in play at once. Remaining half of `stack-distribution.md`'s open question 2.
-
-## Per-feature-area LLM context files
-
-Status: MOVED
-
-Resolved by the memory-system design — this is the feature-level `CONTEXT.md`/`_jookoi-CONTEXT.md` convention in `_architecture/plans/2026-08-30-jookoi-paper-trail.md`. Prior art (Malloy's CONTEXT.md convention, the `llm-context-md` proposal, the Codebase Context Specification, all logged in `decisions/003-memory-ledger-picks.md`) already folded in. Not an open item any more.
-
-## Corporate/restricted developer environments
-
-Status: MOVED
-
-Moved to `ai-tooling-crash-course-for-developers/TODO.md` — it's crash-course-content work, not repo-construction, so it lives beside the docs it belongs to rather than here.
+Three instances exist and are settled (global, this-repo's-own, seed template — see `stack-distribution.md`, 2026-09-02: separate jobs, nothing composes). One thing stays open: **repo-flavour variants** — per-project-type versions of the seed template (e.g. Angular vs. Stencil). Gated on a second real flavour existing; not built speculatively.
 
 ## Reusable prompts — confirmed research gap
 
@@ -75,12 +42,6 @@ Corrected 2026-08-30: graphify output is not cheap to regenerate (LLM-backed ext
 - **Still open before building anything:** confirm `graph.json`/`LESSONS.md` don't embed machine-specific absolute paths (test via the cheap `--code-only` extraction, not a full LLM run) — if they do, the mirrored copy isn't portable across machines and the pattern needs a path-rewrite step.
 
 Not applicable to this repo right now (commit is allowed here) — logged so the pattern exists when a restricted repo needs it.
-
-## Stray root `graphify-out/`
-
-Status: CLOSED
-
-Resolved 2026-09-02. Not a misconfiguration: root `graphify-out/` is the `/graphify` *skill's* hardcoded output path (cwd-relative, `--out` ignored), separate from the npm `gr*` scripts which target `_architecture/graphify/`. It is gitignored; the "not gitignored" premise was wrong. Output-location call recorded as decision 012.
 
 ## Hooks / dotfiles — standalone deep-dive doc gap
 
@@ -164,8 +125,14 @@ Read in full 2026-09-01. Per user direction ("leave the old file in place... fol
 
 No pick made on which of the above gets a real research/writing pass — this entry only inventories the gap per the routing tree's "intended work, not yet scoped" bucket.
 
-## Decide when a repo actually earns a graphify pass
+## ai-tooling-crash-course-for-developers/TODO.md doesn't match the repo's TODO convention
 
 Status: OPEN
 
-The setup bundle documents how and why, but not when — no rule for which repos justify the extraction cost, or how often to re-run. Open question carried over from the bundle's placeholder context file.
+It's a flat dated pending-topics list, not the documented `## Context` + `## Checklist` shape from AGENTS.md/jookoi-paper-trail. Surfaced during the 2026-09-06 casual-technical rewrite pass across ai-tooling-crash-course-for-developers/ (24 files, word-level + structural/ADHD-density pass, plus a filename-discoverability audit — no renames needed, only cross-link disambiguation added between loop-engineering-agent-loops.md and review-and-verification-tooling.md). Not fixed inline per no-scope-creep. Decide whether this sub-TODO should adopt the standard shape or is intentionally a different kind of file (a flat topic-tracking list, not a session working-set).
+
+## Setup flows should be agent-guided skills, not manual scripts/copy-paste
+
+Status: OPEN
+
+Current setup procedures (jookoi-paper-trail bootstrap, Graphify wiring, Obsidian vault linking) rely on manual scripts and copy-paste steps. Proposal: build a setup-guiding skill (per tool, or one umbrella skill) that walks the user through setup interactively — similar to how tools like OpenClaw avoid rigid setup by letting a skill adapt to whatever's already on the machine. Key requirement: when a setup step touches a shared file the user already owns (e.g. ~/.claude/AGENTS.md), the skill must never overwrite wholesale — it should read what's there, propose a merge/diff, and let the user accept/reject, never auto-rewrite. Applies to: jookoi-paper-trail's own onboarding (it currently works out of the box but wasn't deliberately designed as a guided setup flow), Graphify setup, Obsidian vault connection. Rationale: this stack's tooling changes fast, so a skill-guided approach scales better over time than static setup scripts, which need manual upkeep as things change.

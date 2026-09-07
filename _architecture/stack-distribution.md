@@ -30,14 +30,20 @@ Resolves open questions 1 and 3 below:
 
 **Revisit condition**: if the personal skill library grows enough to be worth *distributing to others* (not just self-use across machines), reconsider the plugin/marketplace path as an optional Claude-Code-specific packaging layer on top of the plain-file base — not a replacement for it. That's likely a separate project at that point, not a restructure of this repo.
 
-Q2 (repo-layout prior art — self-curating repo vs. distributable content, without root-file collision) stays open below; it's not plugin-dependent and still applies to the plain-folder approach (this repo's own root `AGENTS.md`/skills vs. the shippable `skills/`/`prompts/`/`utility-scripts/` still need a clean non-colliding split).
+**Revisited (2026-09-05, [decision 014](./plans/decisions/014-personal-plugin-marketplace-as-optional-extension-layer.md))**: taken, but as a second repo (`jookoi-ai-market`, name provisional), not a folder inside this one. This repo's drop-in-folder distribution (above) stays the answer for baseline, universal, harness-agnostic content. The plugin repo is a separate, optional distribution surface for richer/domain-specific tooling — one broad personal plugin (`jookoi-dev`) to start, not fragmented per-topic plugins. Layering, not replacement: this repo works with no knowledge of the plugin repo existing.
+
+## Decision (2026-09-02) — no collision to solve, Q2 closed
+
+The premise behind Q2 was wrong. Global `AGENTS.md` (`~/.agents/`) and a repo's own root `AGENTS.md` serve different jobs and never share a file — one is machine-level personal behaviour, the other is how to work in this specific repo. The seed template (`my-repo-setup/AGENTS.md`) is read by no agent at all; it is inert content that travels via git and only becomes live once copied into a new repo's root, where it is that repo's own instance. Three instances, three non-overlapping jobs, nothing to inherit or override.
+
+What remains is not a composition question: repo-flavour variants (Angular vs. Stencil) stay gated on a second real flavour existing, per the anti-speculative-infrastructure rule already applied elsewhere.
 
 ## Open research questions
 
 Expectations for whoever picks this up (cowork, not inline): identify concrete existing tools/conventions/prior art; verify each is current and actually maintained; compare directly against the requirements above; distinguish viable options from abandoned/unsuitable prior art; produce a small set of realistic architecture options with tradeoffs and remaining unknowns. Not expected to choose the final architecture — just make the eventual decision well-informed.
 
 1. ~~Does a current, maintained package-manager-style tool exist for syncing Claude Code (or cross-tool) skills as dependencies?~~ **Resolved above** — Claude Code plugin/marketplace system exists and works, deliberately not adopted yet (harness-agnostic requirement).
-2. Is there established prior art for a repo that both (a) curates and self-maintains its own process and (b) produces distributable content meant to be copied into other projects' `.agents/`, without the root instruction file colliding with either the maintaining agent's own global config or the copied-out content's intended behavior elsewhere? (Monorepo/template-repo conventions, Cookiecutter-style seed-repo patterns, AGENTS.md-specific precedent are the likely places to check.) **Still open.**
+2. ~~Prior art for a repo that both self-maintains and ships copy-out content, without root-instruction-file collision.~~ **Closed above** — the collision does not exist; the three instances have separate jobs and the seed one is not read by any agent.
 3. ~~Drop-in-folder vs. an interactive plugin-installer-with-selector.~~ **Resolved above** — drop-in folder.
 
 ## Related, not this doc

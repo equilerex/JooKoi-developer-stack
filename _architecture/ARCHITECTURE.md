@@ -37,6 +37,10 @@ The one thing worth knowing without opening either: `TODO.md` and `archive/` are
 
 Mechanics belong to the script and judgement belongs to the model, deliberately: every defect the first dogfooding pass surfaced was bookkeeping (heading grammar, ordering, a duplicate entry, a rotation that never ran), which is the class of thing an LLM tracks badly across sessions.
 
+## Optional plugin extension layer
+
+This repo stays the portable baseline — universal, minimal-dependency, copy-out. Richer optional tooling (framework-specific workflows, shared references/assets/scripts, anything that would need hooks or MCP) is deliberately kept out of it and maintained in a separate personal plugin repo instead, layered on top rather than replacing this one: the baseline works alone, the plugin repo is an opt-in extension. `skill` (one reusable capability), `plugin` (an installable ecosystem of skills plus shared resources), and `marketplace` (the plugin repo's catalog surface) are three distinct things — loose baseline skills here remain valid for small, universal capabilities; the plugin repo is for richer or domain-specific ones. See [decision 014](./plans/decisions/014-personal-plugin-marketplace-as-optional-extension-layer.md) and `stack-distribution.md`.
+
 ## Where the trail lives
 
 There is no separate `planning/` staging folder — it was redistributed 2026-08-30 into the designed file set: general-education research went to `ai-tooling-crash-course-for-developers/`, kept decision records to `_architecture/plans/decisions/`, open architecture questions to `_architecture/stack-distribution.md`. Someone using `AGENTS.md` or a skill shouldn't have to read the research trail to use it, but the trail stays available for anyone (including a future self) who wants to know why something is the way it is.
