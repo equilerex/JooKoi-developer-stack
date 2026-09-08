@@ -15,6 +15,7 @@ Web research routes to cowork, not inline. The user picks commit points; nothing
 
 ## Checklist
 
+- [x] Root `README.md` rewritten for reading-fatigue: shorter sentences, tighter tables, cut rhetorical padding (triads, restated clauses). Content and links unchanged, ~30% shorter
 - [x] Plugin-extension-layer architecture decided (decision 014) — separate `jookoi-ai-market` repo, one broad `jookoi-dev` plugin, layered on top of this repo not replacing it. Doc-only: `ARCHITECTURE.md`, `README.md`, `stack-distribution.md` updated to point at it. No repo created, nothing migrated
 - [x] Root `graphify-out/` explained — it is the `/graphify` *skill's* output, not a script misconfiguration. The skill hardcodes `graphify-out/` relative to cwd and ignores `--out` entirely (`~/.claude/skills/graphify/SKILL.md:53`, `:288`); `.graphify_root` holds `.`, so it came from a run at repo root. Already gitignored at `.gitignore:7` — the earlier "un-gitignored" claim here was wrong
 - [x] Output-location call settled (decision 012) — LLM output is source, so it lives in the tracked dir; converge by running the skill from inside it (`cd _architecture/graphify && /graphify ../..`). Several repos get one designated main instance hosting the graph, documented in the bundle README, no tooling built

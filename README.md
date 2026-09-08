@@ -1,75 +1,69 @@
 # JooKoi Developer Stack
 
-A personal, cross-project AI dev-tooling stack: the skills, prompts, conventions and global config I actually use, plus the research trail that decided each pick. Portable, versioned, recoverable if a machine dies.
+Personal, cross-project AI dev-tooling stack. Skills, prompts, conventions, global config — plus the research that justified each pick. Plain files, portable, survives a dead machine.
 
-Not tied to any product repo (see `JooKoi-frontpage-to-the-open-web` for that one).
+## Why this exists
 
-## The pitch
+Building your own dev toolkit used to cost too much. Only the obsessive few did it; everyone else ran whatever their employer handed them. AI changes that math — curating, testing, and maintaining a personal toolkit now costs a fraction of what it did, and the cost keeps dropping. That makes it every developer's job, not a hobby for the motivated minority. Skip it and the gap to developers who do compounds. This repo is one person's toolkit, built on that bet.
 
-AI coding tools change faster than anyone can evaluate them properly, and most of what's written about them is vendor copy or a hot take with nothing behind it. This repo is one developer's answer to that, and it does three separable things.
+## What it does
 
-It **teaches**. `ai-tooling-crash-course-for-developers/` is a self-study reading path covering what a working developer actually needs to know: context files, MCP, subagents, sandboxing, token economics, local models, supply-chain risk. Sixteen topics, each with a real research pass behind it.
+1. **Teaches** — `ai-tooling-crash-course-for-developers/` is a 16-topic reading path (context files, MCP, subagents, sandboxing, token economics, local models, supply chain). Each topic has a real research pass behind it.
+2. **Decides** — nothing gets added because it trended. Every pick needs a named practitioner, current docs, or repo-health signals behind it. Every real decision gets a numbered record in `_architecture/plans/decisions/`.
+3. **Ships** — `my-global-setup/` and `my-repo-setup/` are copy-paste bundles. No installer, no generator. Copy the folder, done.
 
-It **decides**. Nothing enters this repo because it trended. Every opinionated pick clears an evidence bar (a named practitioner with a checkable identity, current docs, or repo-health signals) and every call that mattered has a numbered record in `_architecture/plans/decisions/` stating what was rejected and why. Research presents options. It never picks. The failure mode being avoided is a stack assembled from whatever one research session happened to surface.
+## Core ideas
 
-It **ships**. `my-global-setup/` and `my-repo-setup/` are literal copy-paste bundles. No generator, no install script, no framework. Read the folder, copy it, done. Generated config is hard to browse and hard to modify, which is the opposite of what this whole thing optimises for.
+- **Plain files outlive vendors.** No binaries, no install step, no migration when the harness changes. Any agent, editor, or `grep` can read it all.
+- **Adopted from need, not speculation.** The failure mode isn't "we lack a feature" — it's "nobody updates the notes." So keep it cheap to keep true.
+- **Apps are opt-in, swappable.** graphify is one example. The context underneath doesn't depend on it.
+- **Dotfile managers are rejected** — they'd own the core layer itself. See [decision 009](./_architecture/plans/decisions/009-no-binary-dependencies.md).
+- Best for solo work or repos without an agreed team system. If your team has real shared infrastructure, use that instead.
 
-### The ideology, stated plainly
-
-Plain markdown, harness-agnostic, adopted from demonstrated need rather than speculative completeness.
-
-The bet is that **plain files outlive vendors**. Nothing here needs migrating when the harness changes, and any agent, editor, `grep` or `git` can read all of it. The thing being optimised is not capability, it's how cheap the system is to keep true, because that's what decides whether it survives a real week of work. The failure mode is never "we lack a memory database". It's "nobody updates the notes".
-
-**The core stays plain text, no binaries, no install step.** Notes, plans, and scripts that ship in this layer run in a runtime the machine already has, and degrade to a written spec a human can follow where even that is missing, so they work on a locked corporate machine with no install request or security scan first. Apps are allowed on top of that, graphify is one, but they're opt-in, not required, and swappable: pick a different tool tomorrow and the context underneath doesn't move. Dotfile managers specifically are rejected, not because they're apps, but because they'd own the core layer itself ([decision 009](./_architecture/plans/decisions/009-no-binary-dependencies.md)).
-
-This fits best when you are **not** working under a repo-level agreed system: solo work, a repo you don't own, a team that hasn't converged. Where a team has real shared infrastructure, use theirs.
-
-### This repo vs. the plugin marketplace
+## This repo vs. the plugin marketplace
 
 ```
 JooKoi Developer Stack   → portable baseline (this repo)
 JooKoi Plugins           → optional richer tooling (separate repo, not yet created)
 ```
 
-This repo stays the universal baseline: global `AGENTS.md`, small loose skills, prompts, conventions, research and decision records — things wanted essentially everywhere, copy-out, no install step. Richer optional tooling — framework-specific workflows, domain-specific skill bundles, anything needing shared assets/scripts or eventually hooks/MCP — belongs in a separate personal plugin repo that layers on top of this one rather than replacing it: the baseline works standalone, the plugin repo is opt-in. See [decision 014](./_architecture/plans/decisions/014-personal-plugin-marketplace-as-optional-extension-layer.md) and `_architecture/stack-distribution.md`.
+This repo is the universal baseline — global `AGENTS.md`, small skills, prompts, conventions, research/decisions. Copy-out, no install. Framework-specific or heavier tooling belongs in a separate plugin repo layered on top. See [decision 014](./_architecture/plans/decisions/014-personal-plugin-marketplace-as-optional-extension-layer.md).
 
-### Four layers, and what's tracked
+## The four layers
 
-The whole public/private split comes from one rule: the **`_jookoi-` prefix**. No prefix means committed. `_jookoi-` means globally gitignored (`~/.gitignore: _jookoi-*`) and mirrored to a private vault instead. Both live side by side in the same folder, so a shared base file can carry a private layer beside it. No negation rules, no per-repo setup, and the default fails safe. Forget to configure something and nothing leaks. Worst case a note doesn't get committed.
+One rule decides what's public: the **`_jookoi-` prefix**. No prefix = committed. `_jookoi-` prefix = globally gitignored, mirrored to a private vault instead. Both can sit in the same folder.
 
 | Layer | Lives at | Tracked | Travels |
 |---|---|---|---|
-| Personal / global | `~/.agents/` (`AGENTS.md`, `skills/`, `prompts/`) | in this repo, as `my-global-setup/` | every repo, every machine, work and home |
-| Repo, shared | `AGENTS.md`, `_architecture/`, feature-level `CONTEXT.md` | yes, in that repo | with the repo |
+| Personal / global | `~/.agents/` | in this repo, as `my-global-setup/` | every repo, every machine |
+| Repo, shared | `AGENTS.md`, `_architecture/`, `CONTEXT.md` | yes, in that repo | with the repo |
 | Repo, private | `_jookoi-architecture/`, `_jookoi-CONTEXT.md` | never | to the vault |
-| Vault | a separate repo, one per environment | yes, in the vault | nowhere |
+| Vault | separate repo, one per environment | yes, in the vault | nowhere |
 
-That third row is the reason the prefix exists. Work repos, client repos and anything you don't own still need notes, and those notes still need to survive a fresh clone. Same mechanism covers the other case: thinking, doubts, known flaws and security observations that shouldn't sit in a public history.
+Work repos, client repos, anything you don't own — still need private notes that survive a fresh clone. Same mechanism handles that.
 
-### The vault, and the multi-repo problem
+## The vault
 
-The vault is a separate git repo holding everything the prefix marks private, in two halves: `repo-mirrors/<repo-name>/` preserving real relative paths, and `notes/` for material that was never about code (projects, research, learning, people). Sync is manual and bidirectional. Push is additive, because a stale branch must never delete content written from a newer checkout. Pull writes only into folders that already exist locally, which is what stops dead structure being resurrected. Conflicts produce a report, never a silent overwrite.
+A separate git repo. Two halves: `repo-mirrors/<repo-name>/` (real relative paths) and `notes/` (non-code material). Sync is manual, bidirectional, additive on push (never deletes), and writes only into folders that already exist locally on pull. Conflicts get a report, never a silent overwrite.
 
-Repo identity is the **leaf folder name**. Checkouts live under themed grouping folders (`repos/serenity/<repo>`, `repos/nostromo/<repo>`) that vary, but the repo folder name doesn't, so parallel checkouts of the same repo agree on their vault location for free. Sync verifies rather than derives, comparing `git remote get-url origin` against what the mirror recorded on first sync and stopping on mismatch.
+Repo identity = **leaf folder name**, so parallel checkouts under different grouping folders still agree on vault location. Sync checks `git remote get-url origin` against what was recorded on first sync, and stops on mismatch.
 
-**One vault per environment, and they never touch.** Home has one. Each employer has its own. No shared remote, no sync between them, no path for a note to cross. That makes hosting a non-question: each vault gets whatever remote its own environment permits, and work observations physically cannot reach a personal remote because they live in a different repo entirely. A new employer is a clean start by construction. The accepted cost is that a genuinely portable personal note written at work has to be carried across by hand, which is the correct friction.
+**One vault per environment. They never touch.** Home has one, each employer has their own, no shared remote. A new job is a clean start. Only cost: a genuinely personal note written at work has to be moved by hand.
 
-**The only thing that crosses environments is this repo.** It carries the mechanism and no content. Setting up anywhere is the same three steps: clone the stack, copy the bundles, create an empty vault beside it.
+**Only this repo crosses environments** — mechanism only, no content. Setup anywhere: clone the stack, copy the bundles, create an empty vault.
 
-### What the stack actually asserts
+## What the stack asserts
 
-The picks that shape everything else, most of them habits rather than tooling:
+- **Sessions stay short.** Instruction-following decays as sessions grow. Fresh context is the cheapest compliance mechanism there is.
+- **Ask, don't tell.** Stating a conclusion before requesting review raises sycophancy risk.
+- **Load-bearing rules get re-injected, not just written down.** Compaction drops standing instructions silently — `TODO.md`'s Context header exists for this.
+- **Compiler and tests are the only oracle.** Model prose doesn't correlate with correctness. Cap iteration at two passes.
+- **Consensus isn't evidence.** Agents agreeing is correlated error, not confirmation. A cold read from a different model family beats any number of self-critiques.
+- **No new dependency without a registry check.** Package hallucination happens across every model — a second opinion won't catch it.
+- **Never bulk-generate context.** `CONTEXT.md` earns its place the first time real work happens in a folder. Mass-produced context is wrong on arrival.
+- **Don't build a framework for a bounded annoyance.** Sometimes just eat the cost.
 
-- **Sessions stay short.** Instruction adherence decays measurably as a session grows. One coherent unit of work, then clear. Fresh context is the primary compliance mechanism and it costs nothing.
-- **Ask, don't tell.** Never state a conclusion before requesting review. Stating certainty raises sycophancy, and phrasing beats any system-prompt instruction at suppressing it.
-- **Load-bearing rules must be re-injected, not merely present.** Compaction silently drops standing instructions, so anything that must hold lives where it gets re-injected from disk or is pushed back in by a hook. This is what `TODO.md`'s Context header and the end-of-turn update gate are for.
-- **Compiler and tests are the only oracle.** Model prose is uncorrelated with correctness, and a model endorses a large share of its own drift. Iteration capped at two, because past that it's noise. Static analysis stays for style, not correctness.
-- **Consensus is not evidence.** Multiple agents agreeing is correlated error. A cold reader from a distant model family is worth more than any number of self-critique passes.
-- **No new dependency without a registry check.** Package hallucination is model-agnostic and asking a second model does not help, because the same names get invented by all of them.
-- **Never bulk-generate context.** A `CONTEXT.md` earns its place the first time real work happens in that folder. Mass-produced context is the unmaintained bucket this whole design exists to avoid, and it's mostly wrong on arrival.
-- **Don't build a framework to fix a generated-file problem.** Where a gap is annoying but bounded, budget the annoyance.
-
-The connective tissue holding it together is `jookoi-paper-trail`: fixed file names, fixed places, one entry grammar, and a small skill doing the bookkeeping so nobody has to remember it. That's the red string. `jookoi-paper-trail.md` is the map.
+`jookoi-paper-trail` is the connective tissue: fixed file names, fixed places, one entry format, a skill that does the bookkeeping. Start with `jookoi-paper-trail.md`.
 
 ## Where to find things
 
@@ -77,64 +71,62 @@ The connective tissue holding it together is `jookoi-paper-trail`: fixed file na
 
 | | |
 |---|---|
-| [`ai-tooling-crash-course-for-developers/README.md`](./ai-tooling-crash-course-for-developers/README.md) | Start here. The reading path. |
-| [`topic-index.md`](./ai-tooling-crash-course-for-developers/topic-index.md) | The map: every topic, marked known / new / disagree / wants-deeper. Drives everything else. |
-| [`topics/`](./ai-tooling-crash-course-for-developers/topics/) | 16 deep-dive docs, one per researched topic. |
-| [`TODO.md`](./ai-tooling-crash-course-for-developers/TODO.md) | Subtopics identified but not yet written. |
+| [`ai-tooling-crash-course-for-developers/README.md`](./ai-tooling-crash-course-for-developers/README.md) | Start here — the reading path. |
+| [`topic-index.md`](./ai-tooling-crash-course-for-developers/topic-index.md) | Every topic, tagged known / new / disagree / wants-deeper. |
+| [`topics/`](./ai-tooling-crash-course-for-developers/topics/) | 16 deep-dive docs. |
+| [`TODO.md`](./ai-tooling-crash-course-for-developers/TODO.md) | Subtopics identified but not written yet. |
 
 **Curated lists**
 
 | | |
 |---|---|
-| [`_ai-tooling-recommendations.md`](./ai-tooling-crash-course-for-developers/_ai-tooling-recommendations.md) | What to actually use: repos, products, protocols. Evidence bar enforced. |
-| [`_inspiration-and-staying-current.md`](./ai-tooling-crash-course-for-developers/_inspiration-and-staying-current.md) | Who and where to follow: newsletters, named practitioners, communities. |
-| [`EXPLORE.md`](./EXPLORE.md) | Unresearched pointers. Not a queue, not a commitment. Promoted to `topic-index.md` when something earns a real pass. |
+| [`_ai-tooling-recommendations.md`](./ai-tooling-crash-course-for-developers/_ai-tooling-recommendations.md) | What to actually use — repos, products, protocols. |
+| [`_inspiration-and-staying-current.md`](./ai-tooling-crash-course-for-developers/_inspiration-and-staying-current.md) | Who to follow — newsletters, practitioners, communities. |
+| [`EXPLORE.md`](./EXPLORE.md) | Unresearched pointers. Not a queue, not a commitment. |
 
-**Opinions, clearly labelled as such**
+**Opinions (labelled as such, kept separate from verified content)**
 
 | | |
 |---|---|
-| [`personal-guidelines/developer-stack-tailoring.md`](./personal-guidelines/developer-stack-tailoring.md) | Personal takes on building out a stack, including the corporate-locked-PC constraints. |
-| [`personal-guidelines/prompting-and-instructions.md`](./personal-guidelines/prompting-and-instructions.md) | Personal takes on writing instructions for agents. Feeds picks elsewhere in the repo. |
-
-These are separate from the researched content on purpose. Everything in `personal-guidelines/` is opinion, not consensus, and it's kept out of the docs that claim to be verified.
+| [`personal-guidelines/developer-stack-tailoring.md`](./personal-guidelines/developer-stack-tailoring.md) | Building out a stack, corporate-locked-PC constraints. |
+| [`personal-guidelines/prompting-and-instructions.md`](./personal-guidelines/prompting-and-instructions.md) | Writing instructions for agents. |
 
 **Copy-out bundles**
 
 | | |
 |---|---|
-| [`my-global-setup/`](./my-global-setup/) | Goes to `~/.agents/`. Global `AGENTS.md`, the gitignore snippet, and the skills meant to ship anywhere (`jookoi-paper-trail`, `find-docs`, `jookoi-casual-writer`). |
-| [`my-repo-setup/`](./my-repo-setup/) | Goes to a new repo's root. Seed-template `AGENTS.md` with bracketed slots to fill. |
-| [`utility-scripts/`](./utility-scripts/) | Build tooling for *this* repo only: `vault-sync.js`, graphify config, repo-local hooks. Not shipped. |
+| [`my-global-setup/`](./my-global-setup/) | → `~/.agents/`. Global `AGENTS.md`, gitignore snippet, portable skills. |
+| [`my-repo-setup/`](./my-repo-setup/) | → new repo's root. Seed-template `AGENTS.md`. |
+| [`utility-scripts/`](./utility-scripts/) | Build tooling for *this* repo only. Not shipped. |
 | [`prompts/`](./prompts/) | Reusable ad-hoc prompts. Barely started. |
 
-There are three `AGENTS.md` instances and they're never conflated: the global one (`~/.agents/AGENTS.md`, tracked copy in `my-global-setup/.agents/`), this repo's own root [`AGENTS.md`](./AGENTS.md) which is rules for developing this repo and is not shippable, and the seed template in `my-repo-setup/`. Root [`CLAUDE.md`](./CLAUDE.md) is one line importing `AGENTS.md`, because Claude Code doesn't read `AGENTS.md` natively ([decision 007](./_architecture/plans/decisions/007-agents-md-claude-code-bridge.md)).
+Three separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.agents/AGENTS.md`, mirrored in `my-global-setup/.agents/`), this repo's own root [`AGENTS.md`](./AGENTS.md) (rules for developing this repo, not shippable), and the seed template in `my-repo-setup/`. Root [`CLAUDE.md`](./CLAUDE.md) just imports `AGENTS.md` — Claude Code doesn't read `AGENTS.md` natively ([decision 007](./_architecture/plans/decisions/007-agents-md-claude-code-bridge.md)).
 
 **The convention**
 
 | | |
 |---|---|
-| [`jookoi-paper-trail.md`](./jookoi-paper-trail.md) | What it is: privacy switch, folder layout, pipeline, behaviour rules, tooling. Read this one. |
-| [`_architecture/plans/2026-08-30-jookoi-paper-trail.md`](./_architecture/plans/2026-08-30-jookoi-paper-trail.md) | Why it's shaped that way, the prior art it was checked against, and where the build diverged from the design. |
+| [`jookoi-paper-trail.md`](./jookoi-paper-trail.md) | Privacy switch, folder layout, pipeline, rules, tooling. Read this. |
+| [`_architecture/plans/2026-08-30-jookoi-paper-trail.md`](./_architecture/plans/2026-08-30-jookoi-paper-trail.md) | Why it's shaped this way, prior art checked, where the build diverged. |
 | [`my-global-setup/.agents/skills/jookoi-paper-trail/`](./my-global-setup/.agents/skills/jookoi-paper-trail/) | The skill that maintains it. |
 
 **This repo's own paper trail**
 
-`_architecture/` is metaspace. It's about building and evolving this repo, not distributable content.
+`_architecture/` is metaspace — about building this repo, not distributable content.
 
 | | |
 |---|---|
-| [`ARCHITECTURE.md`](./_architecture/ARCHITECTURE.md) | Why the repo is shaped this way, and the evidence bar. Static. |
-| [`TODO.md`](./_architecture/TODO.md) | Where things actually stand: a durable Context header plus a hand-maintained checklist. Read first on a cold start. |
+| [`ARCHITECTURE.md`](./_architecture/ARCHITECTURE.md) | Why the repo is shaped this way. Static. |
+| [`TODO.md`](./_architecture/TODO.md) | Where things stand. Read first on a cold start. |
 | [`BACKLOG.md`](./_architecture/BACKLOG.md) | Logged, not yet scoped. |
-| [`plans/decisions/`](./_architecture/plans/decisions/) | Numbered decision records. What was picked, what was rejected, why. |
+| [`plans/decisions/`](./_architecture/plans/decisions/) | Numbered decision records. |
 | [`plans/`](./_architecture/plans/) | One file per planning session, kept permanently. |
-| [`archive/`](./_architecture/archive/) | Flushed `TODO.md` snapshots, human-facing. Written only by `jookoi-paper-trail flush`, never by hand. |
+| [`archive/`](./_architecture/archive/) | Flushed `TODO.md` snapshots. Written only by `jookoi-paper-trail flush`. |
 
-`_jookoi-architecture/` is the gitignored private counterpart. If you're reading this on GitHub, it isn't there, which is the point of the `_jookoi-` prefix.
+`_jookoi-architecture/` is the gitignored private counterpart — not visible on GitHub, by design.
 
 ## Status
 
-Baseline survey and deep-dive research are done. The crash course was restructured 2026-08-30 ([decision 002](./_architecture/plans/decisions/002-crash-course-naming.md)). `jookoi-paper-trail` is designed, built and running on this repo itself.
+Baseline survey and deep-dive research done. Crash course restructured 2026-08-30 ([decision 002](./_architecture/plans/decisions/002-crash-course-naming.md)). `jookoi-paper-trail` is designed, built, and running on this repo.
 
 Live status always lives in `_architecture/TODO.md`, not here.

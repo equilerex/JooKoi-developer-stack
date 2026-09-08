@@ -9,7 +9,7 @@ Prototype-grade Vue 3 in the browser. No build step, no toolchain, no ceremony. 
 
 **New project** → *Start here*, and read `references/skeletons.md` before the first file.
 **Existing project** → *Editing an existing project*, and read `index.html` first to learn which loading style it uses.
-
+/
 When the user asked for "a quick tool" without naming a stack, this is the answer: say in one line that you are building it as a no-build Vue page so they can change course, then build it. Do not open a stack discussion - picking a sane default fast is the whole point.
 
 This skill sets the architecture and the posture. The narrower Vue skills (`vue-options-api-best-practices`, `vue-router-best-practices`, `vue-debug-guides`) are detail references that sit underneath it: reach for them when you need specifics on an option, a navigation guard, or an error message. Where they assume a build step or an SFC, this skill wins - that assumption is the one thing it exists to remove.
