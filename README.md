@@ -4,7 +4,11 @@ Personal, cross-project AI dev-tooling stack. Skills, prompts, conventions, glob
 
 ## Why this exists
 
-Building your own dev toolkit used to cost too much. Only the obsessive few did it; everyone else ran whatever their employer handed them. AI changes that math — curating, testing, and maintaining a personal toolkit now costs a fraction of what it did, and the cost keeps dropping. That makes it every developer's job, not a hobby for the motivated minority. Skip it and the gap to developers who do compounds. This repo is one person's toolkit, built on that bet.
+Bare-minimum tooling used to be a fine choice, not a fallback. Work was standardized enough to get by on defaults. Going beyond that meant adopting someone else's packaged solution: usually more limited than what you actually needed, often picked by your employer rather than you, and real effort to keep running. If DevOps wasn't your thing, skipping it cost you little.
+
+AI breaks that trade-off. It speeds up a developer's work by enough that the real gap now runs between developers who shape their own stack and developers still coasting on the old assumption that the default is good enough.
+
+I've felt that shift hard this past couple years — I've built more tools in the past year than in the five or six before it, because an agent can now run in the background while I do my main work, instead of tooling needing its own dedicated block of time. The pace outran my ability to keep things organized: some tools got thrown out when they should have stayed, others piled up with no system holding them together. This repo is the start of fixing that, pulling what's worth keeping into one reusable toolkit instead of scattered one-offs. It isn't the best or most complete stack out there, it doesn't hold everything I've built (some of that lives at work and isn't mine to publish), and turning the pile into an actual system is still in progress.
 
 ## What it does
 
