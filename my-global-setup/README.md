@@ -24,6 +24,31 @@ my-global-setup/
 
 All three steps are manual, on purpose — no setup script. If `~/.agents/AGENTS.md` or `~/.claude/settings.json` already exist and diverge, diff by hand and merge; don't blind-overwrite.
 
+## SIM pattern for toolchains
+
+The practical setup pattern here is: source in this repo, mirror into the live tool directories, then link the skill folders into the harness that ignores `AGENTS.md` by default.
+
+- Source: `my-global-setup/.agents/skills/`
+- Extra source: `~/.gemini/antigravity-cli/skills/` (if present)
+- Integration: `~/.agents/skills/`
+- Mirror: `~/.claude/skills/`
+
+This gives a clean separation between the canonical skill set and the per-harness mirror. The link step is intentionally small and safe: it resolves the active user profile dynamically (`$env:USERPROFILE`/`$HOME`), creates `~/.claude/skills` if needed, and then links every skill from the configured source folders into the Claude folder without overwriting existing items unless you pass `-Force`.
+
+PowerShell:
+
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\utility-scripts\link-skill-folders.ps1
+```
+
+or via npm:
+
+```bash
+npm run setup:skills:link
+```
+
+This is the same pattern as the old manual `.agents -> .claude` copy idea, but with the Windows username resolved automatically so it works across machines without hard-coding `C:\Users\Joosep`.
+
 ## LLM read access to `_jookoi-` files
 
 `_jookoi-*` being gitignored does **not** block Claude Code (or other agents) from reading these files — a gitignore only controls what `git` tracks, and Claude's `Read` tool reads by explicit path regardless of gitignore status. Confirmed 2026-09-01: no settings.json key or pattern-based override exists (or is needed) for this.

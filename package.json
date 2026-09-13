@@ -15,7 +15,8 @@
     "vault:push": "node utility-scripts/vault-sync.js push",
     "vault:pull": "node utility-scripts/vault-sync.js pull",
     "vault:push:dry": "node utility-scripts/vault-sync.js push --dry-run",
-    "vault:pull:dry": "node utility-scripts/vault-sync.js pull --dry-run"
+    "vault:pull:dry": "node utility-scripts/vault-sync.js pull --dry-run",
+    "setup:skills:link": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\utility-scripts\\link-skill-folders.ps1"
   },
   "devDependencies": {
     "cross-env": "^10.1.0"
