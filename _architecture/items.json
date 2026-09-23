@@ -1,0 +1,531 @@
+{
+  "next_id": 38,
+  "last_flush": null,
+  "items": {
+    "t001": {
+      "content": [
+        "`jnote` tooling built and verified",
+        "",
+        "`jnote` tooling built and verified: `utility-scripts/jnote.js` appends structured entries to `_architecture/process-improvement/logs.jsonl` ({ts (auto), type (default `note`; enum note/inefficiency/confusion/lost-context/useful-pattern/follow-up), content (required markdown), source?, sessionId?, agent?, model?}, plain-string or `--json` object form). `utility-scripts/setup-jnote.js` (`npm run setup:jnote`) installs a global `jnote` shell function into the Windows PowerShell profile, the pwsh (PowerShell 7) profile, and Git Bash's `~/.bashrc`, all pointed at this repo's absolute path — covers Windows Terminal and VS Code's integrated terminal too, since both just host these same shells/profiles. Documented in `npm-help.js`. Purpose: near-zero-friction way for an LLM session to leave a process note (inefficiency spotted, got confused, lost context, a pattern that worked well, a follow-up worth a human look) for later review, without derailing into `TODO.md`/`BACKLOG.md` edits mid-task"
+      ],
+      "status": "done",
+      "priority": 1000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": "2026-09-19",
+      "ts_touched": "2026-09-19"
+    },
+    "t002": {
+      "content": [
+        "Global `AGENTS.md` gained a `## Naming` section",
+        "",
+        "Global `AGENTS.md` (`my-global-setup/.agents/AGENTS.md`) gained a `## Naming` section — semantic names, no cryptic acronyms/shortenings, no vague generic names (`data`/`item`/`service`/`card`) past small local scope. Directive-only, kept miniature on purpose"
+      ],
+      "status": "done",
+      "priority": 2000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": "2026-09-19",
+      "ts_touched": "2026-09-19"
+    },
+    "t003": {
+      "content": [
+        "Root `README.md` rewritten for reading-fatigue",
+        "",
+        "Root `README.md` rewritten for reading-fatigue: shorter sentences, tighter tables, cut rhetorical padding (triads, restated clauses). Content and links unchanged, ~30% shorter"
+      ],
+      "status": "done",
+      "priority": 3000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": "2026-09-19",
+      "ts_touched": "2026-09-19"
+    },
+    "t004": {
+      "content": [
+        "Root `README.md` gained a \"Why this exists\" section stating the repo's core thesis",
+        "",
+        "Root `README.md` gained a \"Why this exists\" section stating the repo's core thesis — AI collapsed the cost of building a personal dev toolkit, so curating one is now every developer's job, not a niche the obsessive few opted into"
+      ],
+      "status": "done",
+      "priority": 4000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": "2026-09-19",
+      "ts_touched": "2026-09-19"
+    },
+    "t005": {
+      "content": [
+        "Plugin-extension-layer architecture decided",
+        "",
+        "Plugin-extension-layer architecture decided (decision 014) — separate `jookoi-ai-market` repo, one broad `jookoi-dev` plugin, layered on top of this repo not replacing it. Doc-only: `ARCHITECTURE.md`, `README.md`, `stack-distribution.md` updated to point at it. No repo created, nothing migrated"
+      ],
+      "status": "done",
+      "priority": 5000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": "2026-09-19",
+      "ts_touched": "2026-09-19"
+    },
+    "t006": {
+      "content": [
+        "Root `graphify-out/` explained: it is the `/graphify` skill output",
+        "",
+        "Root `graphify-out/` explained — it is the `/graphify` *skill's* output, not a script misconfiguration. The skill hardcodes `graphify-out/` relative to cwd and ignores `--out` entirely (`~/.claude/skills/graphify/SKILL.md:53`, `:288`); `.graphify_root` holds `.`, so it came from a run at repo root. Already gitignored at `.gitignore:7` — the earlier \"un-gitignored\" claim here was wrong"
+      ],
+      "status": "done",
+      "priority": 6000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": "2026-09-19",
+      "ts_touched": "2026-09-19"
+    },
+    "t007": {
+      "content": [
+        "Output-location call settled (decision 012)",
+        "",
+        "Output-location call settled (decision 012) — LLM output is source, so it lives in the tracked dir; converge by running the skill from inside it (`cd _architecture/graphify && /graphify ../..`). Several repos get one designated main instance hosting the graph, documented in the bundle README, no tooling built"
+      ],
+      "status": "done",
+      "priority": 7000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": "2026-09-19",
+      "ts_touched": "2026-09-19"
+    },
+    "t008": {
+      "content": [
+        "Stray root `graphify-out/` deleted and regenerated into the tracked dir",
+        "",
+        "Stray root `graphify-out/` deleted and regenerated into the tracked dir via `npm run gr:c` + `graphify cluster-only _architecture/graphify`. `.gitignore` now also excludes the skill's machine-local `.graphify_python`/`.graphify_root`, and `.graphifyignore` excludes `package-scripts-snippet.json` (its `cross_env` node was colliding with `package.json`'s and being dropped)"
+      ],
+      "status": "done",
+      "priority": 8000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": "2026-09-19",
+      "ts_touched": "2026-09-19"
+    },
+    "t009": {
+      "content": [
+        "Name the graph communities",
+        "",
+        "Name the graph communities — all 142 are `Community N` placeholders; `graphify label` found no LLM backend. The pre-delete copy had real names. Re-run `cluster-only --backend <x>`, or run the skill from the tracked dir, whenever an LLM pass is worth it"
+      ],
+      "status": "now",
+      "priority": 9000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t010": {
+      "content": [
+        "Confirm graphify output is machine-portable",
+        "",
+        "Confirm graphify output is machine-portable — check `graph.json` and `LESSONS.md` for absolute paths using the cheap `--code-only` extraction, not a full LLM run. A hit means the vault-mirror pattern in `BACKLOG.md` needs a path-rewrite step before it can be built"
+      ],
+      "status": "now",
+      "priority": 10000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t011": {
+      "content": [
+        "Research pass on reusable prompts, then populate `prompts/`",
+        "",
+        "Research pass on reusable prompts (cowork), then populate `prompts/` — it holds one file while `ARCHITECTURE.md` names it a shippable pillar. Wanted from the pass, in priority order: which prompts actually earn their keep (highest-gain additions), real workflows practitioners run them in, and the tips/tricks layer. Structural questions (prompt vs. skill vs. slash-command, templating/variables, organization as the set grows) come second — they only matter once there are prompts worth organizing. `topic-index.md` topic 2 covers skills only"
+      ],
+      "status": "now",
+      "priority": 11000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t012": {
+      "content": [
+        "Fold agent-instruction-file findings into global `AGENTS.md`",
+        "",
+        "Fold agent-instruction-file findings into global `AGENTS.md` (research already done, `ai-tooling-crash-course-for-developers/topics/base-instruction-files.md`). Assessed 2026-09-13 against it: file's already provider-agnostic and lean, nothing tied to old-model-era habits to strip. Two concrete edits proposed, not yet applied pending user approval — (1) add a line on not blanket-trusting a cloned repo's own AGENTS.md/CLAUDE.md, sourced from the doc's §7 NVIDIA/Backslash Security prompt-injection findings; (2) collapse the 3x-redundant \"be concise\" phrasing in the Identity & tone section. Confirmed length/structure aren't shown to affect compliance (doc §3), so no token-trimming pass needed beyond that"
+      ],
+      "status": "now",
+      "priority": 12000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t013": {
+      "content": [
+        "Automate the graphify re-run instead of documenting a cadence",
+        "",
+        "Automate the graphify re-run instead of documenting a cadence — the repo has had several passes and keeps drifting, so a rule about \"when a repo earns a pass\" would just be re-read and re-judged. Wants a script/npm task that decides staleness and re-extracts. Open: what the staleness signal is (commit count since last run? changed-file ratio?) and whether the cheap `--code-only` pass runs more often than the LLM one"
+      ],
+      "status": "now",
+      "priority": 13000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t014": {
+      "content": [
+        "Wire up `jnote`'s missing half",
+        "",
+        "Wire up `jnote`'s missing half. The tool ships and works, but nothing tells an agent to use it, so it stays empty. Needs an instruction layer written into `my-global-setup/.agents/AGENTS.md` first, then copied out by hand to `~/.agents/AGENTS.md` on this machine (the manual copy-out decision 009 requires), naming the triggers concretely rather than as a vague \"log anything useful\": subagents spawned without need, a skill or method visibly heavy on tokens, context lost to an avoidable re-read, confusion traceable to a specific instruction, and the positive case that matters most, a prompt fragment that keeps preventing hallucination or drift and should be considered for promotion into a global instruction file. The whole point is telemetry on our own processes that only the running agent can see. Open alongside it: the review path. Entries accumulate in `_architecture/process-improvement/logs.jsonl` with nothing reading them, so it needs a way to surface and triage them (a digest command, a periodic read, something), and a call on whether triaged findings route into the working-set store, into a decision, or straight into an instruction-file edit"
+      ],
+      "status": "now",
+      "priority": 14000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t015": {
+      "content": [
+        "Build paper-trail v2",
+        "",
+        "Build paper-trail v2: an addressable working-set store replacing `TODO.md`'s checklist and `BACKLOG.md` with one keyed JSON store the script solely owns. Designed 2026-09-19, see `plans/2026-09-19-paper-trail-v2-keyed-store-todo-backlog-decisions-decision-l.md` and the companion spec. Build order is in the plan, starting with the store plus CLI. Two threads were split out and are not part of this: the decision lifecycle (status plus index so reversed decisions stop misleading agents) needs its own decision file, and the flush trigger mechanism stays open"
+      ],
+      "status": "done",
+      "priority": 15000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": "2026-09-19",
+      "ts_touched": "2026-09-19"
+    },
+    "t016": {
+      "content": [
+        "Fold the `_jookoi-architecture/` scaffolding rule into `jookoi-paper-trail.js` as a subcommand",
+        "",
+        "Fold the `_jookoi-architecture/` scaffolding rule into `jookoi-paper-trail.js` as a subcommand, not a new standalone script — same requirements as before (non-destructive, `_jookoi-` prefix by default, explicit opt-out to unprefixed, never edits the target repo's `AGENTS.md`). Kept open: the rule is still model judgement in global `AGENTS.md`. Open alongside it: which of the skill's remaining judgement steps become mechanical"
+      ],
+      "status": "now",
+      "priority": 16000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t017": {
+      "content": [
+        "Delegate `jookoi-paper-trail`'s mechanical half to a fork subagent",
+        "",
+        "Delegate `jookoi-paper-trail`'s mechanical half to a **fork** subagent, so a flush stops eating main context — the judgement half (what happened, why, does it duplicate or invalidate an existing entry) is untransferable and stays in the main thread; the mechanics (read `SKILL.md`, read `TODO.md`/`BACKLOG.md`/`ARCHITECTURE.md`, find the anchor, apply, keep the format) are 3+ large files that are permanent in context once read and never looked at again — already the delegation trigger named in global `AGENTS.md`. Must be a fork, not a general-purpose agent: a cold agent has no access to what happened this session, which is the skill's entire input, and would need that summary written into its prompt anyway; a fork inherits the context and keeps its tool output out of the parent. Contract the fork needs: the facts as bullets with the why, an explicit file/section allowlist, a standing fence around `TODO.md`'s `## Context` and any \"do not re-derive\" block (the most expensive institutional memory and the easiest thing for an agent to tidy away), \"report, don't write\" when unsure an item already exists, and a receipt naming each file plus the exact anchor text matched — verified by targeted `grep` from the parent, never by trusting the receipt. Boundaries: chunk-boundary only, never concurrent with parent edits to the same files (lost writes), and not worth the overhead for a single checklist tick. Open: whether it ships as a `/flush` slash command that packages brief + fences + receipt contract, and whether `flush` and plain append want different fences. Adjacent to the \"which judgement steps become mechanical\" question in the item above, but a different mechanism — this delegates the work, it does not mechanize it"
+      ],
+      "status": "now",
+      "priority": 17000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t018": {
+      "content": [
+        "Multi-checkout / multi-repo personal-file sync",
+        "",
+        "User works multiple simultaneous checkouts of the same repo (parallel branches) and needs:",
+        "- A way to sync shared content (e.g. a global-agents-equivalent folder) across those checkouts — symlinks? partial-sync tooling against an already-existing target folder?",
+        "- A portable, generalizable version of the gitignored-personal-file pattern (`_jookoi-` prefix precedent) usable in *any* repo, including ones the user doesn't own — where committing isn't an option but losing the content on a fresh clone is a real risk.",
+        "",
+        "The durability half of this is the same shape as `_architecture/plans/decisions/003-memory-ledger-picks.md`'s still-open centralized-memory design (mirror to a global personal location) — cross-link, don't re-solve independently.",
+        "",
+        "Needs its own research pass before any decision. Not every open question here needs a full topic doc first, though — a narrower \"what's current best practice for X\" question can just be ad hoc discovery (research it, present findings, let the user decide), same as this whole planning round did. Reserve a full doc for things that earn a lasting reference."
+      ],
+      "status": "parked",
+      "priority": 18000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t019": {
+      "content": [
+        "AGENTS.md instances — repo-flavour variants",
+        "",
+        "Three instances exist and are settled (global, this-repo's-own, seed template — see `stack-distribution.md`, 2026-09-02: separate jobs, nothing composes). One thing stays open: **repo-flavour variants** — per-project-type versions of the seed template (e.g. Angular vs. Stencil). Gated on a second real flavour existing; not built speculatively."
+      ],
+      "status": "parked",
+      "priority": 19000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t020": {
+      "content": [
+        "Reusable prompts — confirmed research gap",
+        "",
+        "Flagged 2026-08-26. `ai-tooling-crash-course-for-developers/topic-index.md` topic 2 (\"Prompt & skill libraries\") only actually covers *skills* — no research doc exists on reusable prompts as their own artifact (design/structure of a good reusable prompt, prompt vs. skill vs. slash-command, templating/variables, organization/versioning as the set grows). Root `prompts/` dir exists but is empty — expected, Stage 4 population hasn't started. The gap is the missing research, not the empty folder. Needs its own light-to-medium research pass before `prompts/` gets populated for real."
+      ],
+      "status": "parked",
+      "priority": 20000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t021": {
+      "content": [
+        "Graphify output — vault-mirror pattern for no-commit repos",
+        "",
+        "Corrected 2026-08-30: graphify output is not cheap to regenerate (LLM-backed extraction — this repo's own `gr` script now targets the `claude` backend, reconfigured 2026-09-01 off Ollama; `gr:ollama` and `gr:gemini` kept as alternates) and carries a hand-curated layer on top (`graphify save-result`/`reflect` → `LESSONS.md`, `.graphify_learning.json` preference overlay) — not disposable output, closer to an authored artifact.",
+        "",
+        "- **Own repos, commit allowed** — tracked normally in `_architecture/graphify/`, no prefix, no vault involvement.",
+        "- **Restricted/no-commit repos** — private, at `_jookoi-architecture/graphify/` in the checkout, mirrored into the existing vault location `repo-mirrors/<repo-name>/graphify/` — same per-repo keying as everything else, no new taxonomy.",
+        "- **Sync semantics differ deliberately from `vault-sync.js`.** That script's mtime-diff/conflict-report machinery exists because markdown notes have real partial-merge value. A generated graph doesn't — it's one artifact from one run, so blunt whole-folder overwrite is correct, not a shortcut. Needs its own small script (or a distinct `--blunt` path), not a mode bolted onto `vault-sync.js`.",
+        "- **One-directional, matching the single-canonical-instance work-PC pattern:** one designated checkout runs the expensive extraction; that checkout's output is authoritative and overwrites the vault copy. Other parallel checkouts read from the vault, never write to it.",
+        "- **Still open before building anything:** confirm `graph.json`/`LESSONS.md` don't embed machine-specific absolute paths (test via the cheap `--code-only` extraction, not a full LLM run) — if they do, the mirrored copy isn't portable across machines and the pattern needs a path-rewrite step.",
+        "",
+        "Not applicable to this repo right now (commit is allowed here) — logged so the pattern exists when a restricted repo needs it."
+      ],
+      "status": "parked",
+      "priority": 21000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t022": {
+      "content": [
+        "Hooks / dotfiles — standalone deep-dive doc gap",
+        "",
+        "Not a review-gate item, just a documentation gap. Hooks/automation triggers and dotfiles/portability both need their own deep-dive doc eventually; lighter-pass status for now."
+      ],
+      "status": "parked",
+      "priority": 22000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t023": {
+      "content": [
+        "Crash-course structure reorg",
+        "",
+        "Ties to `_architecture/plans/decisions/002-crash-course-naming.md`. Eventual structure should split \"core developer AI-tooling 101\" (concepts most AI-assisted devs should know) from \"optional/deeper topic areas\" (local models/hardware, corporate/restricted environments, deeper security, advanced memory/context systems, harness architecture, protocol internals, RAG/second-brain, advanced orchestration) — not one flat folder where basic and specialist material look equally load-bearing. Do not execute yet."
+      ],
+      "status": "parked",
+      "priority": 23000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t024": {
+      "content": [
+        "101 overview — \"how do AI agents actually work\"",
+        "",
+        "Blocked on the crash-course structure reorg above — root-vs-deep-dive-vs-special-topic placement has to be decided first, then this gets written into the reorganized structure. Scope: coding-agent lifecycle, how the researched topics fit together, an ELI5 appendix on how LLMs work generally."
+      ],
+      "status": "parked",
+      "priority": 24000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t025": {
+      "content": [
+        "Session/token economics (topic 3)",
+        "",
+        "Not a blocker for anything else, and not currently relevant. Once the overall stack architecture exists, mention `AGENTS.md`'s importance there."
+      ],
+      "status": "parked",
+      "priority": 25000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t026": {
+      "content": [
+        "`JooKoi-commit-message` skill",
+        "",
+        "Flagged 2026-08-23. Explicitly do not start yet. Scope: script(s) to pull a token-efficient diff/change overview (not raw `git diff`) and generate a commit message from a personally-defined, user-editable template. Ties to topic 2 (skill libraries) and topic 3 (token economics). Not researched — just captured so it isn't lost."
+      ],
+      "status": "parked",
+      "priority": 26000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t027": {
+      "content": [
+        "Where coding agents actually do their work outside the visible project",
+        "",
+        "Flagged 2026-08-23. Global per-tool folders holding session logs/temp state (e.g. `~/.claude/`), and workflows where an agent works in a temporary directory or git worktree entirely outside the project, branching/merging back later. Real \"AI basics\" content for a newcomer. See `ai-tooling-crash-course-for-developers/topic-index.md` placeholder entry. When picked up: research as its own topic, write a deep-dive doc, add to `topic-index.md` properly."
+      ],
+      "status": "parked",
+      "priority": 27000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t028": {
+      "content": [
+        "Guardrails for common misleading phrases",
+        "",
+        "Not started. The dev-stack `AGENTS.md` baseline should have a guardrails section for phrasing the LLM tends to over-interpret — e.g. \"deep research\"/\"deep dive\" read as academic-level research when the user means an effective general overview referencing more than one or two sources. Similarly needs guards against classic token-waste patterns: looping, spiraling."
+      ],
+      "status": "parked",
+      "priority": 28000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t029": {
+      "content": [
+        "Paste sanitizers — strip pasted context down to the useful lines",
+        "",
+        "Flagged 2026-09-01. Scripts that take copy-pasted content and return only the parts worth feeding an agent. The recurring problem: the easily-available context is thousands of lines, and the useful part is a handful picked out of it.",
+        "",
+        "Named cases:",
+        "",
+        "- **Browser console cleaner** — keep real file references and errors, drop the build-artifact noise, framework chatter, and repeated warnings that make up most of the paste.",
+        "- **Test-output cleaner** — the failure and its location, not the full runner output.",
+        "- **Long-article compressor** — reduce prose to what is actually being claimed.",
+        "",
+        "Open design question, not a pick: a two-stage pass where a cheap/local model does the first reduction and the expensive model only ever sees the result. That is a different mechanism from pure rule-based stripping (regex/heuristic filters) and the two may suit different cases — console output is patterned enough for rules, an article is not.",
+        "",
+        "Ties to token economics (crash-course topic 3) and to `local-model-hardware-fit.md` if the cheap first pass runs locally. Not researched — captured so it isn't lost."
+      ],
+      "status": "parked",
+      "priority": 29000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t030": {
+      "content": [
+        "`_jookoi-architecture/` scaffolding should be a script, and `jookoi-paper-trail` may be too large",
+        "",
+        "User's design note (dictated, moved out of `_architecture/next-steps.md` 2026-09-01): the global-`AGENTS.md` fallback rule (a repo with neither `_architecture/` nor `_jookoi-architecture/` at its root gets a `_jookoi-architecture/` created before any progress note is written there) should not be left to model judgement — it should be a script. Requirements as stated: non-destructive, prefixed (`_jookoi-`) by default for safety on repos the user doesn't own or can't edit, with an explicit opt-out to the unprefixed form on trusted/home environments. The script must not require editing that repo's own `AGENTS.md` — global `AGENTS.md` plus the `jookoi-doc` skill stays the sole source of truth, since some target repos aren't the user's to edit.",
+        "",
+        "Second, related concern in the same note: the skill's `SKILL.md` (now `my-global-setup/.agents/skills/jookoi-paper-trail/SKILL.md`, renamed from `jookoi-doc` 2026-09-02) may already be too large, and more of its mechanical steps (not just dating/formatting/insertion, which `scripts/jookoi-paper-trail.js` already owns) could move into automated scripts rather than staying model-judgement calls.",
+        "",
+        "Not scoped: which specific steps move to script, and what the new scaffolding script's CLI/flags look like. Needs a design pass before implementation."
+      ],
+      "status": "parked",
+      "priority": 30000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t031": {
+      "content": [
+        "Blueprint file (`_jookoi-architecture/followup/personal-ai-dev-stack-blueprint_.md`) — evidence not yet folded into crash-course topics",
+        "",
+        "Read in full 2026-09-01. Per user direction (\"leave the old file in place... follow up topic list\"), the file stays as-is; this entry is the follow-up list of what it adds beyond what `ai-tooling-crash-course-for-developers/topic-index.md` already covers.",
+        "",
+        "**Strengthens existing topic docs** (new studies/citations to fold in, not new topics): topic 1 (`base-instruction-files.md`) — the null-effect-of-file-structure finding (§0.1 in the blueprint, arXiv 2605.10039) and the compaction-drops-scoped-rules finding (§0.3, arXiv 2606.22528v2); topic 3 (`session-and-token-economics.md`) — the ~5.6%-compliance-decay-per-function finding, same §0.1 study; topic 4 (`subagents-and-delegation.md`) and topic 8 (`review-and-verification-tooling.md`) — the self-review/multi-agent-consensus failure studies (§0.5, arXiv 2605.21537 and 2604.19049v1); topic 5 (`mcp-model-context-protocol.md`) — the contested CLI-vs-MCP token-efficiency claim (§M5, Checkly vs. earezki.com measurements point opposite directions); topic 9 (dotfiles, closed by decision 009) — no new information, just corroboration; topic 10 (`memory-and-progress-ledgers.md`) — the Obsidian/vault-agent-integration section (Part 7: keep vaults for human recall, don't wire them to coding agents, mechanism is context dilution not philosophy); topic 12 (`security-and-supply-chain.md`) — package hallucination figures (§0.7, arXiv 2605.17062, 4.6–6.1% model-agnostic) and a dependency-gate recommendation (M7).",
+        "",
+        "**Not yet a topic anywhere** (would be new deep-dives or baseline notes, not folded into existing docs): constrained decoding over RAG wherever a schema exists (§0.8/G7, arXiv 2607.05936, +209% correctness); prompt-cache hit-rate measurement as a prerequisite to any cost optimization (G3); tool-output truncation before it reaches context, described as the single biggest token-cost lever on the input side (G4); lightweight skill-eval harnesses, 10-20 prompts with negative cases against over-triggering (G5); ADRs (MADR format) shipped in the same PR as the pattern they constrain (M8), tied to the already-logged crash-course gap on this.",
+        "",
+        "**Time-decaying, not evergreen** — the vendor situation report (Part 6: Copilot's 2026-06-01 usage-based billing cliff, JetBrains' Codex-over-Junie default and WebStorm/Claude Code plugin recommendation, Gemini Code Assist individuals deprecation) is a snapshot of vendor state as of August 2026, not stable crash-course content. Worth a glance if picking tooling right now; not worth writing into a topic doc that's meant to stay useful past this quarter.",
+        "",
+        "No pick made on which of the above gets a real research/writing pass — this entry only inventories the gap per the routing tree's \"intended work, not yet scoped\" bucket."
+      ],
+      "status": "parked",
+      "priority": 31000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t032": {
+      "content": [
+        "ai-tooling-crash-course-for-developers/TODO.md doesn't match the repo's TODO convention",
+        "",
+        "It's a flat dated pending-topics list, not the documented `## Context` + `## Checklist` shape from AGENTS.md/jookoi-paper-trail. Surfaced during the 2026-09-06 casual-technical rewrite pass across ai-tooling-crash-course-for-developers/ (24 files, word-level + structural/ADHD-density pass, plus a filename-discoverability audit — no renames needed, only cross-link disambiguation added between loop-engineering-agent-loops.md and review-and-verification-tooling.md). Not fixed inline per no-scope-creep. Decide whether this sub-TODO should adopt the standard shape or is intentionally a different kind of file (a flat topic-tracking list, not a session working-set)."
+      ],
+      "status": "parked",
+      "priority": 32000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t033": {
+      "content": [
+        "Personal-dev-stack setup as two skills, not a rigid script",
+        "",
+        "Reconsidered (supersedes the earlier single-skill framing — merged here to avoid duplication). Setup/sync across machines and repos should be skill-guided (orchestration + judgement, interactive — the skill asks the user whenever it's uncertain about a preference or the machine's state, never guesses silently), not one rigid install script or copy-paste procedure. Targeted mechanical scripts stay in scope underneath it (e.g. package.json's skill-folder symlink step for harnesses that don't read global .agents/skills) but the skill owns reading the environment and editing things like a repo-local AGENTS.md for that repo's stack. Key requirement carried over: when a setup step touches a shared file the user already owns (e.g. `~/.claude/AGENTS.md`), never overwrite wholesale — read what's there, propose a merge/diff, let the user accept or reject.",
+        "",
+        "Splits into two skills by level, not one umbrella:",
+        "",
+        "- **Computer-level (global/vault) setup skill.** Governs a machine's copy of the personal vault repo. At home there's already one running instance using the private non-commit (`_jookoi-`) path; work computers need this skill to bootstrap the same thing following that suffix/version convention. Scope: push-to-vault and pull-from-vault scripts, deduplication when multiple checkouts of the same repo name exist in different locations or on different branches, setting up or updating the AGENTS.md files, copying global skills and other global-setup content out from this repo's `my-global-setup/` into the machine's real global folders.",
+        "- **Repo-level setup skill.** Governs one target repo's own scaffolding — paper-trail folders, per-repo AGENTS.md flavouring, whatever else a repo needs once the machine-level baseline already exists. Narrower and mostly already scoped by the existing TODO item on folding `_jookoi-architecture/` scaffolding into `jookoi-paper-trail.js` as a subcommand — that item is (or becomes) part of this skill, not a separate thing.",
+        "",
+        "Update-to-latest-version mode (fingerprinting a machine's last-synced state against this repo) is explicitly deferred — stretch goal, manual updates for now until there's a clearer read on what's actually needed.",
+        "",
+        "Still open: what else the computer-level skill needs to do beyond the items listed above — scope isn't closed yet.",
+        "",
+        "Before designing: research pass via cowork on how other personal/AI-tooling setup systems handle this reliably (idempotent setup, dotfiles-style bootstrapping, interactive/ask-on-uncertainty flows) rather than reinventing it blind. User referenced a tool (heard as \"OpenClaw\" from voice input, name unconfirmed — verify during research rather than assuming) as having a comparable setup flow worth checking."
+      ],
+      "status": "parked",
+      "priority": 33000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t034": {
+      "content": [
+        "Document repo-specific-context-exposure pattern",
+        "",
+        "Recommended pattern for exposing specialized/repo-specific context (e.g. a custom code-review naming guide) to LLMs: full doc lives repo-side as a dedicated skill (.claude/skills/<name>/SKILL.md) or docs file, with a one-line pointer in that repo's own AGENTS.md/CLAUDE.md; only the technique itself (not stack-specific content) is a candidate for a short global CLAUDE.md mention, per this repo's Scope rule. Raised 2026-09-15, not yet actioned -- user to pick: (1) add one-liner to global CLAUDE.md, (2) scaffold example naming-review skill here as reference, both, or neither."
+      ],
+      "status": "parked",
+      "priority": 34000,
+      "ts_created": null,
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t035": {
+      "content": [
+        "Decision lifecycle for decision files",
+        "Give `plans/decisions/NNN-*.md` an active/superseded/rejected status plus a `plans/decisions/index.md`, so a reversed decision stops misleading an agent that reads it. Independent of the store; needs its own decision file. Split out of the paper-trail v2 plan."
+      ],
+      "status": "parked",
+      "priority": 35000,
+      "ts_created": "2026-09-19",
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t036": {
+      "content": [
+        "Promote durable content out of a decision before archiving it",
+        "Process rule, independent of the store. Split out of the paper-trail v2 plan."
+      ],
+      "status": "parked",
+      "priority": 36000,
+      "ts_created": "2026-09-19",
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    },
+    "t037": {
+      "content": [
+        "Refresh docs that still describe the pre-store paper-trail",
+        "`jookoi-paper-trail.md` (concept doc, diagrams show TODO checklist -> archive md and BACKLOG.md), `_architecture/ARCHITECTURE.md` line 28 and `_architecture/stack-distribution.md` still name BACKLOG.md and the checklist. Left as-is during the v2 build."
+      ],
+      "status": "parked",
+      "priority": 37000,
+      "ts_created": "2026-09-19",
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-19"
+    }
+  }
+}

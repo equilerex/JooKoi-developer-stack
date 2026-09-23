@@ -13,11 +13,9 @@ my-repo-setup/
 ├── .agents/
 │   └── skills/            repo-scoped skills, empty until the repo earns one
 ├── _architecture/         jookoi-paper-trail context-file templates (optional)
-│   ├── TODO.md            live working set: Context header + checklist
+│   ├── TODO.md            Context header (items live in items.json)
 │   ├── ARCHITECTURE.md    why the repo is shaped this way
-│   ├── BACKLOG.md         logged, not-yet-scoped items
-│   ├── archive/
-│   │   └── index.md       pointer to archived sessions (auto-managed)
+│   ├── (items.json)       working-set store, created by the script on first add
 │   ├── plans/
 │   │   └── decisions/     numbered decision records
 │   └── graphify/          knowledge-graph output — see setup-scripts/jookoi-graphify-setup/

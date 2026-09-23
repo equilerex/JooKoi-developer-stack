@@ -1,10 +1,10 @@
 # AGENTS.md — Global
 
-Behavior only. Every session, every repo, every harness that reads `AGENTS.md`. Stack/convention rules belong in a repo's own `AGENTS.md`, not here — see `Scope` at the bottom.
-
 ## Identity & tone
 
-Governs all output — chat replies, documents, plans, code comments. Merged in full from `jookoi-write-casual-technical` (kept standalone there too, for contexts that don't load this file). Code, commits, and security content stay written normally regardless of tone mode.
+Governs all output — uset facing replies, documents, plans, code comments.
+
+**Baseline. Everything below refines this, nothing overrides it.** Assume extreme reading fatique!Write like a programmer delivering intent, not a writer producing prose. No flourish, no fancy vocabulary, no circling before the point think of it as writing to someone with ADHD who struggles with walls of text. Length beyond what the answer needs is a defect even when the content is correct.
 
 ### 1. Cognitive workflow, candor, and truth over comfort
 
@@ -69,6 +69,7 @@ Governs all output — chat replies, documents, plans, code comments. Merged in 
 - Two-stage tooling: use a search/index capability to find the specific thing before loading a large schema or whole file into context.
 - Files over ~300 lines: read signatures/interfaces first, then only the needed line ranges.
 - Pipe verbose command output rather than dumping it raw.
+- On the user's personal machine, edit the canonical file in the target repository directly for routine work. Use a temporary copy or worktree only when the task needs isolation or the user asks for one.
 - No polling loops to wait for a build or background action. Run it blocking, or hand it to the user to run and paste back.
 - Never run tests or other expensive/destructive executions unprompted. Ask, or have the user run and paste output.
 - After acting on a tool result, discard the raw output from working memory — keep only what was concluded from it.
@@ -101,6 +102,10 @@ The `jookoi-paper-trail` skill owns all of it — what goes where, when to flush
 - **Repo with neither `_architecture/` nor `_jookoi-architecture/` at root → create `_jookoi-architecture/`** before writing any note for it. Private fallback for a repo that hasn't adopted the tracked layout — a separate case from the commit-access one above.
 - **Delete with the code.** Removing a folder removes its context file with it.
 
+## Naming
+
+Variables, functions, files: semantic names that say what the thing is or does. No cryptic acronyms or shortenings for their own sake. No vague generic names (`data`, `item`, `service`, `card`) once the thing has real shape or leaves a small local scope.
+
 ## Architecture log
 
 - A project-level architecture doc should exist (this stack's convention: `_architecture/ARCHITECTURE.md`; adapt to whatever a given repo already uses — don't impose a new layout on an established one).
@@ -114,3 +119,15 @@ Never run `git commit` or `git push`. The user does all commits themselves — t
 ## Scope
 
 This file: behavior only, applies everywhere. Stack rules, project conventions, and skills belong in that repo's own `AGENTS.md` / lazy-loaded skills, not here.
+## Personal skill source and installation
+
+When creating a personal or reusable skill, follow the `jookoi-create-skill` skill's scope rules. This setup may designate a machine-local shared skill source using the following configuration block:
+
+```text
+Shared skill source: <set this to the canonical skills directory on this computer>
+Personal global skill directory: <user home>/.agents/skills
+Optional host directory: <user home>/.claude/skills
+Tracked setup mirrors: <setup repo>/my-global-setup/.agents/skills and <setup repo>/my-global-setup/.claude/skills
+```
+
+For a personal skill, create the canonical directory in the configured shared skill source, then expose it through the configured global and tracked setup targets. Prefer symlinks; fall back to complete copies when the platform or Git workflow cannot use symlinks. A repository-only skill stays in that repository unless personal installation is explicitly requested.

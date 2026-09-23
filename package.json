@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "help": "node utility-scripts/npm-help.js",
+    "bonsai": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$env:BONSAI_CTX=16384; $env:BONSAI_NGL=99; Set-Location 'D:\\repos\\Babylon-5\\Bonsai-demo'; .\\scripts\\start_llama_server.ps1\"",
     "gr": "graphify extract . --out _architecture/graphify --backend claude --token-budget 3000 --max-concurrency 1 --api-timeout 86400",
     "ollama": "ollama run deepseek-r1:8b-llama-distill-q4_K_M",
     "gr:ollama": "cross-env OLLAMA_BASE_URL=http://localhost:11434/v1 GRAPHIFY_OLLAMA_NUM_CTX=32768 GRAPHIFY_MAX_OUTPUT_TOKENS=16384 GRAPHIFY_API_TIMEOUT=86400 graphify extract . --out _architecture/graphify --backend ollama --model deepseek-r1:8b-llama-distill-q4_K_M --token-budget 3000 --max-concurrency 1",
@@ -16,9 +17,13 @@
     "vault:pull": "node utility-scripts/vault-sync.js pull",
     "vault:push:dry": "node utility-scripts/vault-sync.js push --dry-run",
     "vault:pull:dry": "node utility-scripts/vault-sync.js pull --dry-run",
-    "setup:skills:link": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\utility-scripts\\link-skill-folders.ps1"
+    "setup:skills:link": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\utility-scripts\\link-skill-folders.ps1",
+    "sync:skill": "node utility-scripts/sync-skill.js",
+    "setup:jnote": "node utility-scripts/setup-jnote.js",
+    "jnote": "node utility-scripts/jnote.js"
   },
   "devDependencies": {
+    "@clack/prompts": "^1.8.1",
     "cross-env": "^10.1.0"
   }
 }

@@ -122,7 +122,7 @@ Three separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.
 |---|---|
 | [`ARCHITECTURE.md`](./_architecture/ARCHITECTURE.md) | Why the repo is shaped this way. Static. |
 | [`TODO.md`](./_architecture/TODO.md) | Where things stand. Read first on a cold start. |
-| [`BACKLOG.md`](./_architecture/BACKLOG.md) | Logged, not yet scoped. |
+| [`items.json`](./_architecture/items.json) | Live working set: now, parked, done, dropped items. |
 | [`plans/decisions/`](./_architecture/plans/decisions/) | Numbered decision records. |
 | [`plans/`](./_architecture/plans/) | One file per planning session, kept permanently. |
 | [`archive/`](./_architecture/archive/) | Flushed `TODO.md` snapshots. Written only by `jookoi-paper-trail flush`. |
