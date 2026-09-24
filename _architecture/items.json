@@ -1,5 +1,5 @@
 {
-  "next_id": 38,
+  "next_id": 45,
   "last_flush": null,
   "items": {
     "t001": {
@@ -526,6 +526,91 @@
       "ts_started": null,
       "ts_done": null,
       "ts_touched": "2026-09-19"
+    },
+    "t038": {
+      "content": [
+        "Paper-trail v2 follow-ups: synced skill to ~/.agents and jookoi-ai-market, plans/implemented rule, timestamps (ISO in JSON, DD-MM-YYYY HH:MM in prose)"
+      ],
+      "status": "done",
+      "priority": 38000,
+      "ts_created": "2026-09-23T22:30:12Z",
+      "ts_started": "2026-09-23T22:30:12Z",
+      "ts_done": "2026-09-23T22:30:12Z",
+      "ts_touched": "2026-09-23T22:30:12Z"
+    },
+    "t039": {
+      "content": [
+        "Verify migrated repo (other project): six inferred-done items, three unmigrated entries, null timestamps flagged stale"
+      ],
+      "status": "parked",
+      "priority": 39000,
+      "ts_created": "2026-09-23T22:30:12Z",
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-23T22:30:12Z"
+    },
+    "t040": {
+      "content": [
+        "Migrate paper-trail store from JSON to YAML",
+        "",
+        "Vendor `yaml` in `scripts/vendor/`, convert script, hooks, templates, references, `check`, `render`. Random base36 IDs with repo prefix on export, monthly archive chunks, `list --archived --last N`, object payload for `add`/`edit` via stdin or file. Then update every doc that names `items.json` or the counter. Decided and file sweep list in plans/2026-09-24-remove-todo-md-route-by-information-type.md."
+      ],
+      "status": "now",
+      "priority": 40000,
+      "ts_created": "2026-09-24T17:32:48Z",
+      "ts_started": "2026-09-24T17:32:48Z",
+      "ts_done": null,
+      "ts_touched": "2026-09-24T17:33:18Z"
+    },
+    "t041": {
+      "content": [
+        "Rename plans/decisions to plans/decision-history, add index, stop proactive reads",
+        "",
+        "State in the skill and both AGENTS.md files that decision files are background, not rules, and that calls made inside a planning session go in the plan, not a separate decision file. Add the cleanup rule: fold into ARCHITECTURE/AGENTS, delete, fix inbound links, plus a check warning for likely duplicates. Covers t035 and t036. The decision template still says a decision is never deleted, which contradicts this."
+      ],
+      "status": "now",
+      "priority": 41000,
+      "ts_created": "2026-09-24T17:32:48Z",
+      "ts_started": "2026-09-24T17:32:48Z",
+      "ts_done": null,
+      "ts_touched": "2026-09-24T17:33:18Z"
+    },
+    "t042": {
+      "content": [
+        "Local viewer for the YAML store",
+        "",
+        "Small local page (search, filter, view, copy in LLM-friendly form) over items.yaml and archive/*.yaml. Loads the YAML library from a CDN first, with a manual local or global override if a machine ever blocks it. Serve with a one-line local static server. Parked until the YAML migration lands."
+      ],
+      "status": "parked",
+      "priority": 42000,
+      "ts_created": "2026-09-24T17:32:48Z",
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-24T17:36:42Z"
+    },
+    "t043": {
+      "content": [
+        "Obsidian export: script that renders YAML items to markdown into the vault"
+      ],
+      "status": "parked",
+      "priority": 43000,
+      "ts_created": "2026-09-24T17:32:48Z",
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-24T17:32:48Z"
+    },
+    "t044": {
+      "content": [
+        "Sweep existing decision files before the migration",
+        "",
+        "Classify the 13 files in plans/decisions as integrated, promote, in a plan, redundant or keep. Present a table with evidence, user approves each row, then delete or promote and repoint inbound links. Survivors move to decision-history with an index. Runs first in the migration order. Spec: plans/2026-09-24-remove-todo-md-route-by-information-type.md, section Decision sweep."
+      ],
+      "status": "now",
+      "priority": 44000,
+      "ts_created": "2026-09-24T17:36:42Z",
+      "ts_started": "2026-09-24T17:39:31Z",
+      "ts_done": null,
+      "ts_touched": "2026-09-24T17:39:31Z"
     }
   }
 }

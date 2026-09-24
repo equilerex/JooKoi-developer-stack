@@ -61,7 +61,7 @@ Every file type in `references/file-formats.md` has a fixed section set. An upda
 
 **Never regenerate a file to change a section.** Regeneration silently drops content the current session did not happen to be thinking about, and it is invisible in review because the whole file shows as changed. The templates in `assets/templates/` are for creating a file that does not exist — not for refreshing one that does.
 
-`TODO.md`'s `## Context` is *meant* to be replaced wholesale, in place, whenever it goes stale, not edited clause by clause. Work items are not files to edit: use the script commands in `references/store-format.md`.
+Work items are not files to edit: use the script commands in `references/store-format.md`.
 
 ---
 

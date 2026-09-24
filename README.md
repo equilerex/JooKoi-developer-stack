@@ -21,7 +21,7 @@ I've felt that shift hard this past couple years — I've built more tools in th
 - **Plain files outlive vendors.** No binaries, no install step, no migration when the harness changes. Any agent, editor, or `grep` can read it all.
 - **Adopted from need, not speculation.** The failure mode isn't "we lack a feature" — it's "nobody updates the notes." So keep it cheap to keep true.
 - **Apps are opt-in, swappable.** graphify is one example. The context underneath doesn't depend on it.
-- **Dotfile managers are rejected** — they'd own the core layer itself. See [decision 009](./_architecture/plans/decisions/009-no-binary-dependencies.md).
+- **Dotfile managers are rejected** — they'd own the core layer itself. Dependencies stay minimal, and binaries are the hard line. See [Dependencies](./_architecture/ARCHITECTURE.md#dependencies).
 - Best for solo work or repos without an agreed team system. If your team has real shared infrastructure, use that instead.
 
 ## This repo vs. the plugin marketplace

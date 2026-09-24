@@ -25,14 +25,14 @@ The older `archive/YYYY-MM.md` files are history from the previous format. They 
 
 Nothing to recover. `items.json` persists exactly as the last write left it, and every write is one atomic command, so a crash between commands loses nothing already recorded.
 
-`_jookoi-architecture/session-log.md`, written by the `PreCompact` hook, is a coarser record: timestamps, branch, `git status --short`. It exists for the case where the transcript held context that never reached the store. Drain it by reading it, folding anything still relevant into the store or `TODO.md`'s Context, then clearing it.
+`_jookoi-architecture/session-log.md`, written by the `PreCompact` hook, is a coarser record: timestamps, branch, `git status --short`. It exists for the case where the transcript held context that never reached the store. Drain it by reading it, folding anything still relevant into the store, then clearing it.
 
 ## Compaction
 
 `PreCompact` receives the uncompacted transcript on stdin and writes to disk; it cannot inject context back. `SessionStart` with a `compact` matcher fires after the context shrinks and can inject.
 
 - **Before**: preserve anything not yet recorded to `_jookoi-architecture/session-log.md`.
-- **After**: re-inject `TODO.md`'s Context and the `list` output.
+- **After**: re-inject the `list` output.
 
 See `references/hooks.md` for the per-harness event names.
 

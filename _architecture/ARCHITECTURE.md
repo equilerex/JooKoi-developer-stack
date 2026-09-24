@@ -21,9 +21,13 @@ Failure mode being avoided: assembling a stack from whatever one research sessio
 - **De facto standards** (`SKILL.md`, the `AGENTS.md` convention) — stated as fact, no re-verification per stage.
 - **Opinionated choices** — need real sourcing before being presented as an option: checkable practitioner identity, current docs, or repo-health signals. New-but-promising allowed only as a labeled exception.
 
+## Dependencies
+
+Minimal and intentional, not zero. The line is drawn at binaries: anything compiled or installed outside the language runtime (dotfile managers like chezmoi or Stow, installers, native modules) is treated as blocked by default, because locked corporate machines refuse installs and that is exactly where the stack has to work. Plain-text dependencies (npm packages in a runtime already present) are fine when they earn their place, with a registry check first. Dotfile managers are rejected outright: they would own the core layer, and the `_jookoi-` prefix plus one vault per environment already solves the divergence they exist for. Applying the stack stays a manual copy.
+
 ## Repo layout — three things that must not collide
 
-- **`_architecture/`** (this folder) — the repo's own internal metaspace: architecture docs, kept planning-session records (`plans/`), decision trail (`plans/decisions/`), backlog, `TODO.md` live working set. Everything about *building and evolving this repo*, grouped and kept visually out of the way of the distributable content below. Leading underscore sorts it first.
+- **`_architecture/`** (this folder) — the repo's own internal metaspace: architecture docs, kept planning-session records (`plans/`), decision trail (`plans/decisions/`), and `items.json`, the live working set. Everything about *building and evolving this repo*, grouped and kept visually out of the way of the distributable content below. Leading underscore sorts it first.
 - **`personal-guidelines/`** — user's own opinions/manifesto/accumulated takes on this space. Explicitly labeled personal, not consensus — distinct from the researched content in `ai-tooling-crash-course-for-developers/`.
 - **The shippable stack** — `prompts/`, `my-global-setup/`, `my-repo-setup/` at repo root. This is what's meant to be copied out into another context (machine or new project) — literal copy-out bundles, not generated. `utility-scripts/` is the opposite: build tooling for *this repo*, not shippable. `~/.agents/skills/` is where global skills actually live and get used (47+ as of 2026-09-01); `my-global-setup/.agents/skills/` is a tracked mirror of a curated subset, not the source of truth for skills in general. Direction is per-skill — `jookoi-paper-trail` was authored here first and shipped out to `~/.agents/`; `find-docs` was authored at `~/.agents/` and copied in here as a backup. There's no separate root `skills/` staging folder. Root `AGENTS.md` is **not** part of the shippable layer — it's this repo's own dev ruleset (2026-08-30 correction; see below). Global (`~/.agents/AGENTS.md`, read every session everywhere, canonical copy in `my-global-setup/.agents/`) vs. seed (`my-repo-setup/AGENTS.md`, copied into a *new* project's root, not read from here) are two further, separate instances — the seed one is a real, filled starter template as of 2026-09-01, not built speculatively ahead of need. Three AGENTS.md instances total, never conflated: global, this-repo's-own, seed-template. See `_architecture/BACKLOG.md` § AGENTS.md instances.
 
@@ -33,9 +37,13 @@ Open design questions on how the shippable layer itself should be organized/dist
 
 Most of what `_architecture/` holds is maintained by one convention, the **jookoi-paper-trail** — plain markdown, harness-agnostic, two levels (project-level `_architecture/`, feature-level `CONTEXT.md`), with the `_jookoi-` prefix as the public/private switch. Concept doc: `jookoi-paper-trail.md` at the repo root. Full design and build record: `plans/2026-08-30-jookoi-paper-trail.md`. The skill that maintains it: `my-global-setup/.agents/skills/jookoi-paper-trail/`, deployed to `~/.agents/skills/`.
 
-The one thing worth knowing without opening either: `TODO.md` and `archive/` are **two time horizons, not two content types** — live working set, roll-off. Content moves between them on model judgement (`jookoi-paper-trail flush`, fired when a chunk of work finishes or the checklist runs dry, never on a cadence), never on a schedule. `archive/` is therefore never written directly.
+The one thing worth knowing without opening either: `items.json` and `archive/` are **two time horizons, not two content types** — live working set, roll-off. Finished items move between them on model judgement (`jookoi-paper-trail flush`, fired when a chunk of work finishes or `now` runs dry, never on a cadence). `archive/` is therefore never written directly. There is no `TODO.md` or `BACKLOG.md`: work items live in the store, calls in `plans/decisions/`, sessions in `plans/`, durable facts here, standing agent rules in `AGENTS.md`.
 
 Mechanics belong to the script and judgement belongs to the model, deliberately: every defect the first dogfooding pass surfaced was bookkeeping (heading grammar, ordering, a duplicate entry, a rotation that never ran), which is the class of thing an LLM tracks badly across sessions.
+
+## Graphify has two mechanisms
+
+Two separate graphify mechanisms exist and do not share a config. The `/graphify` skill writes to `graphify-out/` relative to cwd and ignores `--out`; the npm `gr*` scripts pass `--out _architecture/graphify`. Any reasoning about graphify output paths has to say which one it means.
 
 ## Optional plugin extension layer
 

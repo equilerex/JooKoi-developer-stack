@@ -22,25 +22,6 @@ Never relative ("yesterday", "last session"). The script supplies every date and
 
 ---
 
-## `_architecture/TODO.md`
-
-Only the `## Context` header. The item list lives in `items.json` (`references/store-format.md`).
-
-```markdown
-# TODO
-<!-- Context header only, rewritten wholesale when stale. Items live in items.json, owned by `jookoi-paper-trail`. See AGENTS.md. -->
-
-## Context
-
-Where things stand right now and why. Rewritten in place, never appended to.
-```
-
-**Context** is rewritten wholesale, in present tense, whenever it goes stale. It answers "what does a cold session need to know to not re-derive it". Short, a handful of lines. Never dated, never accumulates, never contains a history of its own prior states.
-
-**Does not go in:** work items (`items.json`); anything that belongs to one folder (`CONTEXT.md`).
-
----
-
 ## `_architecture/items.json` and `archive/items-YYYY-MM.json`
 
 The working-set store and its monthly archive. Script-written only. Full spec: `references/store-format.md`. Archive files are not read unless history is asked for; `find` searches them.
@@ -145,7 +126,6 @@ The script refuses and reports rather than guessing when:
 
 - A managed file's line 1 heading does not match its expected title.
 - `items.json` is not valid JSON, or an item has a status outside `now | parked | done | dropped`.
-- `TODO.md` is missing the `## Context` heading.
 - A `CONTEXT.md` lacks any of its four sections.
 
 A refusal names the file, the line, and what was expected. It never rewrites the file to fix it — that is the model's call, since a malformed file usually means content was placed by hand for a reason.

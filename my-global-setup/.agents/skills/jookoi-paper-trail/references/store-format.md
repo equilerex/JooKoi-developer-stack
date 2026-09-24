@@ -1,12 +1,11 @@
 # Working-set store
 
-The live working set is `_architecture/items.json` (private layer: `_jookoi-architecture/items.json`). It replaces `TODO.md`'s checklist and `BACKLOG.md`. `scripts/jookoi-paper-trail.js` is the only writer: never hand-edit the file, never regenerate it.
+The live working set is `_architecture/items.json` (private layer: `_jookoi-architecture/items.json`). It replaces the old `TODO.md` checklist and `BACKLOG.md`; neither file exists any more. `scripts/jookoi-paper-trail.js` is the only writer: never hand-edit the file, never regenerate it.
 
 ```
 _architecture/
   items.json                    live store: now, parked, done, dropped
   archive/items-YYYY-MM.json    flushed items, one file per month
-  TODO.md                       only the `## Context` prose header
 ```
 
 Root resolution: `--root <path>`, else `git rev-parse --show-toplevel`, else walk up from cwd to a folder holding `_architecture/` or `_jookoi-architecture/`. `--private` picks the private layer.

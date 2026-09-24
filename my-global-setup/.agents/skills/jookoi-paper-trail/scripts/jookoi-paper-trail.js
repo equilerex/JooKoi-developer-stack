@@ -22,7 +22,7 @@
 // Global flags: --private (operate on _jookoi-architecture/), --root <path>, --dry-run
 //
 // This script is the only writer of items.json. Judgement (what happened, where it
-// belongs, what TODO.md's Context header says) stays with the model.
+// belongs) stays with the model.
 
 const fs = require("fs");
 const path = require("path");
@@ -410,9 +410,6 @@ function cmdCheck(ctx) {
   archiveFiles(ctx).forEach((f) => {
     try { JSON.parse(fs.readFileSync(f, "utf8")); } catch { say(`${path.relative(ctx.root, f)}: not valid JSON`); }
   });
-
-  const tFile = path.join(ctx.arch, "TODO.md");
-  if (fs.existsSync(tFile) && !/^## Context$/m.test(fs.readFileSync(tFile, "utf8"))) say('TODO.md: missing "## Context"');
 
   const dDir = path.join(ctx.arch, "plans", "decisions");
   if (fs.existsSync(dDir)) {

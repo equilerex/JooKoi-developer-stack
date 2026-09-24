@@ -19,6 +19,7 @@ my-repo-setup/
 │   ├── plans/
 │   │   └── decisions/     numbered decision records
 │   └── graphify/          knowledge-graph output — see setup-scripts/jookoi-graphify-setup/
+├── webstorm-inspections/  WebStorm inspection profile, copied into <repo>/.idea/inspectionProfiles/
 └── setup-scripts/         run in place against a target repo — do NOT copy these in
     └── jookoi-graphify-setup/   applies the opinionated graphify config to another repo
 ```
