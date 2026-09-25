@@ -1,6 +1,6 @@
 # AI Tooling Crash Course for Developers — self-study index
 
-Entry point for catching up on current AI-assisted development practice. This is a reading path, not a reference manual — it points at the topic docs in `topics/` rather than duplicating them. Renamed from `education/` 2026-08-30 per `_architecture/plans/decisions/002-crash-course-naming.md`. General-education docs live here now; process/decision-trail docs live in `_architecture/plans/decisions/` instead. There's no `planning/` folder any more — everything redistributed into this file set.
+Entry point for catching up on current AI-assisted development practice. This is a reading path, not a reference manual — it points at the topic docs in `topics/` rather than duplicating them. Renamed from `education/` 2026-08-30. General-education docs live here now; architecture docs and planning records live in `_architecture/` instead. There's no `planning/` folder any more — everything redistributed into this file set.
 
 ## Start here
 
@@ -56,9 +56,9 @@ User confirmed running multiple instances of a graphing/knowledge tool (see Park
 - **Dev-scoped "second brain"** (`topics/dev-scoped-second-brain-rag.md`) — RAG over your own codebase/ADRs/notes, not general life-organization (scope confirmed with the user). Includes the OpenClaw naming-collision resolution (real project, same one as the ClawHub security incident already in `security-and-supply-chain.md` — core project legit, third-party plugin marketplace still carries that risk).
 - **Agent sandboxing** (`topics/agent-sandboxing.md`) — no cross-vendor standard yet (unlike MCP), but Claude Code has an opt-in `/sandbox` command not currently in use — actionable finding.
 
-## Decisions made so far
+## Architecture and decisions
 
-- `../_architecture/plans/decisions/001-first-design-skill-picks.md` — trying Claude Design, MengTo/Skills, and `Adityaraj0421/naksha-studio` (user's own find, unverified) together.
+Background context and decision history live in `../_architecture/plans/decision-history/`.
 
 ## Local-only files (not in git)
 
@@ -68,4 +68,4 @@ User confirmed running multiple instances of a graphing/knowledge tool (see Park
 
 - **Graphify** (knowledge-graph-from-any-input) — user confirmed the harness-level and project-level instances are architecturally separate and both plausible (mirrors global-vs-seed). Project-level instances still wait for individual projects to accumulate real content, unchanged.
 
-  The harness-level instance is worth reconsidering sooner than "not yet": this repo's former `planning/` staging area held 11+ stage-1 research docs (now redistributed — general topics into `topics/`, process/decisions into `_architecture/plans/decisions/`), a real accumulated corpus that could justify a first pass. Still not started; the "needs a real corpus" blocker is now partially satisfied rather than fully open.
+  The harness-level instance is worth reconsidering sooner than "not yet": this repo's former `planning/` staging area held 11+ stage-1 research docs (now redistributed — general topics into `topics/`, process/decisions into `_architecture/plans/decision-history/`), a real accumulated corpus that could justify a first pass. Still not started; the "needs a real corpus" blocker is now partially satisfied rather than fully open.

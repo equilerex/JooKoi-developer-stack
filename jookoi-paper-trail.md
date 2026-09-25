@@ -1,8 +1,8 @@
 # jookoi-paper-trail
 
-A convention for keeping AI coding agents oriented, using nothing but markdown files in the repo.
+A convention for keeping AI coding agents oriented, using nothing but plain files in the repo.
 
-Not a product, not a framework, not a database. It's a filing discipline: fixed file names, fixed places, a fixed grammar for entries, and a small skill that does the bookkeeping so nobody has to remember it.
+Not a product, not a framework, not a database. It's a filing discipline: fixed file names, fixed places, one home per kind of information, and a small skill that does the bookkeeping so nobody has to remember it.
 
 - What it is: this file.
 - Why it's shaped this way, and what prior art it was checked against: `_architecture/plans/2026-08-30-jookoi-paper-trail.md`.
@@ -57,15 +57,26 @@ Project level is `_architecture/` at the repo root (or `_jookoi-architecture/` f
 ```
 _architecture/
 ├── ARCHITECTURE.md      why the repo is shaped this way. Static.
-├── TODO.md              the live working set: Context header + checklist. Persists.
-├── BACKLOG.md           logged, not yet scoped.
+├── items.yaml           the live working set: now, parked, and unflushed done or dropped items.
 ├── plans/
-│   ├── YYYY-MM-DD-topic.md      one file per planning session, kept.
-│   └── decisions/NNN-slug.md    one call each, with reasoning. Kept.
+│   ├── YYYY-MM-DD-topic.md      one file per planning session, kept. Finished ones move to implemented/.
+│   └── decision-history/        background on why rules exist, one call each. Not read by default.
+│       ├── index.md             one line per decision.
+│       └── NNN-slug.md
 └── archive/
-    ├── index.md         readable: what each file covers, date range.
-    └── YYYY-MM.md       flushed TODO.md snapshots. Read on explicit request only.
+    └── items-YYYY-MM.yaml       flushed items, one file per month. Lookup only.
 ```
+
+Each kind of information has one home:
+
+| Information | Home |
+|---|---|
+| Work item (now, parked, done, dropped) | `items.yaml`, written only by the script |
+| A call made inside a planning session | that plan |
+| A call made outside a planning session | `plans/decision-history/` |
+| Durable facts about the repo | `ARCHITECTURE.md` |
+| Rules agents follow every session | the repo's `AGENTS.md` |
+| Folder-local context | `CONTEXT.md` |
 
 Feature level is `CONTEXT.md` (or `_jookoi-CONTEXT.md`) sitting beside the code it describes, at feature-area granularity. Four fixed sections plus an `updated:` date:
 
@@ -88,23 +99,17 @@ Plans live in the repo, not in harness session storage. A plan held in a proprie
 One stage, on model judgement, not a schedule.
 
 ```
-       persists across sessions, untouched by default
-┌────────────────────┐                    ┌────────────────────┐
-│      TODO.md        │ ───── flush ────▶ │  archive/YYYY-MM.md │
-│  · Context          │                    │  one entry, whole   │
-│    (rewritten)      │                    │  TODO.md verbatim    │
-│  · Checklist        │                    │  index.md gains a    │
-│    (hand-edited)    │                    │  pointer              │
-└────────────────────┘                    └────────────────────┘
-         │
-         └── still relevant, not yet flushed ──▶ BACKLOG.md (moved there first)
+   loaded into every session                     lookup only
+┌──────────────────────────┐                ┌──────────────────────────┐
+│        items.yaml         │ ──── flush ──▶ │ archive/items-YYYY-MM.yaml│
+│  now · parked · done ·    │  done + dropped│  one file per month       │
+│  dropped (not yet flushed)│  items only    │  of ts_done               │
+└──────────────────────────┘                └──────────────────────────┘
 ```
 
-`TODO.md` replaces the old current-state/next-steps split. It has two blocks that behave differently. `## Context` gets rewritten wholesale whenever it goes stale, present tense, short: what a cold session needs to not re-derive it. `## Checklist` is `- [ ]`/`- [x]`, hand-maintained directly, mixing done, in-progress and pending items on purpose. Neither block empties on a cadence. Flush triggers on model judgement only, a chunk of work finished or the checklist run dry, never per-session and never because a hook demanded it.
+An item is a title plus a free-form markdown body, so the store works as a scratchpad and not only a task list. Items are written only through the script, by ID. IDs are short random strings with no counter, so parallel repos and branches never collide. Every mention of an item to a person is `id title`, never a bare ID.
 
-Flush takes the whole of `TODO.md` — both blocks — and archives it as one entry, verbatim, then resets the file. It does not try to separate done from pending; that's why anything still relevant has to move to `BACKLOG.md` *before* flush runs, not after.
-
-Archive entries share the same entry grammar as everything else: `## YYYY-MM-DD — Title`, newest first. `archive/` is never written by hand, only by `flush`, and it's explicitly human-facing: read it back only when history is asked for or genuinely needed, never by default.
+Flush moves `done` and `dropped` items out of `items.yaml` and leaves `now` and `parked` alone. It triggers on model judgement only, at a stable point after which older items are unlikely to matter next session, never per-session and never because a hook demanded it. Flushed items stay reachable: `find`, `show <id>` and `list --archived --last N` read them, bounded and newest first. `archive/` is never written by hand.
 
 ### 4. The behaviour rules
 
@@ -114,7 +119,7 @@ Stated once in the global `AGENTS.md`, restated per-repo:
 2. Update on invalidation. After a change that makes a context file wrong, correct it *before* continuing the original task.
 3. Delete with the code. Removing a folder removes its `CONTEXT.md`.
 4. Never bulk-generate. A `CONTEXT.md` earns its place the first time real work happens in that folder. Mass-produced context is the unmaintained bucket this avoids, and it's mostly wrong on arrival.
-5. Never read `archive/` unless history is explicitly requested. `index.md` alone tells you whether asking is worthwhile.
+5. Never read `archive/` or `plans/decision-history/` unless history is explicitly requested or a doc cites it. A decision explains why a rule exists. It is not the rule.
 
 The negative test matters as much as the sections: no restating what the code plainly shows, no API documentation, no changelog, no general framework knowledge. If removing a line wouldn't slow a newcomer down, it doesn't belong.
 
@@ -126,14 +131,14 @@ Two scripts and one skill. All optional in principle, since the convention is re
 
 `jookoi-paper-trail` is the skill (`my-global-setup/.agents/skills/jookoi-paper-trail/`). It splits the labour along one line:
 
-- The script owns bookkeeping: dating, heading grammar, newest-first insertion, duplicate detection, the line cap, roll-off, archive-index pointers, `NNN` allocation, `updated:` bumping, template instantiation.
-- The model owns judgement: what happened, where it belongs, and the standing-summary rewrite.
+- The script owns bookkeeping: IDs, dating, priorities, roll-off to the archive, `NNN` allocation and the decision index, `updated:` checks, template instantiation.
+- The model owns judgement: what happened, where it belongs, and when to flush.
 
 That split came out of evidence. Every defect found in the first months of dogfooding was a bookkeeping defect, and bookkeeping across sessions is exactly what an LLM does badly.
 
-Commands: `backlog`, `flush`, `status`, `stale`, `check`, `new-decision`, `new-plan`. The script refuses rather than guesses when a file doesn't match its expected shape, and it never reformats content it didn't write.
+Commands: `list`, `find`, `show`, `add`, `done`, `park`, `start`, `drop`, `edit`, `move`, `flush`, `stale`, `check`, `new-decision`, `new-plan`. The script refuses rather than guesses when a file doesn't match its expected shape, and it never reformats content it didn't write.
 
-Hooks ship for Claude Code, Gemini CLI and GitHub Copilot CLI. The useful one is the end-of-turn gate, and it no longer asks for a flush: it blocks the turn ending when the tree is dirty *and* `TODO.md` hasn't been touched this session, injecting a reminder to update it. Touching `TODO.md` clears the condition, so it never fires twice. Flush stays entirely the model's call. Session-end and pre-compaction events can only write to disk, not inject, so they keep the job they can actually do.
+Hooks ship for Claude Code, Gemini CLI and GitHub Copilot CLI. The useful one is the end-of-turn gate, and it no longer asks for a flush: it blocks the turn ending when the tree is dirty *and* `items.yaml` hasn't been touched this session, injecting a reminder to update it. Touching `items.yaml` clears the condition, so it never fires twice. Flush stays entirely the model's call. Session-end and pre-compaction events can only write to disk, not inject, so they keep the job they can actually do.
 
 `vault-sync.js` mirrors `_jookoi-` files into a personal vault repo, manual invocation only. Push is additive, because a stale branch must never delete content written from a newer one. Pull writes only into folders that already exist. Conflicts produce a report, never a silent overwrite.
 

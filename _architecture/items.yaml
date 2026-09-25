@@ -1,0 +1,655 @@
+repo: stack
+last_flush: null
+items:
+  t001:
+    title: '`jnote` tooling built and verified'
+    status: done
+    priority: 1000
+    body: '`jnote` tooling built and verified: `utility-scripts/jnote.js` appends structured entries to `_architecture/process-improvement/logs.jsonl` ({ts (auto), type (default `note`; enum note/inefficiency/confusion/lost-context/useful-pattern/follow-up), content (required markdown), source?, sessionId?, agent?, model?}, plain-string or `--json` object form). `utility-scripts/setup-jnote.js` (`npm run setup:jnote`) installs a global `jnote` shell function into the Windows PowerShell profile, the pwsh (PowerShell 7) profile, and Git Bash''s `~/.bashrc`, all pointed at this repo''s absolute path — covers Windows Terminal and VS Code''s integrated terminal too, since both just host these same shells/profiles. Documented in `npm-help.js`. Purpose: near-zero-friction way for an LLM session to leave a process note (inefficiency spotted, got confused, lost context, a pattern that worked well, a follow-up worth a human look) for later review, without derailing into `TODO.md`/`BACKLOG.md` edits mid-task'
+    ts_created: null
+    ts_started: null
+    ts_done: 2026-09-19
+    ts_touched: 2026-09-19
+  t002:
+    title: Global `AGENTS.md` gained a `## Naming` section
+    status: done
+    priority: 2000
+    body: Global `AGENTS.md` (`my-global-setup/.agents/AGENTS.md`) gained a `## Naming` section — semantic names, no cryptic acronyms/shortenings, no vague generic names (`data`/`item`/`service`/`card`) past small local scope. Directive-only, kept miniature on purpose
+    ts_created: null
+    ts_started: null
+    ts_done: 2026-09-19
+    ts_touched: 2026-09-19
+  t003:
+    title: Root `README.md` rewritten for reading-fatigue
+    status: done
+    priority: 3000
+    body: 'Root `README.md` rewritten for reading-fatigue: shorter sentences, tighter tables, cut rhetorical padding (triads, restated clauses). Content and links unchanged, ~30% shorter'
+    ts_created: null
+    ts_started: null
+    ts_done: 2026-09-19
+    ts_touched: 2026-09-19
+  t004:
+    title: Root `README.md` gained a "Why this exists" section stating the repo's core thesis
+    status: done
+    priority: 4000
+    body: Root `README.md` gained a "Why this exists" section stating the repo's core thesis — AI collapsed the cost of building a personal dev toolkit, so curating one is now every developer's job, not a niche the obsessive few opted into
+    ts_created: null
+    ts_started: null
+    ts_done: 2026-09-19
+    ts_touched: 2026-09-19
+  t005:
+    title: Plugin-extension-layer architecture decided
+    status: done
+    priority: 5000
+    body: 'Plugin-extension-layer architecture decided (decision 014) — separate `jookoi-ai-market` repo, one broad `jookoi-dev` plugin, layered on top of this repo not replacing it. Doc-only: `ARCHITECTURE.md`, `README.md`, `stack-distribution.md` updated to point at it. No repo created, nothing migrated'
+    ts_created: null
+    ts_started: null
+    ts_done: 2026-09-19
+    ts_touched: 2026-09-19
+  t006:
+    title: 'Root `graphify-out/` explained: it is the `/graphify` skill output'
+    status: done
+    priority: 6000
+    body: Root `graphify-out/` explained — it is the `/graphify` *skill's* output, not a script misconfiguration. The skill hardcodes `graphify-out/` relative to cwd and ignores `--out` entirely (`~/.claude/skills/graphify/SKILL.md:53`, `:288`); `.graphify_root` holds `.`, so it came from a run at repo root. Already gitignored at `.gitignore:7` — the earlier "un-gitignored" claim here was wrong
+    ts_created: null
+    ts_started: null
+    ts_done: 2026-09-19
+    ts_touched: 2026-09-19
+  t007:
+    title: Output-location call settled
+    status: done
+    priority: 7000
+    body: Output-location call settled — LLM output is source, so it lives in the tracked dir; converge by running the skill from inside it (`cd _architecture/graphify && /graphify ../..`). Several repos get one designated main instance hosting the graph, documented in the bundle README, no tooling built
+    ts_created: null
+    ts_started: null
+    ts_done: 2026-09-19
+    ts_touched: 2026-09-24T18:02:47Z
+  t008:
+    title: Stray root `graphify-out/` deleted and regenerated into the tracked dir
+    status: done
+    priority: 8000
+    body: Stray root `graphify-out/` deleted and regenerated into the tracked dir via `npm run gr:c` + `graphify cluster-only _architecture/graphify`. `.gitignore` now also excludes the skill's machine-local `.graphify_python`/`.graphify_root`, and `.graphifyignore` excludes `package-scripts-snippet.json` (its `cross_env` node was colliding with `package.json`'s and being dropped)
+    ts_created: null
+    ts_started: null
+    ts_done: 2026-09-19
+    ts_touched: 2026-09-19
+  t009:
+    title: Name the graph communities
+    status: now
+    priority: 9000
+    body: Name the graph communities — all 142 are `Community N` placeholders; `graphify label` found no LLM backend. The pre-delete copy had real names. Re-run `cluster-only --backend <x>`, or run the skill from the tracked dir, whenever an LLM pass is worth it
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t010:
+    title: Confirm graphify output is machine-portable
+    status: now
+    priority: 10000
+    body: Confirm graphify output is machine-portable — check `graph.json` and `LESSONS.md` for absolute paths using the cheap `--code-only` extraction, not a full LLM run. A hit means the vault-mirror pattern in `BACKLOG.md` needs a path-rewrite step before it can be built
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t011:
+    title: Research pass on reusable prompts, then populate `prompts/`
+    status: now
+    priority: 11000
+    body: 'Research pass on reusable prompts (cowork), then populate `prompts/` — it holds one file while `ARCHITECTURE.md` names it a shippable pillar. Wanted from the pass, in priority order: which prompts actually earn their keep (highest-gain additions), real workflows practitioners run them in, and the tips/tricks layer. Structural questions (prompt vs. skill vs. slash-command, templating/variables, organization as the set grows) come second — they only matter once there are prompts worth organizing. `topic-index.md` topic 2 covers skills only'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t012:
+    title: Fold agent-instruction-file findings into global `AGENTS.md`
+    status: now
+    priority: 12000
+    body: 'Fold agent-instruction-file findings into global `AGENTS.md` (research already done, `ai-tooling-crash-course-for-developers/topics/base-instruction-files.md`). Assessed 2026-09-13 against it: file''s already provider-agnostic and lean, nothing tied to old-model-era habits to strip. Two concrete edits proposed, not yet applied pending user approval — (1) add a line on not blanket-trusting a cloned repo''s own AGENTS.md/CLAUDE.md, sourced from the doc''s §7 NVIDIA/Backslash Security prompt-injection findings; (2) collapse the 3x-redundant "be concise" phrasing in the Identity & tone section. Confirmed length/structure aren''t shown to affect compliance (doc §3), so no token-trimming pass needed beyond that'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t013:
+    title: Automate the graphify re-run instead of documenting a cadence
+    status: now
+    priority: 13000
+    body: 'Automate the graphify re-run instead of documenting a cadence — the repo has had several passes and keeps drifting, so a rule about "when a repo earns a pass" would just be re-read and re-judged. Wants a script/npm task that decides staleness and re-extracts. Open: what the staleness signal is (commit count since last run? changed-file ratio?) and whether the cheap `--code-only` pass runs more often than the LLM one'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t014:
+    title: Wire up `jnote`'s missing half
+    status: now
+    priority: 14000
+    body: 'Wire up `jnote`''s missing half. The tool ships and works, but nothing tells an agent to use it, so it stays empty. Needs an instruction layer written into `my-global-setup/.agents/AGENTS.md` first, then copied out by hand to `~/.agents/AGENTS.md` on this machine (the manual copy-out decision 009 requires), naming the triggers concretely rather than as a vague "log anything useful": subagents spawned without need, a skill or method visibly heavy on tokens, context lost to an avoidable re-read, confusion traceable to a specific instruction, and the positive case that matters most, a prompt fragment that keeps preventing hallucination or drift and should be considered for promotion into a global instruction file. The whole point is telemetry on our own processes that only the running agent can see. Open alongside it: the review path. Entries accumulate in `_architecture/process-improvement/logs.jsonl` with nothing reading them, so it needs a way to surface and triage them (a digest command, a periodic read, something), and a call on whether triaged findings route into the working-set store, into a decision, or straight into an instruction-file edit'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t015:
+    title: Build paper-trail v2
+    status: done
+    priority: 15000
+    body: 'Build paper-trail v2: an addressable working-set store replacing `TODO.md`''s checklist and `BACKLOG.md` with one keyed JSON store the script solely owns. Designed 2026-09-19, see `plans/2026-09-19-paper-trail-v2-keyed-store-todo-backlog-decisions-decision-l.md` and the companion spec. Build order is in the plan, starting with the store plus CLI. Two threads were split out and are not part of this: the decision lifecycle (status plus index so reversed decisions stop misleading agents) needs its own decision file, and the flush trigger mechanism stays open'
+    ts_created: null
+    ts_started: null
+    ts_done: 2026-09-19
+    ts_touched: 2026-09-19
+  t016:
+    title: Fold the `_jookoi-architecture/` scaffolding rule into `jookoi-paper-trail.js` as a subcommand
+    status: now
+    priority: 16000
+    body: 'Fold the `_jookoi-architecture/` scaffolding rule into `jookoi-paper-trail.js` as a subcommand, not a new standalone script — same requirements as before (non-destructive, `_jookoi-` prefix by default, explicit opt-out to unprefixed, never edits the target repo''s `AGENTS.md`). Kept open: the rule is still model judgement in global `AGENTS.md`. Open alongside it: which of the skill''s remaining judgement steps become mechanical'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t017:
+    title: Delegate `jookoi-paper-trail`'s mechanical half to a fork subagent
+    status: now
+    priority: 17000
+    body: 'Delegate `jookoi-paper-trail`''s mechanical half to a **fork** subagent, so a flush stops eating main context — the judgement half (what happened, why, does it duplicate or invalidate an existing entry) is untransferable and stays in the main thread; the mechanics (read `SKILL.md`, read `TODO.md`/`BACKLOG.md`/`ARCHITECTURE.md`, find the anchor, apply, keep the format) are 3+ large files that are permanent in context once read and never looked at again — already the delegation trigger named in global `AGENTS.md`. Must be a fork, not a general-purpose agent: a cold agent has no access to what happened this session, which is the skill''s entire input, and would need that summary written into its prompt anyway; a fork inherits the context and keeps its tool output out of the parent. Contract the fork needs: the facts as bullets with the why, an explicit file/section allowlist, a standing fence around `TODO.md`''s `## Context` and any "do not re-derive" block (the most expensive institutional memory and the easiest thing for an agent to tidy away), "report, don''t write" when unsure an item already exists, and a receipt naming each file plus the exact anchor text matched — verified by targeted `grep` from the parent, never by trusting the receipt. Boundaries: chunk-boundary only, never concurrent with parent edits to the same files (lost writes), and not worth the overhead for a single checklist tick. Open: whether it ships as a `/flush` slash command that packages brief + fences + receipt contract, and whether `flush` and plain append want different fences. Adjacent to the "which judgement steps become mechanical" question in the item above, but a different mechanism — this delegates the work, it does not mechanize it'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t018:
+    title: Multi-checkout / multi-repo personal-file sync
+    status: parked
+    priority: 18000
+    body: |-
+      User works multiple simultaneous checkouts of the same repo (parallel branches) and needs:
+      - A way to sync shared content (e.g. a global-agents-equivalent folder) across those checkouts — symlinks? partial-sync tooling against an already-existing target folder?
+      - A portable, generalizable version of the gitignored-personal-file pattern (`_jookoi-` prefix precedent) usable in *any* repo, including ones the user doesn't own — where committing isn't an option but losing the content on a fresh clone is a real risk.
+
+      The durability half of this is the same shape as `_architecture/plans/decision-history/003-memory-ledger-picks.md`'s still-open centralized-memory design (mirror to a global personal location) — cross-link, don't re-solve independently.
+
+      Needs its own research pass before any decision. Not every open question here needs a full topic doc first, though — a narrower "what's current best practice for X" question can just be ad hoc discovery (research it, present findings, let the user decide), same as this whole planning round did. Reserve a full doc for things that earn a lasting reference.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T18:02:47Z
+  t019:
+    title: AGENTS.md instances — repo-flavour variants
+    status: parked
+    priority: 19000
+    body: 'Three instances exist and are settled (global, this-repo''s-own, seed template — see `stack-distribution.md`, 2026-09-02: separate jobs, nothing composes). One thing stays open: **repo-flavour variants** — per-project-type versions of the seed template (e.g. Angular vs. Stencil). Gated on a second real flavour existing; not built speculatively.'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t020:
+    title: Reusable prompts — confirmed research gap
+    status: parked
+    priority: 20000
+    body: Flagged 2026-08-26. `ai-tooling-crash-course-for-developers/topic-index.md` topic 2 ("Prompt & skill libraries") only actually covers *skills* — no research doc exists on reusable prompts as their own artifact (design/structure of a good reusable prompt, prompt vs. skill vs. slash-command, templating/variables, organization/versioning as the set grows). Root `prompts/` dir exists but is empty — expected, Stage 4 population hasn't started. The gap is the missing research, not the empty folder. Needs its own light-to-medium research pass before `prompts/` gets populated for real.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t021:
+    title: Graphify output — vault-mirror pattern for no-commit repos
+    status: parked
+    priority: 21000
+    body: |-
+      Corrected 2026-08-30: graphify output is not cheap to regenerate (LLM-backed extraction — this repo's own `gr` script now targets the `claude` backend, reconfigured 2026-09-01 off Ollama; `gr:ollama` and `gr:gemini` kept as alternates) and carries a hand-curated layer on top (`graphify save-result`/`reflect` → `LESSONS.md`, `.graphify_learning.json` preference overlay) — not disposable output, closer to an authored artifact.
+
+      - **Own repos, commit allowed** — tracked normally in `_architecture/graphify/`, no prefix, no vault involvement.
+      - **Restricted/no-commit repos** — private, at `_jookoi-architecture/graphify/` in the checkout, mirrored into the existing vault location `repo-mirrors/<repo-name>/graphify/` — same per-repo keying as everything else, no new taxonomy.
+      - **Sync semantics differ deliberately from `vault-sync.js`.** That script's mtime-diff/conflict-report machinery exists because markdown notes have real partial-merge value. A generated graph doesn't — it's one artifact from one run, so blunt whole-folder overwrite is correct, not a shortcut. Needs its own small script (or a distinct `--blunt` path), not a mode bolted onto `vault-sync.js`.
+      - **One-directional, matching the single-canonical-instance work-PC pattern:** one designated checkout runs the expensive extraction; that checkout's output is authoritative and overwrites the vault copy. Other parallel checkouts read from the vault, never write to it.
+      - **Still open before building anything:** confirm `graph.json`/`LESSONS.md` don't embed machine-specific absolute paths (test via the cheap `--code-only` extraction, not a full LLM run) — if they do, the mirrored copy isn't portable across machines and the pattern needs a path-rewrite step.
+
+      Not applicable to this repo right now (commit is allowed here) — logged so the pattern exists when a restricted repo needs it.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t022:
+    title: Hooks / dotfiles — standalone deep-dive doc gap
+    status: parked
+    priority: 22000
+    body: Not a review-gate item, just a documentation gap. Hooks/automation triggers and dotfiles/portability both need their own deep-dive doc eventually; lighter-pass status for now.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t023:
+    title: Crash-course structure reorg
+    status: parked
+    priority: 23000
+    body: Eventual structure should split "core developer AI-tooling 101" (concepts most AI-assisted devs should know) from "optional/deeper topic areas" (local models/hardware, corporate/restricted environments, deeper security, advanced memory/context systems, harness architecture, protocol internals, RAG/second-brain, advanced orchestration) — not one flat folder where basic and specialist material look equally load-bearing. Do not execute yet.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T18:02:47Z
+  t024:
+    title: 101 overview — "how do AI agents actually work"
+    status: parked
+    priority: 24000
+    body: 'Blocked on the crash-course structure reorg above — root-vs-deep-dive-vs-special-topic placement has to be decided first, then this gets written into the reorganized structure. Scope: coding-agent lifecycle, how the researched topics fit together, an ELI5 appendix on how LLMs work generally.'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t025:
+    title: Session/token economics (topic 3)
+    status: parked
+    priority: 25000
+    body: Not a blocker for anything else, and not currently relevant. Once the overall stack architecture exists, mention `AGENTS.md`'s importance there.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t026:
+    title: '`JooKoi-commit-message` skill'
+    status: parked
+    priority: 26000
+    body: 'Flagged 2026-08-23. Explicitly do not start yet. Scope: script(s) to pull a token-efficient diff/change overview (not raw `git diff`) and generate a commit message from a personally-defined, user-editable template. Ties to topic 2 (skill libraries) and topic 3 (token economics). Not researched — just captured so it isn''t lost.'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t027:
+    title: Where coding agents actually do their work outside the visible project
+    status: parked
+    priority: 27000
+    body: 'Flagged 2026-08-23. Global per-tool folders holding session logs/temp state (e.g. `~/.claude/`), and workflows where an agent works in a temporary directory or git worktree entirely outside the project, branching/merging back later. Real "AI basics" content for a newcomer. See `ai-tooling-crash-course-for-developers/topic-index.md` placeholder entry. When picked up: research as its own topic, write a deep-dive doc, add to `topic-index.md` properly.'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t028:
+    title: Guardrails for common misleading phrases
+    status: parked
+    priority: 28000
+    body: 'Not started. The dev-stack `AGENTS.md` baseline should have a guardrails section for phrasing the LLM tends to over-interpret — e.g. "deep research"/"deep dive" read as academic-level research when the user means an effective general overview referencing more than one or two sources. Similarly needs guards against classic token-waste patterns: looping, spiraling.'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t029:
+    title: Paste sanitizers — strip pasted context down to the useful lines
+    status: parked
+    priority: 29000
+    body: |-
+      Flagged 2026-09-01. Scripts that take copy-pasted content and return only the parts worth feeding an agent. The recurring problem: the easily-available context is thousands of lines, and the useful part is a handful picked out of it.
+
+      Named cases:
+
+      - **Browser console cleaner** — keep real file references and errors, drop the build-artifact noise, framework chatter, and repeated warnings that make up most of the paste.
+      - **Test-output cleaner** — the failure and its location, not the full runner output.
+      - **Long-article compressor** — reduce prose to what is actually being claimed.
+
+      Open design question, not a pick: a two-stage pass where a cheap/local model does the first reduction and the expensive model only ever sees the result. That is a different mechanism from pure rule-based stripping (regex/heuristic filters) and the two may suit different cases — console output is patterned enough for rules, an article is not.
+
+      Ties to token economics (crash-course topic 3) and to `local-model-hardware-fit.md` if the cheap first pass runs locally. Not researched — captured so it isn't lost.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t030:
+    title: '`_jookoi-architecture/` scaffolding should be a script, and `jookoi-paper-trail` may be too large'
+    status: parked
+    priority: 30000
+    body: |-
+      User's design note (dictated, moved out of `_architecture/next-steps.md` 2026-09-01): the global-`AGENTS.md` fallback rule (a repo with neither `_architecture/` nor `_jookoi-architecture/` at its root gets a `_jookoi-architecture/` created before any progress note is written there) should not be left to model judgement — it should be a script. Requirements as stated: non-destructive, prefixed (`_jookoi-`) by default for safety on repos the user doesn't own or can't edit, with an explicit opt-out to the unprefixed form on trusted/home environments. The script must not require editing that repo's own `AGENTS.md` — global `AGENTS.md` plus the `jookoi-doc` skill stays the sole source of truth, since some target repos aren't the user's to edit.
+
+      Second, related concern in the same note: the skill's `SKILL.md` (now `my-global-setup/.agents/skills/jookoi-paper-trail/SKILL.md`, renamed from `jookoi-doc` 2026-09-02) may already be too large, and more of its mechanical steps (not just dating/formatting/insertion, which `scripts/jookoi-paper-trail.js` already owns) could move into automated scripts rather than staying model-judgement calls.
+
+      Not scoped: which specific steps move to script, and what the new scaffolding script's CLI/flags look like. Needs a design pass before implementation.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t031:
+    title: Blueprint file (`_jookoi-architecture/followup/personal-ai-dev-stack-blueprint_.md`) — evidence not yet folded into crash-course topics
+    status: parked
+    priority: 31000
+    body: |-
+      Read in full 2026-09-01. Per user direction ("leave the old file in place... follow up topic list"), the file stays as-is; this entry is the follow-up list of what it adds beyond what `ai-tooling-crash-course-for-developers/topic-index.md` already covers.
+
+      **Strengthens existing topic docs** (new studies/citations to fold in, not new topics): topic 1 (`base-instruction-files.md`) — the null-effect-of-file-structure finding (§0.1 in the blueprint, arXiv 2605.10039) and the compaction-drops-scoped-rules finding (§0.3, arXiv 2606.22528v2); topic 3 (`session-and-token-economics.md`) — the ~5.6%-compliance-decay-per-function finding, same §0.1 study; topic 4 (`subagents-and-delegation.md`) and topic 8 (`review-and-verification-tooling.md`) — the self-review/multi-agent-consensus failure studies (§0.5, arXiv 2605.21537 and 2604.19049v1); topic 5 (`mcp-model-context-protocol.md`) — the contested CLI-vs-MCP token-efficiency claim (§M5, Checkly vs. earezki.com measurements point opposite directions); topic 9 (dotfiles, closed by decision 009) — no new information, just corroboration; topic 10 (`memory-and-progress-ledgers.md`) — the Obsidian/vault-agent-integration section (Part 7: keep vaults for human recall, don't wire them to coding agents, mechanism is context dilution not philosophy); topic 12 (`security-and-supply-chain.md`) — package hallucination figures (§0.7, arXiv 2605.17062, 4.6–6.1% model-agnostic) and a dependency-gate recommendation (M7).
+
+      **Not yet a topic anywhere** (would be new deep-dives or baseline notes, not folded into existing docs): constrained decoding over RAG wherever a schema exists (§0.8/G7, arXiv 2607.05936, +209% correctness); prompt-cache hit-rate measurement as a prerequisite to any cost optimization (G3); tool-output truncation before it reaches context, described as the single biggest token-cost lever on the input side (G4); lightweight skill-eval harnesses, 10-20 prompts with negative cases against over-triggering (G5); ADRs (MADR format) shipped in the same PR as the pattern they constrain (M8), tied to the already-logged crash-course gap on this.
+
+      **Time-decaying, not evergreen** — the vendor situation report (Part 6: Copilot's 2026-06-01 usage-based billing cliff, JetBrains' Codex-over-Junie default and WebStorm/Claude Code plugin recommendation, Gemini Code Assist individuals deprecation) is a snapshot of vendor state as of August 2026, not stable crash-course content. Worth a glance if picking tooling right now; not worth writing into a topic doc that's meant to stay useful past this quarter.
+
+      No pick made on which of the above gets a real research/writing pass — this entry only inventories the gap per the routing tree's "intended work, not yet scoped" bucket.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t032:
+    title: ai-tooling-crash-course-for-developers/TODO.md doesn't match the repo's TODO convention
+    status: parked
+    priority: 32000
+    body: It's a flat dated pending-topics list, not the documented `## Context` + `## Checklist` shape from AGENTS.md/jookoi-paper-trail. Surfaced during the 2026-09-06 casual-technical rewrite pass across ai-tooling-crash-course-for-developers/ (24 files, word-level + structural/ADHD-density pass, plus a filename-discoverability audit — no renames needed, only cross-link disambiguation added between loop-engineering-agent-loops.md and review-and-verification-tooling.md). Not fixed inline per no-scope-creep. Decide whether this sub-TODO should adopt the standard shape or is intentionally a different kind of file (a flat topic-tracking list, not a session working-set).
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t033:
+    title: Personal-dev-stack setup as two skills, not a rigid script
+    status: parked
+    priority: 33000
+    body: |-
+      Reconsidered (supersedes the earlier single-skill framing — merged here to avoid duplication). Setup/sync across machines and repos should be skill-guided (orchestration + judgement, interactive — the skill asks the user whenever it's uncertain about a preference or the machine's state, never guesses silently), not one rigid install script or copy-paste procedure. Targeted mechanical scripts stay in scope underneath it (e.g. package.json's skill-folder symlink step for harnesses that don't read global .agents/skills) but the skill owns reading the environment and editing things like a repo-local AGENTS.md for that repo's stack. Key requirement carried over: when a setup step touches a shared file the user already owns (e.g. `~/.claude/AGENTS.md`), never overwrite wholesale — read what's there, propose a merge/diff, let the user accept or reject.
+
+      Splits into two skills by level, not one umbrella:
+
+      - **Computer-level (global/vault) setup skill.** Governs a machine's copy of the personal vault repo. At home there's already one running instance using the private non-commit (`_jookoi-`) path; work computers need this skill to bootstrap the same thing following that suffix/version convention. Scope: push-to-vault and pull-from-vault scripts, deduplication when multiple checkouts of the same repo name exist in different locations or on different branches, setting up or updating the AGENTS.md files, copying global skills and other global-setup content out from this repo's `my-global-setup/` into the machine's real global folders.
+      - **Repo-level setup skill.** Governs one target repo's own scaffolding — paper-trail folders, per-repo AGENTS.md flavouring, whatever else a repo needs once the machine-level baseline already exists. Narrower and mostly already scoped by the existing TODO item on folding `_jookoi-architecture/` scaffolding into `jookoi-paper-trail.js` as a subcommand — that item is (or becomes) part of this skill, not a separate thing.
+
+      Update-to-latest-version mode (fingerprinting a machine's last-synced state against this repo) is explicitly deferred — stretch goal, manual updates for now until there's a clearer read on what's actually needed.
+
+      Still open: what else the computer-level skill needs to do beyond the items listed above — scope isn't closed yet.
+
+      Before designing: research pass via cowork on how other personal/AI-tooling setup systems handle this reliably (idempotent setup, dotfiles-style bootstrapping, interactive/ask-on-uncertainty flows) rather than reinventing it blind. User referenced a tool (heard as "OpenClaw" from voice input, name unconfirmed — verify during research rather than assuming) as having a comparable setup flow worth checking.
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t034:
+    title: Document repo-specific-context-exposure pattern
+    status: parked
+    priority: 34000
+    body: 'Recommended pattern for exposing specialized/repo-specific context (e.g. a custom code-review naming guide) to LLMs: full doc lives repo-side as a dedicated skill (.claude/skills/<name>/SKILL.md) or docs file, with a one-line pointer in that repo''s own AGENTS.md/CLAUDE.md; only the technique itself (not stack-specific content) is a candidate for a short global CLAUDE.md mention, per this repo''s Scope rule. Raised 2026-09-15, not yet actioned -- user to pick: (1) add one-liner to global CLAUDE.md, (2) scaffold example naming-review skill here as reference, both, or neither.'
+    ts_created: null
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-19
+  t035:
+    title: Decision lifecycle for decision files
+    status: done
+    priority: 35000
+    body: Give `plans/decisions/NNN-*.md` an active/superseded/rejected status plus a `plans/decisions/index.md`, so a reversed decision stops misleading an agent that reads it. Independent of the store; needs its own decision file. Split out of the paper-trail v2 plan.
+    ts_created: 2026-09-19
+    ts_started: null
+    ts_done: 2026-09-24T18:24:40Z
+    ts_touched: 2026-09-24T18:24:40Z
+  t036:
+    title: Promote durable content out of a decision before archiving it
+    status: done
+    priority: 36000
+    body: Process rule, independent of the store. Split out of the paper-trail v2 plan.
+    ts_created: 2026-09-19
+    ts_started: null
+    ts_done: 2026-09-24T18:24:40Z
+    ts_touched: 2026-09-24T18:24:40Z
+  t037:
+    title: Refresh docs that still describe the pre-store paper-trail
+    status: done
+    priority: 37000
+    body: '`jookoi-paper-trail.md` (concept doc, diagrams show TODO checklist -> archive md and BACKLOG.md), `_architecture/ARCHITECTURE.md` line 28 and `_architecture/stack-distribution.md` still name BACKLOG.md and the checklist. Left as-is during the v2 build.'
+    ts_created: 2026-09-19
+    ts_started: null
+    ts_done: 2026-09-24T18:24:40Z
+    ts_touched: 2026-09-24T18:24:40Z
+  t038:
+    title: 'Paper-trail v2 follow-ups: synced skill to ~/.agents and jookoi-ai-market, plans/implemented rule, timestamps (ISO in JSON, DD-MM-YYYY HH:MM in prose)'
+    status: done
+    priority: 38000
+    body: ''
+    ts_created: 2026-09-23T22:30:12Z
+    ts_started: 2026-09-23T22:30:12Z
+    ts_done: 2026-09-23T22:30:12Z
+    ts_touched: 2026-09-23T22:30:12Z
+  t039:
+    title: 'Verify migrated repo (other project): six inferred-done items, three unmigrated entries, null timestamps flagged stale'
+    status: parked
+    priority: 39000
+    body: ''
+    ts_created: 2026-09-23T22:30:12Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-23T22:30:12Z
+  t040:
+    title: Migrate paper-trail store from JSON to YAML
+    status: done
+    priority: 40000
+    body: Vendor `yaml` in `scripts/vendor/`, convert script, hooks, templates, references, `check`, `render`. Random base36 IDs with repo prefix on export, monthly archive chunks, `list --archived --last N`, object payload for `add`/`edit` via stdin or file. Then update every doc that names `items.json` or the counter. Decided and file sweep list in plans/implemented/2026-09-24-remove-todo-md-route-by-information-type.md.
+    ts_created: 2026-09-24T17:32:48Z
+    ts_started: 2026-09-24T17:32:48Z
+    ts_done: 2026-09-24T18:24:40Z
+    ts_touched: 2026-09-24T18:46:02Z
+  t041:
+    title: Rename plans/decisions to plans/decision-history, add index, stop proactive reads
+    status: done
+    priority: 41000
+    body: 'State in the skill and both AGENTS.md files that decision files are background, not rules, and that calls made inside a planning session go in the plan, not a separate decision file. Add the cleanup rule: fold into ARCHITECTURE/AGENTS, delete, fix inbound links, plus a check warning for likely duplicates. Covers t035 and t036. The decision template still says a decision is never deleted, which contradicts this.'
+    ts_created: 2026-09-24T17:32:48Z
+    ts_started: 2026-09-24T17:32:48Z
+    ts_done: 2026-09-24T18:24:40Z
+    ts_touched: 2026-09-24T18:24:40Z
+  t042:
+    title: Local viewer for the YAML store
+    status: done
+    priority: 42000
+    body: Small local page (search, filter, view, copy in LLM-friendly form) over items.yaml and archive/*.yaml. Loads the YAML library from a CDN first, with a manual local or global override if a machine ever blocks it. Serve with a one-line local static server. Parked until the YAML migration lands.
+    ts_created: 2026-09-24T17:32:48Z
+    ts_started: null
+    ts_done: 2026-09-24T18:51:08Z
+    ts_touched: 2026-09-24T18:51:08Z
+  t043:
+    title: 'Obsidian export: script that renders YAML items to markdown into the vault'
+    status: parked
+    priority: 43000
+    body: ''
+    ts_created: 2026-09-24T17:32:48Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T17:32:48Z
+  t044:
+    title: Sweep existing decision files before the migration
+    status: done
+    priority: 44000
+    body: 'Classify the 13 files in plans/decisions as integrated, promote, in a plan, redundant or keep. Present a table with evidence, user approves each row, then delete or promote and repoint inbound links. Survivors move to decision-history with an index. Runs first in the migration order. Spec: plans/implemented/2026-09-24-remove-todo-md-route-by-information-type.md, section Decision sweep.'
+    ts_created: 2026-09-24T17:36:42Z
+    ts_started: 2026-09-24T17:39:31Z
+    ts_done: 2026-09-24T18:05:29Z
+    ts_touched: 2026-09-24T18:46:02Z
+  v75r:
+    title: Verify the legacy migration in the first real adopting repo
+    status: parked
+    priority: 45000
+    body: Run references/legacy-migration.md end to end on a repo still on TODO.md, BACKLOG.md, items.json and plans/decisions. This repo had no legacy state left to exercise the agent-driven path.
+    ts_created: 2026-09-24T18:45:37Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T18:45:37Z
+  j5o6:
+    title: Verify what survives compaction on Gemini CLI and Copilot CLI
+    status: parked
+    priority: 46000
+    body: Confirm whether each harness reloads AGENTS.md after compaction, and what rehydrate.sh should inject. Claude Code is also unconfirmed. Open point from the v2.1 plan.
+    ts_created: 2026-09-24T18:45:37Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T18:45:37Z
+  sm71:
+    title: Fix remaining BACKLOG.md mentions in stack-distribution.md and crash-course topic docs
+    status: parked
+    priority: 47000
+    body: Not covered by the v2.1 build. _architecture/stack-distribution.md and a few ai-tooling-crash-course-for-developers/topics files still cite the deleted BACKLOG.md.
+    ts_created: 2026-09-24T18:45:37Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T18:45:37Z
+  zb0u:
+    title: Trial the v2 skill in one or two working repos
+    status: parked
+    priority: 48000
+    body: |-
+      Pass criteria from the v2.1 plan (plans/implemented/2026-09-24-remove-todo-md-route-by-information-type.md): agent uses the skill unprompted, nobody hand-edits items.yaml, session-start context stays small, agents skip plans/decision-history/ unprompted, notes stay readable, total fix-up time is lower than the old markdown approach.
+
+      First trial (triage/DeepSeek project, 24-09-2026) failed "uses the skill unprompted": set up once, then unused, title-only items, and no hooks wired. The skill fixes are in the item "Paper-trail: enforce use for the whole session". Next trial: wire the hooks first, then check that the gate fires and that items get bodies without prompting.
+    ts_created: 2026-09-24T19:08:18Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T21:13:00Z
+  r3jw:
+    title: Decide whether check should flag likely-duplicate decisions, and how items.yaml conflicts across machines are handled
+    status: parked
+    priority: 49000
+    body: Two open points left from the v2.1 plan. Duplicate decisions are hard to detect mechanically, so the plan leaves it to model judgement. Cross-machine conflicts in one vault environment may need more than the existing concurrent-writer refusal.
+    ts_created: 2026-09-24T19:08:18Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T19:08:18Z
+  paa3:
+    title: 'Paper-trail: enforce use for the whole session (sweep gate, hooks check, body notes, trigger table)'
+    status: done
+    priority: 50000
+    body: |-
+      Came from the first trial session (triage/DeepSeek project, 24-09-2026). The agent set the store up and then stopped using it: title-only items, decisions and a token leak left only in chat, and no hooks wired.
+
+      Changes, synced to the marketplace copy and `~/.agents`:
+      - `SKILL.md`: new frontmatter description (it still said `TODO.md`), a "Session contract" (in force until the session ends, a `paper-trail:` trail line after each write, keep a line in any compaction summary), a trigger table replacing "When this runs", an "Items carry a body" section with an example, the ID rule now covers item bodies, the secret rule covers command output, and a list-nesting bug fixed.
+      - Script: new `sweep [--gate] [--ack]` and `hooks` commands. `add`/`edit` print a note on an empty body or a bare-ID reference. `list` marks `(no body)`.
+      - `doc-gate.sh`: now calls `sweep --gate`, which compares file times against the last store write or ack and has a 10-minute quiet window. The old "is `items.yaml` dirty" test went quiet for the whole session after the first store write. It exits silently in repos without `items.yaml`, so it can be wired globally. `SubagentStop`/`AgentStop` removed.
+      - Hook configs: commands pointed at `.agents/...` relative to the repo, a path that never exists in a repo. They now use `$HOME/.agents/skills/...`.
+      - `hooks.md`: a check-and-wire procedure. `legacy-migration.md`: hooks added as the last step.
+
+      Tested in a scratch repo: silent without a store, blocks after a change, silent mid-block, silent after an ack, silent inside the quiet window.
+    ts_created: 2026-09-24T21:13:00Z
+    ts_started: 2026-09-24T21:13:00Z
+    ts_done: 2026-09-24T21:13:04Z
+    ts_touched: 2026-09-24T21:13:04Z
+  yvh3:
+    title: Wire the paper-trail hooks globally on this machine
+    status: done
+    priority: 0
+    body: |-
+      Done 24-09-2026. `~/.claude/settings.json` now wires Stop (`doc-gate.sh`), PreCompact (`preserve.sh`) and SessionStart `compact|startup|resume` (`rehydrate.sh`), all at `$HOME/.agents/skills/jookoi-paper-trail/hooks/`. The pre-merge backup is in this session's scratchpad only. This repo's own Stop and SubagentStop doc-gate entries are removed from `.claude/settings.json` so the gate doesn't run twice.
+
+      For other people's installs: `hooks --print` prints the fragment with the running install's path, so plugin-cache or repo copies get working commands. `sweep` and the session contract in `SKILL.md` tell the agent to raise missing hooks once and offer the merge.
+
+      Still open: this repo keeps the legacy `utility-scripts/jookoi-hooks/` hooks (session-log.sh on SessionEnd and PreCompact, session-start-reminder.sh on SessionStart). They overlap with `preserve.sh` and `rehydrate.sh`: both write or surface `_jookoi-architecture/session-log.md`. Decide whether to drop them.
+    ts_created: 2026-09-24T21:13:00Z
+    ts_started: 2026-09-24T21:13:00Z
+    ts_done: 2026-09-24T21:19:07Z
+    ts_touched: 2026-09-24T21:19:07Z
+  t4o4:
+    title: Stale jookoi-dev plugin cache serves an old paper-trail next to the ~/.agents copy
+    status: parked
+    priority: 51000
+    body: 'Update 24-09-2026: the marketplace copy of paper-trail was restored and committed (a021d1a), so it ships in the plugin again. All three copies (stack repo, marketplace, `~/.agents`) are synced, and plugin.json is bumped 0.8.0 to 0.9.0. After committing, update the plugin so the cache moves off 0.6.0. Two copies stay listed (`jookoi-paper-trail` and `jookoi-dev:jookoi-paper-trail`). That is harmless while they match, and stale whenever the cache lags.'
+    ts_created: 2026-09-24T21:13:00Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T21:54:45Z
+  a6bf:
+    title: Drop this repo's legacy session-log hooks now that preserve.sh and rehydrate.sh are global (see yvh3 Wire the paper-trail hooks globally on this machine)
+    status: parked
+    priority: 52000
+    body: ''
+    ts_created: 2026-09-24T21:19:12Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T21:19:12Z
+  nak8:
+    title: 'Paper-trail: harness-agnostic hooks check (detection, per-harness --print, no-hooks fallback)'
+    status: done
+    priority: 53000
+    body: |-
+      Follow-up to paa3 Paper-trail: enforce use for the whole session (sweep gate, hooks check, body notes, trigger table). The hooks check assumed Claude Code.
+
+      - The script detects the harness from `CLAUDECODE` or `GEMINI_CLI`. Copilot has no reliable marker, so it needs `JOOKOI_HARNESS=copilot`, which also overrides detection generally. Undetected means no hooks are assumed.
+      - `sweep` and `hooks` report missing hooks for the running harness only. When the harness is undetected, they print the fallback instead: run `list` at session start and `sweep` before ending a turn that changed files.
+      - `hooks --print [--harness=claude|gemini|copilot]` prints that harness's fragment with this install's path and names the target file. It refuses when no harness is detected and none is given.
+      - `SKILL.md` has a new rule: without hooks, the model is the gate. When adopting a repo, propose an `AGENTS.md` line (most harnesses load it). `hooks.md` has new "Which harness" and "Harnesses without hooks" sections. `legacy-migration.md` uses the `AGENTS.md` line when no hooks are available.
+
+      Unverified: whether Codex or Cursor hooks could run these scripts (Cursor has added hooks). No config is shipped for them.
+
+
+      First-use detail moved out of SKILL.md into references/hooks.md § Check and wire, so SKILL.md stays small. The marketplace copy is deleted (staged in jookoi-ai-market), so paper-trail installs only through ~/.agents now.
+    ts_created: 2026-09-24T21:21:03Z
+    ts_started: 2026-09-24T21:21:03Z
+    ts_done: 2026-09-24T21:22:54Z
+    ts_touched: 2026-09-24T21:22:54Z
+  cmt8:
+    title: 'Paper-trail: close the gaps from the second trial (markdown payloads, ack reason, grouped sweep, implementation-call trigger)'
+    status: done
+    priority: 54000
+    body: |-
+      Second trial (mobile-vault, 25-09-2026, implementing plans written by Fable) had hooks wired, and the record was still thin. The gate was satisfied by trivial store writes (`done` plus one body edit). `sweep --ack` was run before the work to clear 18 noisy paths. The agent's own implementation calls got no decision records, because the trigger table only covered calls the user agrees to. An `add` failed on hand-written YAML.
+
+      Changes (synced to `~/.agents`):
+      - `add`/`edit` accept markdown payloads: a `.md` file or stdin, optional frontmatter, a `# Title` line, then the body. The `SKILL.md` example now uses this form. YAML refusals print the quoting and indentation rules.
+      - `sweep --ack "<reason>"` refuses without a reason of at least 15 characters and stores the reason in the ack file. `SKILL.md` says to record first and never ack first.
+      - `sweep` groups changed files by folder and ends with a checklist of what changes carry: calls, including your own while implementing; topology, config or credential changes; work started or finished.
+      - The trigger table has new rows for calls made while implementing or deviating from a plan (the plan's deviations section, or `new-decision`), and for `start`ing items when implementation begins.
+
+      Not fixable mechanically: a gate can only check that the store was touched, not that the record is good. That part stays judgement.
+    ts_created: 2026-09-24T21:46:08Z
+    ts_started: 2026-09-24T21:46:08Z
+    ts_done: 2026-09-24T21:46:12Z
+    ts_touched: 2026-09-24T21:46:12Z
+  d1ev:
+    title: 'Paper-trail SKILL.md: restore v1''s event-triggered framing (description, why, setup last)'
+    status: done
+    priority: 55000
+    body: |-
+      Compared v1 (pre-v2 refactor, which worked well on TODO.md) with the current skill. The structural regressions:
+      - **Description.** v1 was event-triggered: "writes anything worth remembering instead of losing it to the transcript, use whenever something durable happens", plus trigger phrasings and "match on intent", so the skill re-loaded on each durable event. The v2 refactor cut that to a short state-triggered line, and the 24-09-2026 rewrite ("kept current for the whole session", "use when a repo has _architecture/") made it load once per session. This was the main cause of the trial failures.
+      - **Order.** v2 led with an ID rule and a setup-style session contract (list, sweep, hooks, compaction) ahead of the events.
+      - **The why.** It was mostly gone. The table said what and where, not why.
+      - **Medium.** Script-only writes with no prior read cost more than v1's direct `TODO.md` edit with the normal Edit tool. This change is intended and kept. Markdown payloads (cmt8 Paper-trail: close the gaps from the second trial) narrow the gap.
+
+      Changes (synced to `~/.agents`):
+      - The description is v1-style again: intent triggers, including calls you make while implementing, and phrasings like "let's go with".
+      - New "Why this is your job" section: the transcript dies, unrecorded work is invisible, record in the same turn, and executing someone else's plan doesn't exempt you. The `paper-trail:` trail line moved there.
+      - "When this runs" (events) now comes first, with a why on the doc-wrong row.
+      - Setup, hooks and compaction moved to a short "Session start, hooks, compaction" section near the end that points to `references/hooks.md`. The ID rule moved to Hard rules.
+      - `rehydrate.sh` text now matches: record in the same turn, whenever the trigger happens.
+
+      Next check: a third trial, looking at whether the skill gets invoked mid-session on a decision without prompting.
+    ts_created: 2026-09-24T21:49:17Z
+    ts_started: 2026-09-24T21:49:17Z
+    ts_done: 2026-09-24T21:49:21Z
+    ts_touched: 2026-09-24T21:49:21Z
+  uf3u:
+    title: Marketplace checker parses frontmatter line by line and misses invalid YAML
+    status: parked
+    priority: 56000
+    body: '`jookoi-ai-market/scripts/check-marketplace-skills.mjs` said "all comply" while `jookoi-create-skill`''s frontmatter was invalid YAML (an unquoted author value containing `: `). A real YAML parser caught it. Paper-trail''s description had the same bug for a while on 24-09-2026. Fix: parse the frontmatter with a real YAML parser (js-yaml is already vendored in paper-trail), or at least flag `: ` and ` #` in unquoted values.'
+    ts_created: 2026-09-24T21:54:44Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-24T21:54:44Z
+  fwe2:
+    title: 'mdx-render: markdown-only mode and browser bundle'
+    status: done
+    priority: 57000
+    body: |-
+      Prerequisite for the paper-trail viewer upgrade (plan `_architecture/plans/2026-09-25-paper-trail-viewer-ux-upgrade.md`, build step 1). Work happens in `D:\repos\Serenity\jookoi-universal-mdx-render`, not this repo.
+
+      - `renderMdx` always runs `remark-mdx`, which blanks `{...}` spans and chokes on stray `<`. Add an option that skips it (plain GFM).
+      - Add `build:browser` emitting one self-contained ESM file, since the skill folder has no `node_modules`.
+    ts_created: 2026-09-25T00:35:38Z
+    ts_started: null
+    ts_done: 2026-09-25T00:42:33Z
+    ts_touched: 2026-09-25T00:42:33Z
+  lv14:
+    title: Paper-trail viewer UX upgrade
+    status: done
+    priority: 58000
+    body: |-
+      Design agreed in `_architecture/plans/2026-09-25-paper-trail-viewer-ux-upgrade.md`: accordion kept, newest-first default, All chip, combined search, vendored renderer, keyboard and deep links, ETag polling, date headers. Build steps 2-7 there.
+
+      Blocked on: fwe2 mdx-render: markdown-only mode and browser bundle.
+    ts_created: 2026-09-25T00:35:38Z
+    ts_started: null
+    ts_done: 2026-09-25T00:42:33Z
+    ts_touched: 2026-09-25T00:42:33Z
+  pi7b:
+    title: Make paper-trail item IDs resolvable from docs
+    status: parked
+    priority: 59000
+    body: 'Raised by the owner 25-09-2026 in the retired Mobile vault (its item vra7), moved here since it concerns the skill. Plans, decision records and item bodies cite items by ID, which leads nowhere when read outside the tool. The skill''s viewer (`scripts/viewer/server.js ensure`, `references/viewer.md`) resolves them, but static markdown can''t link into a local server. Options: keep the `id title` rule as the answer, or generate a markdown index from `render` that IDs can link to. Low priority.'
+    ts_created: 2026-09-25T03:32:25Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-09-25T03:32:25Z

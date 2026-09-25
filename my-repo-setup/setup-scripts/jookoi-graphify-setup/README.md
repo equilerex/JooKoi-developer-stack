@@ -73,6 +73,8 @@ node_modules/
 _generated/
 _architecture/graphify/
 _jookoi-*
+_architecture/items.yaml
+_architecture/archive/
 .git/
 .env
 *.lock
@@ -81,6 +83,7 @@ _jookoi-*
 - `_architecture/graphify/` — don't re-ingest graphify's own prior output when re-running extraction.
 - `_generated/` — this repo's convention for disposable/rebuildable output; graphify output is explicitly NOT this (see above), which is why it gets its own line instead of being covered by this one.
 - `_jookoi-*` — the private-file marker (see `_architecture/plans/2026-08-30-jookoi-paper-trail.md` in this repo). Never ingest private notes into a graph.
+- `_architecture/items.yaml`, `_architecture/archive/` — the jookoi-paper-trail working set and its archive. Script-managed data, not knowledge to extract.
 - `.env`, `*.lock`, `node_modules/`, `.git/` — standard noise/secret exclusions, not JooKoi-specific.
 
 If the target repo has its own `_generated/`-equivalent convention under a different name, adapt that line; the `_jookoi-*` and `_architecture/graphify/` lines should be copied verbatim.

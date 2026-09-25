@@ -94,7 +94,7 @@ These emerged mid-process from later research/conversations, not the original St
 
 ## Surfaced from cross-repo consolidation (not part of the original 14, added 2026-08-23)
 
-- [`planning-before-implementation.md`](./topics/planning-before-implementation.md) — evidence-based planning methodology: when to skip planning, elicitation, decomposition, critique (cold-start review, premortem), when to skip heavyweight spec-driven ceremony. Ported from the old Cowork-session location — this was the one file that never made it across when the projects split. See `decisions/004-cross-repo-consolidation-plan.md`.
+- [`planning-before-implementation.md`](./topics/planning-before-implementation.md) — evidence-based planning methodology: when to skip planning, elicitation, decomposition, critique (cold-start review, premortem), when to skip heavyweight spec-driven ceremony. Ported from the old Cowork-session location — this was the one file that never made it across when the projects split.
 
 ## Surfaced 2026-08-23, no deep-dive yet: where agents actually work — global folders, session logs, temp worktrees
 

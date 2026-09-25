@@ -30,7 +30,7 @@ Resolves open questions 1 and 3 below:
 
 **Revisit condition**: if the personal skill library grows enough to be worth *distributing to others* (not just self-use across machines), reconsider the plugin/marketplace path as an optional Claude-Code-specific packaging layer on top of the plain-file base — not a replacement for it. That's likely a separate project at that point, not a restructure of this repo.
 
-**Revisited (2026-09-05, [decision 014](./plans/decisions/014-personal-plugin-marketplace-as-optional-extension-layer.md))**: taken, but as a second repo (`jookoi-ai-market`, name provisional), not a folder inside this one. This repo's drop-in-folder distribution (above) stays the answer for baseline, universal, harness-agnostic content. The plugin repo is a separate, optional distribution surface for richer/domain-specific tooling — one broad personal plugin (`jookoi-dev`) to start, not fragmented per-topic plugins. Layering, not replacement: this repo works with no knowledge of the plugin repo existing.
+**Revisited (2026-09-05, [decision 014](./plans/decision-history/014-personal-plugin-marketplace-as-optional-extension-layer.md))**: taken, but as a second repo (`jookoi-ai-market`, name provisional), not a folder inside this one. This repo's drop-in-folder distribution (above) stays the answer for baseline, universal, harness-agnostic content. The plugin repo is a separate, optional distribution surface for richer/domain-specific tooling — one broad personal plugin (`jookoi-dev`) to start, not fragmented per-topic plugins. Layering, not replacement: this repo works with no knowledge of the plugin repo existing.
 
 ## Decision (2026-09-02) — no collision to solve, Q2 closed
 

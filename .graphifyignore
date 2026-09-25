@@ -7,3 +7,6 @@ _jookoi-*
 *.lock
 # Mirrors package.json's scripts; ingesting both collides node ids and drops one.
 my-repo-setup/setup-scripts/jookoi-graphify-setup/package-scripts-snippet.json
+_architecture/items.yaml
+_architecture/archive/
+my-global-setup/.agents/skills/jookoi-paper-trail/scripts/vendor/

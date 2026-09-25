@@ -13,7 +13,7 @@ I've felt that shift hard this past couple years — I've built more tools in th
 ## What it does
 
 1. **Teaches** — `ai-tooling-crash-course-for-developers/` is a 16-topic reading path (context files, MCP, subagents, sandboxing, token economics, local models, supply chain). Each topic has a real research pass behind it.
-2. **Decides** — nothing gets added because it trended. Every pick needs a named practitioner, current docs, or repo-health signals behind it. Every real decision gets a numbered record in `_architecture/plans/decisions/`.
+2. **Decides** — nothing gets added because it trended. Every pick needs a named practitioner, current docs, or repo-health signals behind it. A call made outside a planning session gets a numbered record in `_architecture/plans/decision-history/`.
 3. **Ships** — `my-global-setup/` and `my-repo-setup/` are copy-paste bundles. No installer, no generator. Copy the folder, done.
 
 ## Core ideas
@@ -31,7 +31,7 @@ JooKoi Developer Stack   → portable baseline (this repo)
 JooKoi Plugins           → optional richer tooling (separate repo, not yet created)
 ```
 
-This repo is the universal baseline — global `AGENTS.md`, small skills, prompts, conventions, research/decisions. Copy-out, no install. Framework-specific or heavier tooling belongs in a separate plugin repo layered on top. See [decision 014](./_architecture/plans/decisions/014-personal-plugin-marketplace-as-optional-extension-layer.md).
+This repo is the universal baseline — global `AGENTS.md`, small skills, prompts, conventions, research/decisions. Copy-out, no install. Framework-specific or heavier tooling belongs in a separate plugin repo layered on top. See [decision 014](./_architecture/plans/decision-history/014-personal-plugin-marketplace-as-optional-extension-layer.md).
 
 ## The four layers
 
@@ -60,7 +60,7 @@ Repo identity = **leaf folder name**, so parallel checkouts under different grou
 
 - **Sessions stay short.** Instruction-following decays as sessions grow. Fresh context is the cheapest compliance mechanism there is.
 - **Ask, don't tell.** Stating a conclusion before requesting review raises sycophancy risk.
-- **Load-bearing rules get re-injected, not just written down.** Compaction drops standing instructions silently — `TODO.md`'s Context header exists for this.
+- **Standing rules live where the harness reloads them.** Compaction drops instructions from the conversation silently. Rules belong in `AGENTS.md`, not in the conversation, and the session-start hook re-points the agent at the working set (`list`) after compaction.
 - **Compiler and tests are the only oracle.** Model prose doesn't correlate with correctness. Cap iteration at two passes.
 - **Consensus isn't evidence.** Agents agreeing is correlated error, not confirmation. A cold read from a different model family beats any number of self-critiques.
 - **No new dependency without a registry check.** Package hallucination happens across every model — a second opinion won't catch it.
@@ -104,7 +104,7 @@ Repo identity = **leaf folder name**, so parallel checkouts under different grou
 | [`utility-scripts/`](./utility-scripts/) | Build tooling for *this* repo only. Not shipped. |
 | [`prompts/`](./prompts/) | Reusable ad-hoc prompts. Barely started. |
 
-Three separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.agents/AGENTS.md`, mirrored in `my-global-setup/.agents/`), this repo's own root [`AGENTS.md`](./AGENTS.md) (rules for developing this repo, not shippable), and the seed template in `my-repo-setup/`. Root [`CLAUDE.md`](./CLAUDE.md) just imports `AGENTS.md` — Claude Code doesn't read `AGENTS.md` natively ([decision 007](./_architecture/plans/decisions/007-agents-md-claude-code-bridge.md)).
+Three separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.agents/AGENTS.md`, mirrored in `my-global-setup/.agents/`), this repo's own root [`AGENTS.md`](./AGENTS.md) (rules for developing this repo, not shippable), and the seed template in `my-repo-setup/`. Root [`CLAUDE.md`](./CLAUDE.md) imports `AGENTS.md` directly (`@AGENTS.md`) because Claude Code does not read `AGENTS.md` natively. A one-line import avoids symlinks (which require developer mode or administrator privileges on Windows) and pre-commit sync tools (which introduce unnecessary dependencies and build steps).
 
 **The convention**
 
@@ -121,16 +121,15 @@ Three separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.
 | | |
 |---|---|
 | [`ARCHITECTURE.md`](./_architecture/ARCHITECTURE.md) | Why the repo is shaped this way. Static. |
-| [`TODO.md`](./_architecture/TODO.md) | Where things stand. Read first on a cold start. |
-| [`items.json`](./_architecture/items.json) | Live working set: now, parked, done, dropped items. |
-| [`plans/decisions/`](./_architecture/plans/decisions/) | Numbered decision records. |
+| [`items.yaml`](./_architecture/items.yaml) | Live working set: now, parked, done, dropped items. |
+| [`plans/decision-history/`](./_architecture/plans/decision-history/) | Background on why rules exist. Not rules. |
 | [`plans/`](./_architecture/plans/) | One file per planning session, kept permanently. |
-| [`archive/`](./_architecture/archive/) | Flushed `TODO.md` snapshots. Written only by `jookoi-paper-trail flush`. |
+| [`archive/`](./_architecture/archive/) | Flushed items, one file per month. Written only by `jookoi-paper-trail flush`. |
 
 `_jookoi-architecture/` is the gitignored private counterpart — not visible on GitHub, by design.
 
 ## Status
 
-Baseline survey and deep-dive research done. Crash course restructured 2026-08-30 ([decision 002](./_architecture/plans/decisions/002-crash-course-naming.md)). `jookoi-paper-trail` is designed, built, and running on this repo.
+Baseline survey and deep-dive research done. Crash course restructured 2026-08-30. `jookoi-paper-trail` is designed, built, and running on this repo.
 
-Live status always lives in `_architecture/TODO.md`, not here.
+Live status is in `_architecture/items.yaml` (`jookoi-paper-trail list`), not here.

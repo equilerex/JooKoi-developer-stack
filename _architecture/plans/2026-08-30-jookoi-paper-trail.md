@@ -235,6 +235,6 @@ Where this repo's actual build diverged from the design as first written above. 
 
 Fragments of this system, logged before it had a name — reconcile against this doc, don't solve independently:
 
-- `_architecture/plans/decisions/003-memory-ledger-picks.md` — trial storage direction (local filesystem + Graphify + Obsidian); its still-open centralized-memory design is the vault under another name.
+- `_architecture/plans/decision-history/003-memory-ledger-picks.md` — trial storage direction (local filesystem + Graphify + Obsidian); its still-open centralized-memory design is the vault under another name.
 - `_architecture/BACKLOG.md` — "Multi-checkout / multi-repo personal-file sync", now answered by the sync script above.
 - `_architecture/BACKLOG.md` — hook-triggered engineering-knowledge-file idea (now the `jookoi-doc` triggers), and the "global developer location" question (now the vault).

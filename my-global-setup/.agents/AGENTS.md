@@ -91,10 +91,12 @@ Governs all output — uset facing replies, documents, plans, code comments.
 
 ## jookoi-paper-trail
 
-Every repo carries its own written memory: `CONTEXT.md` next to the code it describes, and a project-level `_architecture/` (`TODO.md` for the live working set, `BACKLOG.md`, `ARCHITECTURE.md`, `plans/`, `archive/`). Applies everywhere, not just `JooKoi-developer-stack`.
+Every repo carries its own written memory: `CONTEXT.md` next to the code it describes, and a project-level `_architecture/` (`items.yaml` for the live working set, `ARCHITECTURE.md`, `plans/`, `plans/decision-history/`, `archive/`). Applies everywhere, not just `JooKoi-developer-stack`.
 
 The `jookoi-paper-trail` skill owns all of it — what goes where, when to flush, file formats. **Invoke the skill** before writing or updating any of those files. Only these apply without it:
 
+- **Never show a bare item ID.** Every mention of a working-set item to the user is `id title`, never the ID alone.
+- **Decision history is not read proactively.** `plans/decision-history/` is background on why a rule exists, not a rule. Open a file only when a doc cites it or the user asks why.
 - **Read when stuck, not always.** Consult the nearest context file at or above the working folder when entering unfamiliar code — not on every operation. Never read `archive/`; its `index.md` exists so you can decide whether history is worth asking about.
 - **A change that invalidates a context file is not done until the file is fixed.** Invoke the skill before continuing the original task; if the harness has no skills, follow `~/.agents/skills/jookoi-paper-trail/SKILL.md` directly.
 - **Prefix is the privacy switch.** No prefix = committed and shared; `_jookoi-` prefix (`_jookoi-CONTEXT.md`, `_jookoi-architecture/`) = globally gitignored and private. Both can sit side by side in one folder. The test is audience, not secrecy — shared is what's true for whoever works in this repo next; private is what's true for this user or this machine.

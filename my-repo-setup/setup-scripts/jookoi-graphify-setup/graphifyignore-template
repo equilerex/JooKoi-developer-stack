@@ -5,3 +5,6 @@ _jookoi-*
 .git/
 .env
 *.lock
+_architecture/items.yaml
+_architecture/archive/
+vendor/

@@ -10,6 +10,6 @@ Read this at feature-build/modify time, not every session (that's `AGENTS.md`'s 
 
 <!-- Key folders, what goes where, any deliberate constraints. -->
 
-## Decision records
+## Decision history
 
-See `plans/decisions/` for calls made and rejected, with reasoning.
+Background on why rules exist lives in `plans/decision-history/` (not rules; open only when cited or asked).

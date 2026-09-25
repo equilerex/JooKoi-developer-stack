@@ -5,14 +5,11 @@ A curated personal AI-dev-tooling base of operations — harness-agnostic, plain
 ## Where status actually lives
 
 - `_architecture/ARCHITECTURE.md` — why the repo is shaped this way. Static.
-- `_architecture/items.json` — the live working set, a keyed store of items with status `now`/`parked`/`done`/`dropped`, written only through the `jookoi-paper-trail` script (`list`, `add`, `done`, ...). Format: `my-global-setup/.agents/skills/jookoi-paper-trail/references/store-format.md`.
-- `_architecture/TODO.md` — just a durable `## Context` header, rewritten wholesale when stale.
-- `_architecture/archive/items-YYYY-MM.json` — roll-off of done and dropped items. Written only by `jookoi-paper-trail flush`, on model judgement, never on a cadence. Older `archive/YYYY-MM.md` files are history from the previous format.
-- `_architecture/plans/` — one file per planning session, kept. `plans/decisions/NNN-slug.md` for individual calls.
+- `_architecture/items.yaml` — the live working set, a keyed store of items with status `now`/`parked`/`done`/`dropped`, written only through the `jookoi-paper-trail` script (`list`, `add`, `done`, ...). Format: `my-global-setup/.agents/skills/jookoi-paper-trail/references/store-format.md`. Never show a bare item ID to the user: always `id title`.
+- `_architecture/archive/items-YYYY-MM.yaml` — roll-off of done and dropped items. Written only by `jookoi-paper-trail flush`, on model judgement, never on a cadence. Older `archive/YYYY-MM.md` files are history from the previous format.
+- `_architecture/plans/` — one file per planning session, kept. Background context on why rules exist lives in `plans/decision-history/` (not rules; opened only when cited or asked).
 
 Two time horizons, not three content types: live working set → archive. Content moves between them on model judgement, never on a schedule — which is why `archive/` is never written by hand. One entry grammar throughout: `## YYYY-MM-DD — Title`, newest first.
-
-`TODO-LIST.md` is retired and deleted (2026-08-30) — see `_architecture/archive/2026-08.md` for what it split into. Don't recreate it. `current-state.md`/`next-steps.md`/`progress.md` are likewise retired in favor of `TODO.md` (2026-09-02) — see `_architecture/plans/2026-09-02-jookoi-doc-redesign.md`.
 
 ## jookoi-paper-trail
 

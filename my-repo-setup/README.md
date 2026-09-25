@@ -13,11 +13,10 @@ my-repo-setup/
 ├── .agents/
 │   └── skills/            repo-scoped skills, empty until the repo earns one
 ├── _architecture/         jookoi-paper-trail context-file templates (optional)
-│   ├── TODO.md            Context header (items live in items.json)
 │   ├── ARCHITECTURE.md    why the repo is shaped this way
-│   ├── (items.json)       working-set store, created by the script on first add
+│   ├── (items.yaml)       working-set store, created by the script on first add
 │   ├── plans/
-│   │   └── decisions/     numbered decision records
+│   │   └── decision-history/  background on why rules exist, with index.md
 │   └── graphify/          knowledge-graph output — see setup-scripts/jookoi-graphify-setup/
 ├── webstorm-inspections/  WebStorm inspection profile, copied into <repo>/.idea/inspectionProfiles/
 └── setup-scripts/         run in place against a target repo — do NOT copy these in
