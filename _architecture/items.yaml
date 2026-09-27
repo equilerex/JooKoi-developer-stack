@@ -653,3 +653,15 @@ items:
     ts_started: null
     ts_done: null
     ts_touched: 2026-09-25T03:32:25Z
+  p0sw:
+    title: Require actionable owner-input questions in global instructions
+    status: done
+    priority: 60000
+    body: |-
+      The owner reported a repeated failure across LLM harnesses: agents say a decision is needed but omit the context or actual question. The old global rule asked for a question and options but did not require the agent to state what was checked, what step is blocked, or whether the answer is needed now.
+
+      Update the tracked `my-global-setup/.agents/AGENTS.md` and the live `~/.agents/AGENTS.md` and `~/.claude/CLAUDE.md` with an actionable-input rule. Verify the same rule appears once in each file and preserve all other content.
+    ts_created: 2026-09-27T18:03:22Z
+    ts_started: 2026-09-27T18:03:22Z
+    ts_done: 2026-09-27T18:04:08Z
+    ts_touched: 2026-09-27T18:04:08Z
