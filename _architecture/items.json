@@ -1,5 +1,5 @@
 {
-  "next_id": 45,
+  "next_id": 47,
   "last_flush": null,
   "items": {
     "t001": {
@@ -611,6 +611,28 @@
       "ts_started": "2026-09-24T17:39:31Z",
       "ts_done": null,
       "ts_touched": "2026-09-24T17:39:31Z"
+    },
+    "t045": {
+      "content": [
+        "Crash-course doc: harness permissions setup (Claude Code, Gemini CLI, Copilot CLI, VS Code agent mode) — `topics/harness-permissions-setup.md`, linked from `topic-index.md`"
+      ],
+      "status": "done",
+      "priority": 45000,
+      "ts_created": "2026-09-27T14:50:02Z",
+      "ts_started": "2026-09-27T14:50:02Z",
+      "ts_done": "2026-09-27T14:50:03Z",
+      "ts_touched": "2026-09-27T14:50:03Z"
+    },
+    "t046": {
+      "content": [
+        "Apply `topics/harness-permissions-setup.md` findings to `my-global-setup/` (user-level deny list, bypass lockout, Gemini folder trust)"
+      ],
+      "status": "parked",
+      "priority": 46000,
+      "ts_created": "2026-09-27T14:50:03Z",
+      "ts_started": null,
+      "ts_done": null,
+      "ts_touched": "2026-09-27T14:50:03Z"
     }
   }
 }
