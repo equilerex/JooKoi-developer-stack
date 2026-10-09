@@ -1,6 +1,6 @@
 # paper-trail viewer ux upgrade
 
-Session: 25-09-2026 02:35. Status: implemented, browser-untested (smoke-tested in happy-dom only).
+Session: 25-09-2026 02:35. Status: done.
 
 ## Context
 
@@ -53,3 +53,7 @@ The viewer (`my-global-setup/.agents/skills/jookoi-paper-trail/scripts/viewer/`)
 - Server also caches parsed layers by file signature (mtime + size), which serves both `/api/repos` and `/api/repo/:i`. The client sends `If-None-Match` itself with `cache: "no-store"` so a 304 reaches the script.
 - Not verified in a real browser (chrome-devtools MCP could not attach). Checked: 200/304 and bundle serving via curl, deep link, chips, query tokens and sort via happy-dom.
 - Post-plan changes, on user request: the row's date column is now the exact timestamp (`YYYY-MM-DD HH:MMZ`, monospace) and is the leftmost cell, replacing the relative label. The viewer gained an add-item form (`+ Add item` or `n`): Immediate to-do is status `now`, Backlog is `parked`, for the focused repo and layer. This ends the viewer's read-only status: `POST /api/repo/:i/items` runs `jookoi-paper-trail add` with the payload on stdin, and requires a JSON content type and a same-origin `Origin`.
+
+## Fold-out
+
+- Viewer behaviour: `my-global-setup/.agents/skills/jookoi-paper-trail/references/viewer.md`. At close the viewer had been smoke-tested in happy-dom only, not in a browser.

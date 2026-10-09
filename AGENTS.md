@@ -5,15 +5,15 @@ A curated personal AI-dev-tooling base of operations — harness-agnostic, plain
 ## Where status actually lives
 
 - `_architecture/ARCHITECTURE.md` — why the repo is shaped this way. Static.
-- `_architecture/items.yaml` — the live working set, a keyed store of items with status `now`/`parked`/`done`/`dropped`, written only through the `jookoi-paper-trail` script (`list`, `add`, `done`, ...). Format: `my-global-setup/.agents/skills/jookoi-paper-trail/references/store-format.md`. Never show a bare item ID to the user: always `id title`.
-- `_architecture/archive/items-YYYY-MM.yaml` — roll-off of done and dropped items. Written only by `jookoi-paper-trail flush`, on model judgement, never on a cadence. Older `archive/YYYY-MM.md` files are history from the previous format.
-- `_architecture/plans/` — one file per planning session, kept. Background context on why rules exist lives in `plans/decision-history/` (not rules; opened only when cited or asked).
+- `_architecture/items.yaml` — the live working set, a keyed store of items with status `now`/`parked`/`done`/`dropped`. One item per implementation bubble, normally written through the `jookoi-paper-trail` script (`list`, `add`, `done`, ...), hand-editing allowed for cleanup (run `check` after). Format: `my-global-setup/.agents/skills/jookoi-paper-trail/references/store-format.md`. Never show a bare item ID to the user: always `id title`.
+- `_architecture/archived-items/items-YYYY-MM.yaml` — roll-off of done and dropped items. Written only by `jookoi-paper-trail flush`, on model judgement, never on a cadence. Not read unless asked.
+- `_architecture/plans/` — open plans only, one file per feature or design question. Closed plans move to `plans/archived-plans/` (`close-plan`), decision files live in `plans/archived-decisions/` as footnotes to a rule in a read-path doc. Anything named `archived-*` is read only when a doc links it, an item names it, or the user asks.
 
-Two time horizons, not three content types: live working set → archive. Content moves between them on model judgement, never on a schedule — which is why `archive/` is never written by hand. One entry grammar throughout: `## YYYY-MM-DD — Title`, newest first.
+Three tiers: read-path docs (this file, `README.md`, `ARCHITECTURE.md`, `CONTEXT.md`), the working set (open plans, `items.yaml`), archived. Content moves between them on model judgement, never on a schedule. Anything durable must be findable from the read-path docs alone.
 
 ## jookoi-paper-trail
 
-Behavior rules live in global `AGENTS.md` (`my-global-setup/.agents/AGENTS.md`) and apply here like everywhere else. This repo is where the concept doc and skill live: `jookoi-paper-trail.md` at root, design record `_architecture/plans/2026-08-30-jookoi-paper-trail.md`, skill at `my-global-setup/.agents/skills/jookoi-paper-trail/`.
+Behavior rules live in global `AGENTS.md` (`my-global-setup/.agents/AGENTS.md`) and apply here like everywhere else. This repo is where the concept doc and skill live: `jookoi-paper-trail.md` at root, design record `_architecture/plans/archived-plans/2026-08-30-jookoi-paper-trail.md`, skill at `my-global-setup/.agents/skills/jookoi-paper-trail/`.
 
 ## Repo-specific conventions
 

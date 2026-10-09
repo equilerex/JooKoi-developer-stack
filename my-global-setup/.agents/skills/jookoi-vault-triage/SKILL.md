@@ -16,18 +16,18 @@ Turns raw captures (phone voice notes, typed fragments, imported old notes, past
 The work splits in two:
 
 - **Engine (this skill):** scripts that stage, redact, batch, guard and commit.
-- **Procedure and policy (per vault):** the vault serves both. `_AI_INSTRUCTIONS.md` holds the layout, routing table, standing files, buckets, layers, formats and a worked example. `_procedures/triage.md` holds the triage procedure, including the chat-mode steps. The vault's MCP server hands both to every connected AI, so chat clients without this skill (ChatGPT) follow the same procedure. In a checkout, `TRIAGE.md` at the repo root adds the scripts' settings (paths, write allowlist, batch size).
+- **Procedure and policy (per vault):** the vault serves both. `_system/instructions.md` holds the layout, routing table, standing files, buckets, layers, formats and a worked example. `_system/procedures/triage.md` holds the triage procedure, including the chat-mode steps. (A vault not yet moved to `_system/` has `_AI_INSTRUCTIONS.md` and `_procedures/`.) The vault's MCP server hands both to every connected AI, so chat clients without this skill (ChatGPT) follow the same procedure. In a checkout, `TRIAGE.md` at the repo root adds the scripts' settings (paths, write allowlist, batch size).
 
-Anything that names a folder, person or topic of one vault belongs in the vault, never in this skill. `references/procedure.md` is the generic template for a vault that has no `_procedures/triage.md` yet: copy it there and adapt the tool names.
+Anything that names a folder, person or topic of one vault belongs in the vault, never in this skill. `references/procedure.md` is the generic template for a vault that has no `triage.md` procedure yet: copy it there and adapt the tool names.
 
 ## Chat mode
 
-`vault_get_vault_conventions(section=["procedure:triage", "all"])`, then follow the procedure's "Through the MCP" steps. A vault without `_procedures/triage.md`: use `references/procedure.md`. Older server builds name tools `*_tool` instead of `vault_*`; use whichever the server lists.
+`vault_conventions(section="procedure:triage", include_requires=true)` (one call: the procedure plus the rules it names; never `all`), then follow the procedure's "Through the MCP" steps. A vault without a triage procedure: use `references/procedure.md`. Older server builds name tools `*_tool` instead of `vault_*`; use whichever the server lists.
 
 ## Before starting
 
 1. Find the repo root: the nearest folder above the working directory holding `TRIAGE.md`. Without one, stop: this vault hasn't adopted the skill.
-2. Read `TRIAGE.md` and the vault's `_procedures/triage.md` (else `references/procedure.md`), in full, once per session.
+2. Read `TRIAGE.md` and the vault's `triage.md` procedure (else `references/procedure.md`), in full, once per session.
 3. `node <skill>/scripts/inbox.js status` shows the Inbox, the queue and any batch left open by a crashed run. Finish an open batch before anything else.
 
 Every script takes `--root <repo>` when run from elsewhere.
@@ -45,7 +45,7 @@ All three feed the same queue (`<staging>/queue/`, outside the vault) and the sa
 Repeat until `batch` reports no captures:
 
 1. `node <skill>/scripts/inbox.js batch` prints the next batch (at most `batch_size`, oldest first), each with its `captured:` time and `provenance:` string, and snapshots the vault for the guard.
-2. Triage the batch by the triage procedure and `TRIAGE.md`. Read the staged captures with the file Read tool (they sit outside the vault). Write the vault through its operations layer, the vault MCP server, when the repo has one (`.mcp.json`), with the tools the procedure names (`vault_add_task` with `added` = the capture date, `vault_read_note(section=...)` then `vault_append_to_note` or `vault_patch_note_text` with `expected_revision`, `vault_write_note` with `create_only: true` for new pages). One write per destination file. On a `revision_conflict`, re-read and redo that one write. Only a vault without an operations layer is edited with the Edit and Write tools. Close each capture with `node <skill>/scripts/inbox.js mark <capture> done`, or `mark <capture> unresolved --reason "<why>"`.
+2. Triage the batch by the triage procedure and `TRIAGE.md`. Read the staged captures with the file Read tool (they sit outside the vault). Write the vault through its operations layer, the vault MCP server, when the repo has one (`.mcp.json`), with the tools the procedure names (`vault_task` with `action="add"` and `added` = the capture date, `vault_read(section=...)` then `vault_edit` with `action="append"` or `"replace_text"` and `expected_revision`, `vault_write` with `create_only: true` for new pages; older servers use `vault_add_task`, `vault_read_note`, `vault_append_to_note`, `vault_patch_note_text`, `vault_write_note`). One write per destination file. On a `revision_conflict`, re-read and redo that one write. Only a vault without an operations layer is edited with the Edit and Write tools. Close each capture with `node <skill>/scripts/inbox.js mark <capture> done`, or `mark <capture> unresolved --reason "<why>"`.
 3. `node <skill>/scripts/inbox.js finish --note "<one-line summary: items filed where, questions asked>"`. It reverts anything outside the rules, redacts the output, removes handled Inbox originals, appends the log line and commits.
 
 `finish` exits non-zero when it reverted something. Read what it names, fix the cause in the next batch, and tell the owner. The reverted batch's captures go back into the queue.

@@ -11,28 +11,15 @@ items:
     ts_done: 2026-09-19
     ts_touched: 2026-09-19
   t002:
-    title: Global `AGENTS.md` gained a `## Naming` section
+    title: Root README and global AGENTS.md polish
     status: done
     priority: 2000
-    body: Global `AGENTS.md` (`my-global-setup/.agents/AGENTS.md`) gained a `## Naming` section — semantic names, no cryptic acronyms/shortenings, no vague generic names (`data`/`item`/`service`/`card`) past small local scope. Directive-only, kept miniature on purpose
-    ts_created: null
-    ts_started: null
-    ts_done: 2026-09-19
-    ts_touched: 2026-09-19
-  t003:
-    title: Root `README.md` rewritten for reading-fatigue
-    status: done
-    priority: 3000
-    body: 'Root `README.md` rewritten for reading-fatigue: shorter sentences, tighter tables, cut rhetorical padding (triads, restated clauses). Content and links unchanged, ~30% shorter'
-    ts_created: null
-    ts_started: null
-    ts_done: 2026-09-19
-    ts_touched: 2026-09-19
-  t004:
-    title: Root `README.md` gained a "Why this exists" section stating the repo's core thesis
-    status: done
-    priority: 4000
-    body: Root `README.md` gained a "Why this exists" section stating the repo's core thesis — AI collapsed the cost of building a personal dev toolkit, so curating one is now every developer's job, not a niche the obsessive few opted into
+    body: |-
+      Covers three small doc changes made together:
+
+      - Global `AGENTS.md` (`my-global-setup/.agents/AGENTS.md`) gained a `## Naming` section: semantic names, no cryptic acronyms or shortenings, no vague generic names past a small local scope. Directive-only, kept short on purpose.
+      - Root `README.md` rewritten for reading fatigue: shorter sentences, tighter tables, no rhetorical padding. Content and links unchanged, about 30% shorter.
+      - Root `README.md` gained a "Why this exists" section stating the thesis: AI collapsed the cost of building a personal dev toolkit, so curating one is now every developer's job.
     ts_created: null
     ts_started: null
     ts_done: 2026-09-19
@@ -47,32 +34,19 @@ items:
     ts_done: 2026-09-19
     ts_touched: 2026-09-19
   t006:
-    title: 'Root `graphify-out/` explained: it is the `/graphify` skill output'
+    title: Graphify output location settled and regenerated
     status: done
     priority: 6000
-    body: Root `graphify-out/` explained — it is the `/graphify` *skill's* output, not a script misconfiguration. The skill hardcodes `graphify-out/` relative to cwd and ignores `--out` entirely (`~/.claude/skills/graphify/SKILL.md:53`, `:288`); `.graphify_root` holds `.`, so it came from a run at repo root. Already gitignored at `.gitignore:7` — the earlier "un-gitignored" claim here was wrong
-    ts_created: null
-    ts_started: null
-    ts_done: 2026-09-19
-    ts_touched: 2026-09-19
-  t007:
-    title: Output-location call settled
-    status: done
-    priority: 7000
-    body: Output-location call settled — LLM output is source, so it lives in the tracked dir; converge by running the skill from inside it (`cd _architecture/graphify && /graphify ../..`). Several repos get one designated main instance hosting the graph, documented in the bundle README, no tooling built
+    body: |-
+      Covers the root `graphify-out/` cleanup:
+
+      - The root `graphify-out/` folder is the `/graphify` skill's own output. The skill hardcodes `graphify-out/` relative to cwd and ignores `--out`. It is gitignored.
+      - Call: LLM output counts as source, so it lives in the tracked `_architecture/graphify/`. Converge by running the skill from inside that folder (`cd _architecture/graphify && /graphify ../..`). Several repos get one designated main instance hosting the graph, documented in the bundle README, no tooling built.
+      - The stray root folder was deleted and the graph regenerated into the tracked dir with `npm run gr:c` and `graphify cluster-only _architecture/graphify`. `.gitignore` also excludes the skill's machine-local `.graphify_python` and `.graphify_root`, and `.graphifyignore` excludes `package-scripts-snippet.json` (its `cross_env` node collided with `package.json`'s).
     ts_created: null
     ts_started: null
     ts_done: 2026-09-19
     ts_touched: 2026-09-24T18:02:47Z
-  t008:
-    title: Stray root `graphify-out/` deleted and regenerated into the tracked dir
-    status: done
-    priority: 8000
-    body: Stray root `graphify-out/` deleted and regenerated into the tracked dir via `npm run gr:c` + `graphify cluster-only _architecture/graphify`. `.gitignore` now also excludes the skill's machine-local `.graphify_python`/`.graphify_root`, and `.graphifyignore` excludes `package-scripts-snippet.json` (its `cross_env` node was colliding with `package.json`'s and being dropped)
-    ts_created: null
-    ts_started: null
-    ts_done: 2026-09-19
-    ts_touched: 2026-09-19
   t009:
     title: Name the graph communities
     status: now
@@ -128,19 +102,28 @@ items:
     ts_done: null
     ts_touched: 2026-09-19
   t015:
-    title: Build paper-trail v2
+    title: 'Build paper-trail v2: keyed YAML store, decision cleanup, doc refresh'
     status: done
     priority: 15000
-    body: 'Build paper-trail v2: an addressable working-set store replacing `TODO.md`''s checklist and `BACKLOG.md` with one keyed JSON store the script solely owns. Designed 2026-09-19, see `plans/2026-09-19-paper-trail-v2-keyed-store-todo-backlog-decisions-decision-l.md` and the companion spec. Build order is in the plan, starting with the store plus CLI. Two threads were split out and are not part of this: the decision lifecycle (status plus index so reversed decisions stop misleading agents) needs its own decision file, and the flush trigger mechanism stays open'
-    ts_created: null
+    body: |-
+      Covers the v2 build and the follow-ups that grew out of it. Design records: `plans/archived-plans/2026-09-19-paper-trail-v2-keyed-store-todo-backlog-decisions-decision-l.md`, its store spec, and `plans/archived-plans/2026-09-24-remove-todo-md-route-by-information-type.md`. Current behaviour is in the skill's `references/store-format.md`.
+
+      - Keyed working-set store replacing the `TODO.md` checklist and `BACKLOG.md`, then migrated from JSON to YAML (random base36 IDs, monthly archive files, `list --archived --last N`, markdown or YAML payloads).
+      - Decision files: lifecycle rules, a rule to promote durable content before archiving, and a sweep of the 13 existing decision files (most folded into read-path docs, survivors kept).
+      - Skill synced to `~/.agents` and `jookoi-ai-market`, timestamp formats set (ISO in the store, `DD-MM-YYYY HH:MM` in prose).
+      - Docs that still described the pre-store layout refreshed.
+    ts_created: 2026-09-19
     ts_started: null
-    ts_done: 2026-09-19
-    ts_touched: 2026-09-19
+    ts_done: 2026-09-24T18:24:40Z
+    ts_touched: 2026-09-24T18:46:02Z
   t016:
     title: Fold the `_jookoi-architecture/` scaffolding rule into `jookoi-paper-trail.js` as a subcommand
     status: now
     priority: 16000
-    body: 'Fold the `_jookoi-architecture/` scaffolding rule into `jookoi-paper-trail.js` as a subcommand, not a new standalone script — same requirements as before (non-destructive, `_jookoi-` prefix by default, explicit opt-out to unprefixed, never edits the target repo''s `AGENTS.md`). Kept open: the rule is still model judgement in global `AGENTS.md`. Open alongside it: which of the skill''s remaining judgement steps become mechanical'
+    body: |-
+      Fold the `_jookoi-architecture/` scaffolding rule into `jookoi-paper-trail.js` as a subcommand, not a new standalone script — same requirements as before (non-destructive, `_jookoi-` prefix by default, explicit opt-out to unprefixed, never edits the target repo's `AGENTS.md`). Kept open: the rule is still model judgement in global `AGENTS.md`. Open alongside it: which of the skill's remaining judgement steps become mechanical
+
+      Also covers the question of whether `jookoi-paper-trail` is now too large and its mechanical half should be split out (see the item on delegating the mechanical half to a fork subagent).
     ts_created: null
     ts_started: null
     ts_done: null
@@ -163,7 +146,7 @@ items:
       - A way to sync shared content (e.g. a global-agents-equivalent folder) across those checkouts — symlinks? partial-sync tooling against an already-existing target folder?
       - A portable, generalizable version of the gitignored-personal-file pattern (`_jookoi-` prefix precedent) usable in *any* repo, including ones the user doesn't own — where committing isn't an option but losing the content on a fresh clone is a real risk.
 
-      The durability half of this is the same shape as `_architecture/plans/decision-history/003-memory-ledger-picks.md`'s still-open centralized-memory design (mirror to a global personal location) — cross-link, don't re-solve independently.
+      The durability half of this is the same shape as `_architecture/plans/archived-decisions/003-memory-ledger-picks.md`'s still-open centralized-memory design (mirror to a global personal location) — cross-link, don't re-solve independently.
 
       Needs its own research pass before any decision. Not every open question here needs a full topic doc first, though — a narrower "what's current best practice for X" question can just be ad hoc discovery (research it, present findings, let the user decide), same as this whole planning round did. Reserve a full doc for things that earn a lasting reference.
     ts_created: null
@@ -289,20 +272,6 @@ items:
     ts_started: null
     ts_done: null
     ts_touched: 2026-09-19
-  t030:
-    title: '`_jookoi-architecture/` scaffolding should be a script, and `jookoi-paper-trail` may be too large'
-    status: parked
-    priority: 30000
-    body: |-
-      User's design note (dictated, moved out of `_architecture/next-steps.md` 2026-09-01): the global-`AGENTS.md` fallback rule (a repo with neither `_architecture/` nor `_jookoi-architecture/` at its root gets a `_jookoi-architecture/` created before any progress note is written there) should not be left to model judgement — it should be a script. Requirements as stated: non-destructive, prefixed (`_jookoi-`) by default for safety on repos the user doesn't own or can't edit, with an explicit opt-out to the unprefixed form on trusted/home environments. The script must not require editing that repo's own `AGENTS.md` — global `AGENTS.md` plus the `jookoi-doc` skill stays the sole source of truth, since some target repos aren't the user's to edit.
-
-      Second, related concern in the same note: the skill's `SKILL.md` (now `my-global-setup/.agents/skills/jookoi-paper-trail/SKILL.md`, renamed from `jookoi-doc` 2026-09-02) may already be too large, and more of its mechanical steps (not just dating/formatting/insertion, which `scripts/jookoi-paper-trail.js` already owns) could move into automated scripts rather than staying model-judgement calls.
-
-      Not scoped: which specific steps move to script, and what the new scaffolding script's CLI/flags look like. Needs a design pass before implementation.
-    ts_created: null
-    ts_started: null
-    ts_done: null
-    ts_touched: 2026-09-19
   t031:
     title: Blueprint file (`_jookoi-architecture/followup/personal-ai-dev-stack-blueprint_.md`) — evidence not yet folded into crash-course topics
     status: parked
@@ -360,78 +329,22 @@ items:
     ts_started: null
     ts_done: null
     ts_touched: 2026-09-19
-  t035:
-    title: Decision lifecycle for decision files
-    status: done
-    priority: 35000
-    body: Give `plans/decisions/NNN-*.md` an active/superseded/rejected status plus a `plans/decisions/index.md`, so a reversed decision stops misleading an agent that reads it. Independent of the store; needs its own decision file. Split out of the paper-trail v2 plan.
-    ts_created: 2026-09-19
-    ts_started: null
-    ts_done: 2026-09-24T18:24:40Z
-    ts_touched: 2026-09-24T18:24:40Z
-  t036:
-    title: Promote durable content out of a decision before archiving it
-    status: done
-    priority: 36000
-    body: Process rule, independent of the store. Split out of the paper-trail v2 plan.
-    ts_created: 2026-09-19
-    ts_started: null
-    ts_done: 2026-09-24T18:24:40Z
-    ts_touched: 2026-09-24T18:24:40Z
-  t037:
-    title: Refresh docs that still describe the pre-store paper-trail
-    status: done
-    priority: 37000
-    body: '`jookoi-paper-trail.md` (concept doc, diagrams show TODO checklist -> archive md and BACKLOG.md), `_architecture/ARCHITECTURE.md` line 28 and `_architecture/stack-distribution.md` still name BACKLOG.md and the checklist. Left as-is during the v2 build.'
-    ts_created: 2026-09-19
-    ts_started: null
-    ts_done: 2026-09-24T18:24:40Z
-    ts_touched: 2026-09-24T18:24:40Z
-  t038:
-    title: 'Paper-trail v2 follow-ups: synced skill to ~/.agents and jookoi-ai-market, plans/implemented rule, timestamps (ISO in JSON, DD-MM-YYYY HH:MM in prose)'
-    status: done
-    priority: 38000
-    body: ''
-    ts_created: 2026-09-23T22:30:12Z
-    ts_started: 2026-09-23T22:30:12Z
-    ts_done: 2026-09-23T22:30:12Z
-    ts_touched: 2026-09-23T22:30:12Z
-  t039:
-    title: 'Verify migrated repo (other project): six inferred-done items, three unmigrated entries, null timestamps flagged stale'
-    status: parked
-    priority: 39000
-    body: ''
-    ts_created: 2026-09-23T22:30:12Z
-    ts_started: null
-    ts_done: null
-    ts_touched: 2026-09-23T22:30:12Z
-  t040:
-    title: Migrate paper-trail store from JSON to YAML
-    status: done
-    priority: 40000
-    body: Vendor `yaml` in `scripts/vendor/`, convert script, hooks, templates, references, `check`, `render`. Random base36 IDs with repo prefix on export, monthly archive chunks, `list --archived --last N`, object payload for `add`/`edit` via stdin or file. Then update every doc that names `items.json` or the counter. Decided and file sweep list in plans/implemented/2026-09-24-remove-todo-md-route-by-information-type.md.
-    ts_created: 2026-09-24T17:32:48Z
-    ts_started: 2026-09-24T17:32:48Z
-    ts_done: 2026-09-24T18:24:40Z
-    ts_touched: 2026-09-24T18:46:02Z
-  t041:
-    title: Rename plans/decisions to plans/decision-history, add index, stop proactive reads
-    status: done
-    priority: 41000
-    body: 'State in the skill and both AGENTS.md files that decision files are background, not rules, and that calls made inside a planning session go in the plan, not a separate decision file. Add the cleanup rule: fold into ARCHITECTURE/AGENTS, delete, fix inbound links, plus a check warning for likely duplicates. Covers t035 and t036. The decision template still says a decision is never deleted, which contradicts this.'
-    ts_created: 2026-09-24T17:32:48Z
-    ts_started: 2026-09-24T17:32:48Z
-    ts_done: 2026-09-24T18:24:40Z
-    ts_touched: 2026-09-24T18:24:40Z
   t042:
-    title: Local viewer for the YAML store
+    title: 'Paper-trail viewer: local page and UX upgrade'
     status: done
     priority: 42000
-    body: Small local page (search, filter, view, copy in LLM-friendly form) over items.yaml and archive/*.yaml. Loads the YAML library from a CDN first, with a manual local or global override if a machine ever blocks it. Serve with a one-line local static server. Parked until the YAML migration lands.
+    body: |-
+      Covers the local viewer over the YAML store. Design record: `plans/archived-plans/2026-09-25-paper-trail-viewer-ux-upgrade.md`. Current behaviour: the skill's `references/viewer.md`.
+
+      - Local page over `items.yaml` and the archive files (search, filter, view, copy in LLM-friendly form).
+      - UX upgrade: accordion kept, newest-first default, All chip, combined search, keyboard and deep links, ETag polling, date headers.
+      - Prerequisite in `D:\repos\Serenity\jookoi-universal-mdx-render`: a markdown-only render mode and a browser bundle, so the skill folder can vendor the renderer without `node_modules`.
+
+      Open: at close the viewer had been smoke-tested in happy-dom only, not in a browser.
     ts_created: 2026-09-24T17:32:48Z
     ts_started: null
-    ts_done: 2026-09-24T18:51:08Z
-    ts_touched: 2026-09-24T18:51:08Z
+    ts_done: 2026-09-25T00:42:33Z
+    ts_touched: 2026-09-25T00:42:33Z
   t043:
     title: 'Obsidian export: script that renders YAML items to markdown into the vault'
     status: parked
@@ -441,20 +354,14 @@ items:
     ts_started: null
     ts_done: null
     ts_touched: 2026-09-24T17:32:48Z
-  t044:
-    title: Sweep existing decision files before the migration
-    status: done
-    priority: 44000
-    body: 'Classify the 13 files in plans/decisions as integrated, promote, in a plan, redundant or keep. Present a table with evidence, user approves each row, then delete or promote and repoint inbound links. Survivors move to decision-history with an index. Runs first in the migration order. Spec: plans/implemented/2026-09-24-remove-todo-md-route-by-information-type.md, section Decision sweep.'
-    ts_created: 2026-09-24T17:36:42Z
-    ts_started: 2026-09-24T17:39:31Z
-    ts_done: 2026-09-24T18:05:29Z
-    ts_touched: 2026-09-24T18:46:02Z
   v75r:
-    title: Verify the legacy migration in the first real adopting repo
+    title: Verify the legacy migration in the first real adopting repos
     status: parked
     priority: 45000
-    body: Run references/legacy-migration.md end to end on a repo still on TODO.md, BACKLOG.md, items.json and plans/decisions. This repo had no legacy state left to exercise the agent-driven path.
+    body: |-
+      Run references/legacy-migration.md end to end on a repo still on TODO.md, BACKLOG.md, items.json and plans/decisions. This repo had no legacy state left to exercise the agent-driven path.
+
+      Also check the other project that was migrated by hand: six inferred-done items, three unmigrated entries, null timestamps flagged stale.
     ts_created: 2026-09-24T18:45:37Z
     ts_started: null
     ts_done: null
@@ -482,7 +389,7 @@ items:
     status: parked
     priority: 48000
     body: |-
-      Pass criteria from the v2.1 plan (plans/implemented/2026-09-24-remove-todo-md-route-by-information-type.md): agent uses the skill unprompted, nobody hand-edits items.yaml, session-start context stays small, agents skip plans/decision-history/ unprompted, notes stay readable, total fix-up time is lower than the old markdown approach.
+      Pass criteria from the v2.1 plan (plans/archived-plans/2026-09-24-remove-todo-md-route-by-information-type.md): agent uses the skill unprompted, nobody hand-edits items.yaml, session-start context stays small, agents skip plans/decision-history/ unprompted, notes stay readable, total fix-up time is lower than the old markdown approach.
 
       First trial (triage/DeepSeek project, 24-09-2026) failed "uses the skill unprompted": set up once, then unused, title-only items, and no hooks wired. The skill fixes are in the item "Paper-trail: enforce use for the whole session". Next trial: wire the hooks first, then check that the gate fires and that items get bodies without prompting.
     ts_created: 2026-09-24T19:08:18Z
@@ -499,38 +406,21 @@ items:
     ts_done: null
     ts_touched: 2026-09-24T19:08:18Z
   paa3:
-    title: 'Paper-trail: enforce use for the whole session (sweep gate, hooks check, body notes, trigger table)'
+    title: 'Paper-trail enforcement through the trial rounds: hooks, sweep, triggers, description'
     status: done
     priority: 50000
     body: |-
-      Came from the first trial session (triage/DeepSeek project, 24-09-2026). The agent set the store up and then stopped using it: title-only items, decisions and a token leak left only in chat, and no hooks wired.
+      Covers the fixes made after the first two trial sessions, where agents set the store up and then stopped using it.
 
-      Changes, synced to the marketplace copy and `~/.agents`:
-      - `SKILL.md`: new frontmatter description (it still said `TODO.md`), a "Session contract" (in force until the session ends, a `paper-trail:` trail line after each write, keep a line in any compaction summary), a trigger table replacing "When this runs", an "Items carry a body" section with an example, the ID rule now covers item bodies, the secret rule covers command output, and a list-nesting bug fixed.
-      - Script: new `sweep [--gate] [--ack]` and `hooks` commands. `add`/`edit` print a note on an empty body or a bare-ID reference. `list` marks `(no body)`.
-      - `doc-gate.sh`: now calls `sweep --gate`, which compares file times against the last store write or ack and has a 10-minute quiet window. The old "is `items.yaml` dirty" test went quiet for the whole session after the first store write. It exits silently in repos without `items.yaml`, so it can be wired globally. `SubagentStop`/`AgentStop` removed.
-      - Hook configs: commands pointed at `.agents/...` relative to the repo, a path that never exists in a repo. They now use `$HOME/.agents/skills/...`.
-      - `hooks.md`: a check-and-wire procedure. `legacy-migration.md`: hooks added as the last step.
+      - Hooks wired globally on this machine, then made harness-agnostic: detection from `CLAUDECODE` or `GEMINI_CLI`, `JOOKOI_HARNESS` override, `hooks --print` per harness, a no-hooks fallback via a one-line `AGENTS.md` proposal.
+      - `sweep` (with `--ack` requiring a reason, grouped output), body-and-bare-ID notes on `add` and `edit`, `(no body)` marks in `list`, markdown payloads for `add` and `edit`.
+      - `SKILL.md` trigger table, an implementation-call trigger, and the description restored to an event-triggered form because a short description made the skill load once per session.
 
-      Tested in a scratch repo: silent without a store, blocks after a change, silent mid-block, silent after an ack, silent inside the quiet window.
+      The end-of-turn gate (`doc-gate.sh`, `sweep --gate`) built here was removed later by the plan-first lifecycle work (see the item "Implement paper-trail plan-first lifecycle").
     ts_created: 2026-09-24T21:13:00Z
     ts_started: 2026-09-24T21:13:00Z
-    ts_done: 2026-09-24T21:13:04Z
-    ts_touched: 2026-09-24T21:13:04Z
-  yvh3:
-    title: Wire the paper-trail hooks globally on this machine
-    status: done
-    priority: 0
-    body: |-
-      Done 24-09-2026. `~/.claude/settings.json` now wires Stop (`doc-gate.sh`), PreCompact (`preserve.sh`) and SessionStart `compact|startup|resume` (`rehydrate.sh`), all at `$HOME/.agents/skills/jookoi-paper-trail/hooks/`. The pre-merge backup is in this session's scratchpad only. This repo's own Stop and SubagentStop doc-gate entries are removed from `.claude/settings.json` so the gate doesn't run twice.
-
-      For other people's installs: `hooks --print` prints the fragment with the running install's path, so plugin-cache or repo copies get working commands. `sweep` and the session contract in `SKILL.md` tell the agent to raise missing hooks once and offer the merge.
-
-      Still open: this repo keeps the legacy `utility-scripts/jookoi-hooks/` hooks (session-log.sh on SessionEnd and PreCompact, session-start-reminder.sh on SessionStart). They overlap with `preserve.sh` and `rehydrate.sh`: both write or surface `_jookoi-architecture/session-log.md`. Decide whether to drop them.
-    ts_created: 2026-09-24T21:13:00Z
-    ts_started: 2026-09-24T21:13:00Z
-    ts_done: 2026-09-24T21:19:07Z
-    ts_touched: 2026-09-24T21:19:07Z
+    ts_done: 2026-09-24T21:49:21Z
+    ts_touched: 2026-09-24T21:49:21Z
   t4o4:
     title: Stale jookoi-dev plugin cache serves an old paper-trail next to the ~/.agents copy
     status: parked
@@ -541,7 +431,7 @@ items:
     ts_done: null
     ts_touched: 2026-09-24T21:54:45Z
   a6bf:
-    title: Drop this repo's legacy session-log hooks now that preserve.sh and rehydrate.sh are global (see yvh3 Wire the paper-trail hooks globally on this machine)
+    title: 'Drop this repo''s legacy session-log hooks now that preserve.sh and rehydrate.sh are global (see paa3 Paper-trail enforcement through the trial rounds: hooks, sweep, triggers, description)'
     status: parked
     priority: 52000
     body: ''
@@ -549,67 +439,6 @@ items:
     ts_started: null
     ts_done: null
     ts_touched: 2026-09-24T21:19:12Z
-  nak8:
-    title: 'Paper-trail: harness-agnostic hooks check (detection, per-harness --print, no-hooks fallback)'
-    status: done
-    priority: 53000
-    body: |-
-      Follow-up to paa3 Paper-trail: enforce use for the whole session (sweep gate, hooks check, body notes, trigger table). The hooks check assumed Claude Code.
-
-      - The script detects the harness from `CLAUDECODE` or `GEMINI_CLI`. Copilot has no reliable marker, so it needs `JOOKOI_HARNESS=copilot`, which also overrides detection generally. Undetected means no hooks are assumed.
-      - `sweep` and `hooks` report missing hooks for the running harness only. When the harness is undetected, they print the fallback instead: run `list` at session start and `sweep` before ending a turn that changed files.
-      - `hooks --print [--harness=claude|gemini|copilot]` prints that harness's fragment with this install's path and names the target file. It refuses when no harness is detected and none is given.
-      - `SKILL.md` has a new rule: without hooks, the model is the gate. When adopting a repo, propose an `AGENTS.md` line (most harnesses load it). `hooks.md` has new "Which harness" and "Harnesses without hooks" sections. `legacy-migration.md` uses the `AGENTS.md` line when no hooks are available.
-
-      Unverified: whether Codex or Cursor hooks could run these scripts (Cursor has added hooks). No config is shipped for them.
-
-
-      First-use detail moved out of SKILL.md into references/hooks.md § Check and wire, so SKILL.md stays small. The marketplace copy is deleted (staged in jookoi-ai-market), so paper-trail installs only through ~/.agents now.
-    ts_created: 2026-09-24T21:21:03Z
-    ts_started: 2026-09-24T21:21:03Z
-    ts_done: 2026-09-24T21:22:54Z
-    ts_touched: 2026-09-24T21:22:54Z
-  cmt8:
-    title: 'Paper-trail: close the gaps from the second trial (markdown payloads, ack reason, grouped sweep, implementation-call trigger)'
-    status: done
-    priority: 54000
-    body: |-
-      Second trial (mobile-vault, 25-09-2026, implementing plans written by Fable) had hooks wired, and the record was still thin. The gate was satisfied by trivial store writes (`done` plus one body edit). `sweep --ack` was run before the work to clear 18 noisy paths. The agent's own implementation calls got no decision records, because the trigger table only covered calls the user agrees to. An `add` failed on hand-written YAML.
-
-      Changes (synced to `~/.agents`):
-      - `add`/`edit` accept markdown payloads: a `.md` file or stdin, optional frontmatter, a `# Title` line, then the body. The `SKILL.md` example now uses this form. YAML refusals print the quoting and indentation rules.
-      - `sweep --ack "<reason>"` refuses without a reason of at least 15 characters and stores the reason in the ack file. `SKILL.md` says to record first and never ack first.
-      - `sweep` groups changed files by folder and ends with a checklist of what changes carry: calls, including your own while implementing; topology, config or credential changes; work started or finished.
-      - The trigger table has new rows for calls made while implementing or deviating from a plan (the plan's deviations section, or `new-decision`), and for `start`ing items when implementation begins.
-
-      Not fixable mechanically: a gate can only check that the store was touched, not that the record is good. That part stays judgement.
-    ts_created: 2026-09-24T21:46:08Z
-    ts_started: 2026-09-24T21:46:08Z
-    ts_done: 2026-09-24T21:46:12Z
-    ts_touched: 2026-09-24T21:46:12Z
-  d1ev:
-    title: 'Paper-trail SKILL.md: restore v1''s event-triggered framing (description, why, setup last)'
-    status: done
-    priority: 55000
-    body: |-
-      Compared v1 (pre-v2 refactor, which worked well on TODO.md) with the current skill. The structural regressions:
-      - **Description.** v1 was event-triggered: "writes anything worth remembering instead of losing it to the transcript, use whenever something durable happens", plus trigger phrasings and "match on intent", so the skill re-loaded on each durable event. The v2 refactor cut that to a short state-triggered line, and the 24-09-2026 rewrite ("kept current for the whole session", "use when a repo has _architecture/") made it load once per session. This was the main cause of the trial failures.
-      - **Order.** v2 led with an ID rule and a setup-style session contract (list, sweep, hooks, compaction) ahead of the events.
-      - **The why.** It was mostly gone. The table said what and where, not why.
-      - **Medium.** Script-only writes with no prior read cost more than v1's direct `TODO.md` edit with the normal Edit tool. This change is intended and kept. Markdown payloads (cmt8 Paper-trail: close the gaps from the second trial) narrow the gap.
-
-      Changes (synced to `~/.agents`):
-      - The description is v1-style again: intent triggers, including calls you make while implementing, and phrasings like "let's go with".
-      - New "Why this is your job" section: the transcript dies, unrecorded work is invisible, record in the same turn, and executing someone else's plan doesn't exempt you. The `paper-trail:` trail line moved there.
-      - "When this runs" (events) now comes first, with a why on the doc-wrong row.
-      - Setup, hooks and compaction moved to a short "Session start, hooks, compaction" section near the end that points to `references/hooks.md`. The ID rule moved to Hard rules.
-      - `rehydrate.sh` text now matches: record in the same turn, whenever the trigger happens.
-
-      Next check: a third trial, looking at whether the skill gets invoked mid-session on a decision without prompting.
-    ts_created: 2026-09-24T21:49:17Z
-    ts_started: 2026-09-24T21:49:17Z
-    ts_done: 2026-09-24T21:49:21Z
-    ts_touched: 2026-09-24T21:49:21Z
   uf3u:
     title: Marketplace checker parses frontmatter line by line and misses invalid YAML
     status: parked
@@ -619,31 +448,6 @@ items:
     ts_started: null
     ts_done: null
     ts_touched: 2026-09-24T21:54:44Z
-  fwe2:
-    title: 'mdx-render: markdown-only mode and browser bundle'
-    status: done
-    priority: 57000
-    body: |-
-      Prerequisite for the paper-trail viewer upgrade (plan `_architecture/plans/2026-09-25-paper-trail-viewer-ux-upgrade.md`, build step 1). Work happens in `D:\repos\Serenity\jookoi-universal-mdx-render`, not this repo.
-
-      - `renderMdx` always runs `remark-mdx`, which blanks `{...}` spans and chokes on stray `<`. Add an option that skips it (plain GFM).
-      - Add `build:browser` emitting one self-contained ESM file, since the skill folder has no `node_modules`.
-    ts_created: 2026-09-25T00:35:38Z
-    ts_started: null
-    ts_done: 2026-09-25T00:42:33Z
-    ts_touched: 2026-09-25T00:42:33Z
-  lv14:
-    title: Paper-trail viewer UX upgrade
-    status: done
-    priority: 58000
-    body: |-
-      Design agreed in `_architecture/plans/2026-09-25-paper-trail-viewer-ux-upgrade.md`: accordion kept, newest-first default, All chip, combined search, vendored renderer, keyboard and deep links, ETag polling, date headers. Build steps 2-7 there.
-
-      Blocked on: fwe2 mdx-render: markdown-only mode and browser bundle.
-    ts_created: 2026-09-25T00:35:38Z
-    ts_started: null
-    ts_done: 2026-09-25T00:42:33Z
-    ts_touched: 2026-09-25T00:42:33Z
   pi7b:
     title: Make paper-trail item IDs resolvable from docs
     status: parked
@@ -665,3 +469,155 @@ items:
     ts_started: 2026-09-27T18:03:22Z
     ts_done: 2026-09-27T18:04:08Z
     ts_touched: 2026-09-27T18:04:08Z
+  ne15:
+    title: Create `jookoi-agents-md-expert` skill
+    status: done
+    priority: 61000
+    body: Skill for writing, extending and auditing always-loaded instruction files (AGENTS.md / CLAUDE.md, global and repo). Admission test, placement table that redirects non-belonging content (skill, hook, doc, tracker, local file), size target (<200 lines, 500 hard ceiling), LLM-targeted writing rules, lazy vs eager linking. Built from `ai-tooling-crash-course-for-developers/topics/base-instruction-files.md` plus prompting/token-economics docs. Tracked at `my-global-setup/.agents/skills/jookoi-agents-md-expert/`, published to jookoi-ai-market, linked into `~/.agents/skills` and `~/.claude/skills`. Natural tool for t012 Fold agent-instruction-file findings into global `AGENTS.md`.
+    ts_created: 2026-10-09T20:18:55Z
+    ts_started: 2026-10-09T20:18:55Z
+    ts_done: 2026-10-09T20:19:00Z
+    ts_touched: 2026-10-09T20:19:00Z
+  kx3n:
+    title: 'Finish skill sync cleanup: copy-only, no links'
+    status: now
+    priority: 62000
+    body: |-
+      Plan: `_architecture/plans/2026-10-09-skill-sync-copy-only.md`. Build steps 5 to 14 and 16 to 18 are implemented. Step 13 passed on the user's run.
+
+      Step 15, partly done: 21 broken home links unlinked; `~/.agents/skills` added to the index as source `home/.agents`. Still open: copy runs b1, b2, b3, c in the plan (user runs them), then the re-list check (d). Step 19 (move the plan) waits for that.
+
+      Also open: copy the tracked `my-global-setup/.agents/AGENTS.md` to the live `~/.agents/AGENTS.md`, by the user.
+    ts_created: 2026-10-09T20:47:35Z
+    ts_started: 2026-10-09T20:47:35Z
+    ts_done: null
+    ts_touched: 2026-10-09T21:46:00Z
+  bx68:
+    title: Implement paper-trail plan-first lifecycle
+    status: now
+    priority: -1000
+    body: |-
+      Plan: `_architecture/plans/2026-10-09-paper-trail-plan-first-lifecycle.md`. Deliverables 1 to 5 are built (skill docs and templates, script and viewer, hooks, AGENTS.md and ARCHITECTURE.md, this repo's migration with seven parked migration items). Smoke tests pass. Awaiting owner review and commit.
+
+      Next: owner reviews the plan's Implementation deviations (decision 015 needs a call), then deliverable 6 (copy to `~/.agents`, `~/.claude`, the plugin after kx3n Finish skill sync cleanup: copy-only, no links), then fold-out check and `close-plan`.
+    ts_created: 2026-10-09T21:44:50Z
+    ts_started: 2026-10-09T21:44:50Z
+    ts_done: null
+    ts_touched: 2026-10-09T22:03:45Z
+  wcu0:
+    title: Unified memory concept for durable lessons (if routing proves insufficient)
+    status: parked
+    priority: 63000
+    body: 'User wants durable takeaways written where they can review them, same place across harnesses. Decided 2026-10-09: no single learnings file for now. Route by kind: repo-level general knowledge to the repo README.md or AGENTS.md, architectural and not always needed to ARCHITECTURE.md (paper-trail), feature-specific to that folder CONTEXT.md, the user own preferences to the paper-trail architecture folder. Claude Code auto memory stays on, AGENTS.md is a separate layer. Agents may ask whether a lesson relevant to every session should become an AGENTS.md rule (added to `jookoi-agents-md-expert`). Open: a unified memories concept, either a global folder under `~/.agents/` linked from global AGENTS.md or a repo-level one for repo-specific preferences, only if the routing above leaves a real gap.'
+    ts_created: 2026-10-09T21:51:49Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-10-09T21:55:23Z
+  c29n:
+    title: Migrate GlitchGlimmer-FastLed-Sound-Reactive-esp32 to the plan-first paper-trail layout
+    status: parked
+    priority: 64000
+    body: |-
+      Run when next working in that repo, using `references/legacy-migration.md`. Design: `_architecture/plans/2026-10-09-paper-trail-plan-first-lifecycle.md` in the dev-stack repo. Audit findings:
+      - Five of 17 plans at `plans/` root are built and need fold-out, then `close-plan`.
+      - Three HANDOFF files duplicate their plan's status: fold into the plan progress or the item body.
+      - `2026-09-21-music-model-for-lighting-research` is research filed as a plan: move to a `CONTEXT.md` or linked `<topic>.ARCHITECTURE.md`.
+      - `VISUALIZER_UI.md` and `PROCESS-NOTES.md` sit at `_architecture/` root and are not standard docs.
+      - `src/scenes/SceneDirector.h` cites a plan path in a comment: repoint to a read-path doc or drop it.
+    ts_created: 2026-10-09T22:02:14Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-10-09T22:02:14Z
+  wje1:
+    title: Migrate JooKoi-frontpage-to-the-open-web to the plan-first paper-trail layout
+    status: parked
+    priority: 65000
+    body: |-
+      Run when next working in that repo, using `references/legacy-migration.md`. Design: `_architecture/plans/2026-10-09-paper-trail-plan-first-lifecycle.md` in the dev-stack repo. Audit findings:
+      - `2026-09-29-landing-page-rss-feed` is "Status: Done" but sits at `plans/` root: fold out, then `close-plan`.
+      - Five plans in `plans/implemented/` have a status of not started or awaiting go-ahead (for example `2026-09-15-angular-foundation-phase-1`): check each status against the code before archiving.
+      - `2026-09-16-phase-3-content-and-features` says "ready to implement" while `ARCHITECTURE.md` says phase 3 is built: fix the status, then archive.
+      - The store has 81 items, many per small change: consolidate. A skill README cites plans that no longer exist.
+      - Most decisions are real rule rationale and need a `Linked from:` home. 034, 038 and 039 are ordinary implementation: fold into the docs and delete.
+    ts_created: 2026-10-09T22:02:14Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-10-09T22:02:14Z
+  b6dc:
+    title: Migrate jookoi-homelab to the plan-first paper-trail layout
+    status: parked
+    priority: 66000
+    body: |-
+      Run when next working in that repo, using `references/legacy-migration.md`. Design: `_architecture/plans/2026-10-09-paper-trail-plan-first-lifecycle.md` in the dev-stack repo. Audit findings:
+      - `plans/2026-10-08-ha-migration-checklist` is generated by `ha-migration/build.mjs`, so it is not a plan: move it next to its generator.
+      - `ha-migration/build.mjs` cites a plan path in a comment, and the README points at a plan as rebuild instructions: move the instructions into the README or `ARCHITECTURE.md`.
+      - Decisions 001 and 002 are linked from nothing except `index.md`: fold into a read-path doc and delete, or link them from the rule they explain.
+    ts_created: 2026-10-09T22:02:14Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-10-09T22:02:14Z
+  l0mp:
+    title: Migrate JooKoi-md-archive to the plan-first paper-trail layout
+    status: parked
+    priority: 67000
+    body: |-
+      Run when next working in that repo, using `references/legacy-migration.md`. Design: `_architecture/plans/2026-10-09-paper-trail-plan-first-lifecycle.md` in the dev-stack repo. Audit findings:
+      - No `items.yaml`: the repo runs on `TODO.md` and `BACKLOG.md` plus `plans/decisions/`. Convert open entries to items, fold standing context into docs, delete the two files.
+      - `architecture.md` is lowercase: rename to `ARCHITECTURE.md`.
+      - `AGENTS.md` points to `plans/decisions/` as reference: reword so agents read read-path docs, and classify each decision (fold, keep with a `Linked from:` line, or delete).
+    ts_created: 2026-10-09T22:02:14Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-10-09T22:02:14Z
+  q3kp:
+    title: Migrate jookoi-ai-market to the plan-first paper-trail layout
+    status: parked
+    priority: 68000
+    body: |-
+      Run when next working in that repo, using `references/legacy-migration.md`. Design: `_architecture/plans/2026-10-09-paper-trail-plan-first-lifecycle.md` in the dev-stack repo. Audit findings:
+      - No `items.yaml`: the repo runs on `TODO.md` and `BACKLOG.md` plus `plans/decisions/`. Convert open entries to items and delete the two files.
+      - Classify each decision in `plans/decisions/` (fold into a read-path doc, keep as an `archived-decisions/` footnote with a `Linked from:` line, or delete).
+      - The plugin copy of the skill is refreshed with `utility-scripts/copy-skill.js` once the item "Finish skill sync cleanup: copy-only, no links" lands. Not before.
+    ts_created: 2026-10-09T22:02:15Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-10-09T22:02:15Z
+  j55o:
+    title: Migrate jookoi-corporate-env-personal-assistant to the plan-first paper-trail layout
+    status: parked
+    priority: 69000
+    body: |-
+      Run when next working in that repo, using `references/legacy-migration.md`. Design: `_architecture/plans/2026-10-09-paper-trail-plan-first-lifecycle.md` in the dev-stack repo. Audit findings:
+      - Closest to the intended shape already: milestone-sized items, finished plans in `plans/implemented/` with `Status: done`, `AGENTS.md` pointing to `ARCHITECTURE.md` first.
+      - Rename `plans/implemented/` to `plans/archived-plans/` after checking each plan's status.
+      - Item mey7 restates the plan's status and a separate `HANDOFF.md`: shorten it to a pointer and fold the handoff into the plan's progress.
+    ts_created: 2026-10-09T22:02:15Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-10-09T22:02:15Z
+  jkk9:
+    title: Migrate jookoi-personal-history-scraper to the plan-first paper-trail layout
+    status: parked
+    priority: 70000
+    body: |-
+      Run when next working in that repo, using `references/legacy-migration.md`. Design: `_architecture/plans/2026-10-09-paper-trail-plan-first-lifecycle.md` in the dev-stack repo. Audit findings:
+      - No `items.yaml`: the repo runs on `TODO.md` and `BACKLOG.md` plus `plans/decisions/`.
+      - `_architecture/page-redesign-prompt.md` tells agents to read every decision, and `ARCHITECTURE.md` points to `plans/decisions/` as reference: repoint both to read-path docs.
+      - `plans/` holds `package.json`, `vitest.config.mjs`, mock `.html`/`.js` files and a `node_modules/`, and `archive/` holds a mockup `.html` and a handoff note: move them to a normal source folder.
+      - Decision 005 still says DECIDED after 006 pivoted away from it. Decision 018 is a CSS convention that belongs in a `CONTEXT.md`.
+    ts_created: 2026-10-09T22:02:15Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-10-09T22:02:15Z
+  c4vj:
+    title: 'Paper-trail viewer: merged shared/private list, `?repo=` URL, stale-server replacement'
+    status: done
+    priority: 71000
+    body: |-
+      The page shows `_architecture/` and `_jookoi-architecture/` items as one list (private items tagged, a shared item tagged only when its id exists in both). `?repo=FolderName` selects the repo and survives refresh, `#Folder/id` reopens an item. Adding an item asks which layer when both exist.
+
+      The first attempt broke every repo view: the new page requested `layer=merged` from a server process still running the old code, which 404s that value. `server.js ensure` now compares a code fingerprint from `/api/ping` and replaces an outdated server. Verified in headless Edge across all registered repos (switching, reload, deep link, unknown repo). Reference: `references/viewer.md`.
+    ts_created: 2026-10-09T23:19:41Z
+    ts_started: 2026-10-09T23:19:41Z
+    ts_done: 2026-10-09T23:19:42Z
+    ts_touched: 2026-10-09T23:19:42Z

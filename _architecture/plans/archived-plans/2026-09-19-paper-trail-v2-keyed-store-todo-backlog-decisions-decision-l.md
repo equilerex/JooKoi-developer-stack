@@ -1,6 +1,6 @@
 # paper-trail v2: an addressable working-set store
 
-Session: 2026-09-19. Status: built 2026-09-19 (steps 1-6). Spec: `2026-09-19-paper-trail-v2-store-spec.md`.
+Session: 2026-09-19. Status: done.
 
 ## Context
 
@@ -69,3 +69,7 @@ One change fixes all of it: give items primary keys and let a script own every w
 - Step 6 shipped as `references/flush-prompt.md`, not a slash command.
 - Hooks changed: `rehydrate.sh` injects Context plus `list`, `doc-gate.sh` treats `items.json` as touching the working set.
 - The concept doc `jookoi-paper-trail.md`, `ARCHITECTURE.md` and `stack-distribution.md` still describe the old layout (logged as a parked item).
+
+## Fold-out
+
+- Store format, commands and errors: `my-global-setup/.agents/skills/jookoi-paper-trail/references/store-format.md`. Tiers and what replaced TODO.md and BACKLOG.md: `_architecture/ARCHITECTURE.md`.

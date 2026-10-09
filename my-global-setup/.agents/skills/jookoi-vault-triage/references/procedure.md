@@ -1,6 +1,6 @@
 # Triage procedure
 
-How to triage a batch of captures, or a dump pasted into a chat. The vault's own instructions supply everything specific to that vault: the routing table, standing files, buckets, task layers, areas and a worked example. They are `_AI_INSTRUCTIONS.md` at the vault root, which the vault's MCP server sends to you, or `TRIAGE.md` at the repo root in a vault without one. Where this file says "the questions file", "the task files" or "living pages", the vault's instructions name them. When the two disagree, the vault's instructions win.
+How to triage a batch of captures, or a dump pasted into a chat. The vault's own instructions supply everything specific to that vault: the routing table, standing files, buckets, task layers, areas and a worked example. They are `_system/instructions.md` (older vaults: `_AI_INSTRUCTIONS.md`) at the vault root, which the vault's MCP server sends to you, or `TRIAGE.md` at the repo root in a vault without one. Where this file says "the questions file", "the task files" or "living pages", the vault's instructions name them. When the two disagree, the vault's instructions win.
 
 ## Role
 

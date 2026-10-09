@@ -1,6 +1,6 @@
 # jookoi-doc redesign: TODO.md replaces current-state.md + next-steps.md, progress.md retired
 
-Session: 2026-09-02. Status: built.
+Session: 2026-09-02. Status: done.
 
 ## Context
 
@@ -39,3 +39,7 @@ Scope, per the user's explicit instruction ("yes, there are many interconnected 
 ## Implementation deviations
 
 None yet identified during the build — this section stays open if verification surfaces a divergence.
+
+## Fold-out
+
+none: the TODO.md design was superseded by the YAML store. Current behaviour is in `my-global-setup/.agents/skills/jookoi-paper-trail/SKILL.md` and `references/store-format.md`.

@@ -16,7 +16,7 @@ const descriptions = {
   'vault:pull': 'Pull vault content back into this checkout.',
   'vault:push:dry': 'Preview vault:push without writing anything.',
   'vault:pull:dry': 'Preview vault:pull without writing anything.',
-  'sync:skill': 'Interactive: pick skills, pull latest from the marketplace (if there), symlink into ~/.agents and ~/.claude.',
+  'copy:skill': 'Interactive: pick an indexed source, skills, indexed destinations or global, review the plan, then copy real files over the destination folders.',
   'setup:jnote': 'One-time: install global `jnote` shell function (PowerShell, pwsh, Git Bash).',
   jnote: 'Log a process-improvement note. Also runs as a bare `jnote` after setup:jnote.',
 };

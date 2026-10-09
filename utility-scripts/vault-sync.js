@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 // jookoi-paper-trail — vault sync.
-// Design: _architecture/plans/2026-08-30-jookoi-paper-trail.md
 //
 // Usage:
 //   node utility-scripts/vault-sync.js push  [--vault <path>] [--force-full] [--confirm] [--dry-run]

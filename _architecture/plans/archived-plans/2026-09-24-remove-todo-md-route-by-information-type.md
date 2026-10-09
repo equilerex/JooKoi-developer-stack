@@ -267,3 +267,7 @@ Decide before the trial that it passes only if, in a real working repo over a fe
 - Not done: the `my-repo-setup` seed `AGENTS.md` gets no paper-trail rules, and `BACKLOG.md` mentions remain in `stack-distribution.md` and crash-course topic docs (sm71 Fix remaining BACKLOG.md mentions in stack-distribution.md and crash-course topic docs).
 - The agent-driven legacy migration was not exercised, since this repo had no legacy state left after the one-off `items.json` conversion (v75r Verify the legacy migration in the first real adopting repo).
 - Skill sync to `~/.agents` and the marketplace was done by the user. Both copies carry a shortened frontmatter description that still names `TODO.md`.
+
+## Fold-out
+
+- YAML store, no TODO.md, routing: `my-global-setup/.agents/skills/jookoi-paper-trail/SKILL.md` and `references/store-format.md`. Legacy migration procedure: `references/legacy-migration.md`. Layout: `_architecture/ARCHITECTURE.md`.

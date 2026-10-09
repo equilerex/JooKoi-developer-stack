@@ -14,3 +14,6 @@ _architecture/graphify/graphify-out/.graphify_root
 _architecture/graphify/graphify-out/cache/ast/
 _architecture/graphify/graphify-out/cache/stat-index.json
 _architecture/graphify/graphify-out/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/
+/.claude/.headroom_wrap_marker.json
+/.claude/.headroom_wrap_owners.json
+/.claude/.headroom_wrap_settings.lock

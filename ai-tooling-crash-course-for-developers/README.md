@@ -58,7 +58,7 @@ User confirmed running multiple instances of a graphing/knowledge tool (see Park
 
 ## Architecture and decisions
 
-Background context and decision history live in `../_architecture/plans/decision-history/`.
+Reasoning behind individual picks, where one was kept, lives in `../_architecture/plans/archived-decisions/`.
 
 ## Local-only files (not in git)
 

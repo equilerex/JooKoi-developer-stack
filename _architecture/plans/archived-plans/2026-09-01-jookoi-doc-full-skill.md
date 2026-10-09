@@ -1,5 +1,7 @@
 # Plan — full `jookoi-doc` skill (memory-system build step 8)
 
+Session: 2026-09-01. Status: done.
+
 ## Context
 
 `jookoi-doc` maintains the file set defined by the jookoi-paper-trail design (`_architecture/plans/2026-08-30-jookoi-paper-trail.md`). The design deferred the full skill to build step 8, to be written once the MVP had been dogfooded. That has happened.
@@ -278,3 +280,7 @@ Steps 1–6 are the skill. Step 8 is what makes the repo an example the skill ca
 ## Out of scope
 
 Vault sync conflict resolution stays with `utility-scripts/vault-sync.js` (build order step 5). Bulk generation of `CONTEXT.md` remains forbidden. No setup script — manual copy, per the standing rejection of generated config.
+
+## Fold-out
+
+none: the skill and file set this plan built were superseded by the v2 store and the later redesigns. Current behaviour is in `my-global-setup/.agents/skills/jookoi-paper-trail/SKILL.md` and `references/`.

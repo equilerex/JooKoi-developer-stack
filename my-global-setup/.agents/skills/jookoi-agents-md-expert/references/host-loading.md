@@ -26,3 +26,5 @@ Claude Code specifics:
 - `claudeMdExcludes` setting skips ancestor files from other teams in a monorepo.
 
 Local-override files outside Claude Code and Codex (`AGENTS.local.md` and similar) are convention, not tooling. Most hosts do not read them.
+
+Vendor docs to re-check against: [Claude Code](https://code.claude.com/docs/en/memory), [Cursor](https://cursor.com/docs/context/rules), [GitHub Copilot](https://docs.github.com/copilot), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [opencode](https://opencode.ai/docs/rules/), [Zed](https://zed.dev/docs/ai/rules), [Amp](https://ampcode.com/manual), [Windsurf / Cascade](https://docs.devin.ai/desktop/cascade/agents-md), [Cline](https://docs.cline.bot/customization/cline-rules), [Aider](https://aider.chat/docs/usage/conventions.html), [Jules](https://jules.google/docs).

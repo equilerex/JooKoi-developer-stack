@@ -8,7 +8,7 @@ Literal copy of what belongs under the user's home directory (`~/.agents/`, `~/.
 my-global-setup/
 ├── .agents/
 │   ├── AGENTS.md       global behavior ruleset — copy to ~/.agents/AGENTS.md
-│   └── skills/         global skills, mirrored from ~/.agents/skills/ (see its own README)
+│   └── skills/         global skills, copied out with `npm run copy:skill`
 ├── .claude/
 │   └── settings.json   portable copy of ~/.claude/settings.json permission grants — copy-source only, not read live by Claude Code
 └── .gitignore          literal file — merge into, or use as, ~/.gitignore
@@ -24,30 +24,25 @@ my-global-setup/
 
 All three steps are manual, on purpose — no setup script. If `~/.agents/AGENTS.md` or `~/.claude/settings.json` already exist and diverge, diff by hand and merge; don't blind-overwrite.
 
-## SIM pattern for toolchains
+## Copying skills
 
-The practical setup pattern here is: source in this repo, mirror into the live tool directories, then link the skill folders into the harness that ignores `AGENTS.md` by default.
-
-- Source: `my-global-setup/.agents/skills/`
-- Extra source: `~/.gemini/antigravity-cli/skills/` (if present)
-- Integration: `~/.agents/skills/`
-- Mirror: `~/.claude/skills/`
-
-This gives a clean separation between the canonical skill set and the per-harness mirror. The link step is intentionally small and safe: it resolves the active user profile dynamically (`$env:USERPROFILE`/`$HOME`), creates `~/.claude/skills` if needed, and then links every skill from the configured source folders into the Claude folder without overwriting existing items unless you pass `-Force`.
-
-PowerShell:
-
-```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File .\utility-scripts\link-skill-folders.ps1
-```
-
-or via npm:
+Skills are copied as real files. Nothing is linked and no folder is canonical.
 
 ```bash
-npm run setup:skills:link
+npm run copy:skill
 ```
 
-This is the same pattern as the old manual `.agents -> .claude` copy idea, but with the Windows username resolved automatically so it works across machines without hard-coding `C:\Users\Joosep`.
+The command reads `_jookoi-skill-locations.json` at the repo root, which lists the source and destination folders. Nothing is scanned. Then it asks for:
+
+1. A source.
+2. The skills to copy from that source.
+3. The destinations: any indexed folder, or `global`, which writes the same skill to `~/.agents/skills` and `~/.claude/skills`.
+4. A plan, one row per skill and folder, with a status: `new`, `same` (skipped), `differs`, `replace link`, or `blocked` (a file is in the way).
+5. A confirm, default No.
+
+Each copy replaces the destination skill folder in full. Files the source no longer has are removed. A failed copy leaves the old folder in place.
+
+`--dry-run` prints the plan and stops before the confirm. It is a testing aid.
 
 ## LLM read access to `_jookoi-` files
 

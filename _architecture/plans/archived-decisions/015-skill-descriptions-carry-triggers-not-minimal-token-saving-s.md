@@ -4,6 +4,8 @@ Date: 24-09-2026 23:54
 
 Status: DECIDED
 
+Linked from: `my-global-setup/.agents/skills/jookoi-create-skill/SKILL.md` (description guidance)
+
 ## Problem
 
 To save context tokens, skill descriptions in the marketplace were cut to one or two sentences (94 to 136 characters). The guidance in `jookoi-create-skill` said "keep it as minimal as possible, every extra word costs tokens". `jookoi-paper-trail` v1 had an event-triggered description with trigger phrasings and was invoked reliably throughout sessions. After v2 cut its description, two trial sessions loaded it once, set it up, and stopped recording decisions and state changes. The description is the only part of a skill the model sees before deciding to load it, so it decides whether the skill runs at all.

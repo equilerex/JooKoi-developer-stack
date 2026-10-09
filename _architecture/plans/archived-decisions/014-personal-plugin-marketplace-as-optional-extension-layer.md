@@ -4,6 +4,8 @@ Date: 2026-09-05
 
 Status: DECIDED
 
+Linked from: `_architecture/ARCHITECTURE.md` ("Optional plugin extension layer") and `_architecture/stack-distribution.md`
+
 <!-- Status is one of: DECIDED | TRIAL | REJECTED | DEFERRED | SUPERSEDED
      A superseding decision gets its own number. The superseded file's status changes
      and its body gains a pointer — it is never edited away or deleted.

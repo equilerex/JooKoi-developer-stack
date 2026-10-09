@@ -11,7 +11,7 @@ Logged 2026-08-26, from the user's read-through review pass. Two documents, own 
 
 Pull corporate-specific caveats *out* of the general educational docs (`memory-and-progress-ledgers.md`, `session-and-token-economics.md`, etc.) into this dedicated area — general docs mention corporate cases only in passing, with a link out.
 
-Largely answered at the policy level by the memory system's per-environment vault split (`_architecture/plans/2026-08-30-jookoi-paper-trail.md`) — this item is now just the crash-course *documentation*, not an open design question.
+Largely answered at the policy level by the memory system's per-environment vault split (`_architecture/plans/archived-plans/2026-08-30-jookoi-paper-trail.md`) — this item is now just the crash-course *documentation*, not an open design question.
 
 ## Prompt engineering — resource curation
 

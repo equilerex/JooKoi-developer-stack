@@ -13,7 +13,7 @@ I've felt that shift hard this past couple years — I've built more tools in th
 ## What it does
 
 1. **Teaches** — `ai-tooling-crash-course-for-developers/` is a 16-topic reading path (context files, MCP, subagents, sandboxing, token economics, local models, supply chain). Each topic has a real research pass behind it.
-2. **Decides** — nothing gets added because it trended. Every pick needs a named practitioner, current docs, or repo-health signals behind it. A call made outside a planning session gets a numbered record in `_architecture/plans/decision-history/`.
+2. **Decides** — nothing gets added because it trended. Every pick needs a named practitioner, current docs, or repo-health signals behind it. A pick that needs long reasoning behind a rule is kept as a numbered footnote in `_architecture/plans/archived-decisions/`, linked from the doc that holds the rule.
 3. **Ships** — `my-global-setup/` and `my-repo-setup/` are copy-paste bundles. No installer, no generator. Copy the folder, done.
 
 ## Core ideas
@@ -111,7 +111,7 @@ Three separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.
 | | |
 |---|---|
 | [`jookoi-paper-trail.md`](./jookoi-paper-trail.md) | Privacy switch, folder layout, pipeline, rules, tooling. Read this. |
-| [`_architecture/plans/2026-08-30-jookoi-paper-trail.md`](./_architecture/plans/2026-08-30-jookoi-paper-trail.md) | Why it's shaped this way, prior art checked, where the build diverged. |
+| [`_architecture/plans/archived-plans/2026-08-30-jookoi-paper-trail.md`](./_architecture/plans/archived-plans/2026-08-30-jookoi-paper-trail.md) | Why it's shaped this way, prior art checked, where the build diverged. |
 | [`my-global-setup/.agents/skills/jookoi-paper-trail/`](./my-global-setup/.agents/skills/jookoi-paper-trail/) | The skill that maintains it. |
 
 **This repo's own paper trail**
@@ -122,9 +122,8 @@ Three separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.
 |---|---|
 | [`ARCHITECTURE.md`](./_architecture/ARCHITECTURE.md) | Why the repo is shaped this way. Static. |
 | [`items.yaml`](./_architecture/items.yaml) | Live working set: now, parked, done, dropped items. |
-| [`plans/decision-history/`](./_architecture/plans/decision-history/) | Background on why rules exist. Not rules. |
-| [`plans/`](./_architecture/plans/) | One file per planning session, kept permanently. |
-| [`archive/`](./_architecture/archive/) | Flushed items, one file per month. Written only by `jookoi-paper-trail flush`. |
+| [`plans/`](./_architecture/plans/) | Open plans, one file per feature. Closed plans move to `archived-plans/`, decision footnotes live in `archived-decisions/`. Archived folders are read only when a doc links the file or someone asks. |
+| [`archived-items/`](./_architecture/archived-items/) | Flushed items, one file per month. Written only by `jookoi-paper-trail flush`. |
 
 `_jookoi-architecture/` is the gitignored private counterpart — not visible on GitHub, by design.
 

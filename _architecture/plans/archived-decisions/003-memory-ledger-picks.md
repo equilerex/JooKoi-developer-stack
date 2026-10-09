@@ -4,6 +4,8 @@ Date: 2026-08-23
 
 Status: TRIAL
 
+Linked from: `_architecture/ARCHITECTURE.md` ("The memory system")
+
 Source: user's read-through notes on what is now `ai-tooling-crash-course-for-developers/topics/memory-and-progress-ledgers.md`, logged in `_jookoi-architecture/review-status.md`.
 
 ## Problem

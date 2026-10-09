@@ -5,7 +5,7 @@ A convention for keeping AI coding agents oriented, using nothing but plain file
 Not a product, not a framework, not a database. It's a filing discipline: fixed file names, fixed places, one home per kind of information, and a small skill that does the bookkeeping so nobody has to remember it.
 
 - What it is: this file.
-- Why it's shaped this way, and what prior art it was checked against: `_architecture/plans/2026-08-30-jookoi-paper-trail.md`.
+- Why it's shaped this way, and what prior art it was checked against: `_architecture/plans/archived-plans/2026-08-30-jookoi-paper-trail.md`.
 - The tool that maintains it: `my-global-setup/.agents/skills/jookoi-paper-trail/`.
 
 ---
@@ -59,11 +59,10 @@ _architecture/
 ├── ARCHITECTURE.md      why the repo is shaped this way. Static.
 ├── items.yaml           the live working set: now, parked, and unflushed done or dropped items.
 ├── plans/
-│   ├── YYYY-MM-DD-topic.md      one file per planning session, kept. Finished ones move to implemented/.
-│   └── decision-history/        background on why rules exist, one call each. Not read by default.
-│       ├── index.md             one line per decision.
-│       └── NNN-slug.md
-└── archive/
+│   ├── YYYY-MM-DD-topic.md      one file per feature, drafted in the file. Progress, deviations and fold-out live here.
+│   ├── archived-plans/          closed plans (close-plan). Not read by default.
+│   └── archived-decisions/      NNN-slug.md footnotes to a read-path rule. Not read by default, no index.
+└── archived-items/
     └── items-YYYY-MM.yaml       flushed items, one file per month. Lookup only.
 ```
 
@@ -72,8 +71,8 @@ Each kind of information has one home:
 | Information | Home |
 |---|---|
 | Work item (now, parked, done, dropped) | `items.yaml`, written only by the script |
-| A call made inside a planning session | that plan |
-| A call made outside a planning session | `plans/decision-history/` |
+| A call made while planning or building | that plan (deviations section). A call agreed in chat goes into the active plan or the read-path doc it changes |
+| Long reasoning behind a read-path rule, likely to be asked about again | `plans/archived-decisions/`, linked from that doc |
 | Durable facts about the repo | `ARCHITECTURE.md` |
 | Rules agents follow every session | the repo's `AGENTS.md` |
 | Folder-local context | `CONTEXT.md` |
@@ -101,7 +100,7 @@ One stage, on model judgement, not a schedule.
 ```
    loaded into every session                     lookup only
 ┌──────────────────────────┐                ┌──────────────────────────┐
-│        items.yaml         │ ──── flush ──▶ │ archive/items-YYYY-MM.yaml│
+│        items.yaml         │ ──── flush ──▶ │archived-items/items-*.yaml│
 │  now · parked · done ·    │  done + dropped│  one file per month       │
 │  dropped (not yet flushed)│  items only    │  of ts_done               │
 └──────────────────────────┘                └──────────────────────────┘
@@ -119,7 +118,7 @@ Stated once in the global `AGENTS.md`, restated per-repo:
 2. Update on invalidation. After a change that makes a context file wrong, correct it *before* continuing the original task.
 3. Delete with the code. Removing a folder removes its `CONTEXT.md`.
 4. Never bulk-generate. A `CONTEXT.md` earns its place the first time real work happens in that folder. Mass-produced context is the unmaintained bucket this avoids, and it's mostly wrong on arrival.
-5. Never read `archive/` or `plans/decision-history/` unless history is explicitly requested or a doc cites it. A decision explains why a rule exists. It is not the rule.
+5. Never read `archived-*` paths unless a doc links the file, an item names it, or the user asks. Anything durable must be findable from the read-path docs alone.
 
 The negative test matters as much as the sections: no restating what the code plainly shows, no API documentation, no changelog, no general framework knowledge. If removing a line wouldn't slow a newcomer down, it doesn't belong.
 
@@ -181,4 +180,4 @@ Every step is a copy. There's deliberately no setup script, because generated co
 - Not a memory system. Markdown files don't query, don't hold relationships, and don't enforce a schema. That critique is correct and accepted. The answer is to stay a small curated set rather than grow into a database. If it ever needs to be queryable, that's a different tool, not a bigger folder.
 - Not automatic. Nothing crawls, indexes or generates in bulk.
 - Not a team standard. It's a personal discipline that happens to be readable by anyone who opens the repo.
-- Not the implementation plan. That's `_architecture/plans/2026-08-30-jookoi-paper-trail.md`, which carries the reasoning, the prior-art survey, and the record of where the build diverged from the design.
+- Not the implementation plan. That's `_architecture/plans/archived-plans/2026-08-30-jookoi-paper-trail.md`, which carries the reasoning, the prior-art survey, and the record of where the build diverged from the design.

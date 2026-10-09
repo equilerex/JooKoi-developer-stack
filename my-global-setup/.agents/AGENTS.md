@@ -91,13 +91,16 @@ Governs all output — uset facing replies, documents, plans, code comments.
 
 ## jookoi-paper-trail
 
-Every repo carries its own written memory: `CONTEXT.md` next to the code it describes, and a project-level `_architecture/` (`items.yaml` for the live working set, `ARCHITECTURE.md`, `plans/`, `plans/decision-history/`, `archive/`). Applies everywhere, not just `JooKoi-developer-stack`.
+Every repo carries its own written memory: `CONTEXT.md` next to the code it describes, and a project-level `_architecture/` (`items.yaml` for the live working set, `ARCHITECTURE.md`, `plans/`). Applies everywhere, not just `JooKoi-developer-stack`.
 
 The `jookoi-paper-trail` skill owns all of it — what goes where, when to flush, file formats. **Invoke the skill** before writing or updating any of those files. Only these apply without it:
 
 - **Never show a bare item ID.** Every mention of a working-set item to the user is `id title`, never the ID alone.
-- **Decision history is not read proactively.** `plans/decision-history/` is background on why a rule exists, not a rule. Open a file only when a doc cites it or the user asks why.
-- **Read when stuck, not always.** Consult the nearest context file at or above the working folder when entering unfamiliar code — not on every operation. Never read `archive/`; its `index.md` exists so you can decide whether history is worth asking about.
+- **Anything starting with `archived-` is not read unprompted** (`plans/archived-plans/`, `plans/archived-decisions/`, `_architecture/archived-items/`). Open a specific file only when a doc links it, an item names it, or the user asks. Do not search or list those folders.
+- **Anything durable must be findable from the read-path docs alone** (`README.md`, `AGENTS.md`, `_architecture/ARCHITECTURE.md`, folder `CONTEXT.md`). A plan or decision is working material, not reference: when a feature is built, fold its outcome into those docs.
+- **Suggest a plan when the work warrants one.** Work touching architecture or lifecycle (a new module, dependency or external service, an interface other code relies on, several deliverables) normally gets a plan. If the user has not asked for one, suggest it or ask. A small change, fix or doc tweak goes straight to work.
+- **Records are written for any reader.** Plans, items, decisions and context files keep a professional, neutral tone. No venting, no blame, no self-deprecation: a mistake is recorded as what happened, the fix and the rule.
+- **Read when stuck, not always.** Consult the nearest context file at or above the working folder when entering unfamiliar code — not on every operation.
 - **A change that invalidates a context file is not done until the file is fixed.** Invoke the skill before continuing the original task; if the harness has no skills, follow `~/.agents/skills/jookoi-paper-trail/SKILL.md` directly.
 - **Prefix is the privacy switch.** No prefix = committed and shared; `_jookoi-` prefix (`_jookoi-CONTEXT.md`, `_jookoi-architecture/`) = globally gitignored and private. Both can sit side by side in one folder. The test is audience, not secrecy — shared is what's true for whoever works in this repo next; private is what's true for this user or this machine.
 - **Can't commit to this repo → everything private, no per-note judgment call.** Work computers and repos you don't own are the common case for this. Use `_jookoi-` / `--private` for every note, even when a shared `_architecture/` already exists there — the absence of write access is the trigger, not the absence of layout.
@@ -121,15 +124,3 @@ Never run `git commit` or `git push`. The user does all commits themselves — t
 ## Scope
 
 This file: behavior only, applies everywhere. Stack rules, project conventions, and skills belong in that repo's own `AGENTS.md` / lazy-loaded skills, not here.
-## Personal skill source and installation
-
-When creating a personal or reusable skill, follow the `jookoi-create-skill` skill's scope rules. This setup may designate a machine-local shared skill source using the following configuration block:
-
-```text
-Shared skill source: <set this to the canonical skills directory on this computer>
-Personal global skill directory: <user home>/.agents/skills
-Optional host directory: <user home>/.claude/skills
-Tracked setup mirrors: <setup repo>/my-global-setup/.agents/skills and <setup repo>/my-global-setup/.claude/skills
-```
-
-For a personal skill, create the canonical directory in the configured shared skill source, then expose it through the configured global and tracked setup targets. Prefer symlinks; fall back to complete copies when the platform or Git workflow cannot use symlinks. A repository-only skill stays in that repository unless personal installation is explicitly requested.

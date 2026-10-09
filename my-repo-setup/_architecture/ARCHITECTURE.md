@@ -10,6 +10,6 @@ Read this at feature-build/modify time, not every session (that's `AGENTS.md`'s 
 
 <!-- Key folders, what goes where, any deliberate constraints. -->
 
-## Decision history
+## Archived decisions
 
-Background on why rules exist lives in `plans/decision-history/` (not rules; open only when cited or asked).
+Footnotes to rules in this doc, `AGENTS.md` or a `CONTEXT.md` live in `plans/archived-decisions/` (not rules; open only when linked or asked). Each is linked from the doc that holds its rule.

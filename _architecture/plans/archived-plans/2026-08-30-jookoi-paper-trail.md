@@ -1,6 +1,6 @@
 # jookoi-paper-trail — design and build plan
 
-Session: 2026-08-30. Status: designed, no blockers left. Build order at the end — steps 1–7 done (see `progress.md`), step 8 deferred.
+Session: 2026-08-30. Status: done.
 
 Name is the argument. A folder of markdown files is a retro answer to a modern problem — and that's the point, not an apology.
 
@@ -238,3 +238,7 @@ Fragments of this system, logged before it had a name — reconcile against this
 - `_architecture/plans/decision-history/003-memory-ledger-picks.md` — trial storage direction (local filesystem + Graphify + Obsidian); its still-open centralized-memory design is the vault under another name.
 - `_architecture/BACKLOG.md` — "Multi-checkout / multi-repo personal-file sync", now answered by the sync script above.
 - `_architecture/BACKLOG.md` — hook-triggered engineering-knowledge-file idea (now the `jookoi-doc` triggers), and the "global developer location" question (now the vault).
+
+## Fold-out
+
+- Privacy switch, folder layout and rules: `jookoi-paper-trail.md` (repo root), `my-global-setup/.agents/skills/jookoi-paper-trail/SKILL.md` and `_architecture/ARCHITECTURE.md` ("The memory system"). The prior-art survey stays in this file, which `jookoi-paper-trail.md` links by its archived path.
