@@ -145,7 +145,7 @@ Every file below that names `plans/decision-history`, `plans/implemented`, `arch
 - `references/file-formats.md`, `store-format.md` (granularity, hand-edit allowance, consolidation), `pipeline.md`, `operations.md`, `flush-prompt.md`, `viewer.md`: paths and rules.
 - `references/legacy-migration.md`: migration stays agent-driven, no `migrate` command. Add `plans/decision-history/`, `plans/decisions/`, `plans/implemented/`, `archive/` → their `archived-*` folders, checking each plan's status rather than trusting its folder.
 - `references/hooks.md`, `hooks/config/*.json` (including the `//blocking` comments), `hooks/rehydrate.sh` text: new wiring, "Do not read `archived-*` unless a doc links the file or the user asks", hand-edit sentence.
-- Global `AGENTS.md` (`my-global-setup/.agents/AGENTS.md`, the paper-trail section): replace the decision-history, "Never read `archive/`" and "its `index.md` exists so you can decide" lines with the `archived-` naming rule, add the suggest-a-plan default and the read-path rule. Short; the skill holds the detail.
+- Global `AGENTS.md` (`toolboxes/my-global-setup/.agents/AGENTS.md`, the paper-trail section): replace the decision-history, "Never read `archive/`" and "its `index.md` exists so you can decide" lines with the `archived-` naming rule, add the suggest-a-plan default and the read-path rule. Short; the skill holds the detail.
 - This repo's `AGENTS.md` and `ARCHITECTURE.md`: `_architecture/` layout description.
 
 ## Applying to the live machine

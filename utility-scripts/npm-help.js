@@ -19,6 +19,7 @@ const descriptions = {
   'copy:skill': 'Interactive: pick an indexed source, skills, indexed destinations or global, review the plan, then copy real files over the destination folders.',
   'setup:jnote': 'One-time: install global `jnote` shell function (PowerShell, pwsh, Git Bash).',
   jnote: 'Log a process-improvement note. Also runs as a bare `jnote` after setup:jnote.',
+  'setup:jj': 'One-time: install global `jj` menu (PowerShell, pwsh, Git Bash, CMD) and the Git Bash welcome screen. Re-run after moving the repo. Menu entries live in toolboxes/shortcuts/jj.config.json.',
 };
 
 const pkg = require('../package.json');

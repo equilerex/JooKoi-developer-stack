@@ -6,7 +6,7 @@ Not a product, not a framework, not a database. It's a filing discipline: fixed 
 
 - What it is: this file.
 - Why it's shaped this way, and what prior art it was checked against: `_architecture/plans/archived-plans/2026-08-30-jookoi-paper-trail.md`.
-- The tool that maintains it: `my-global-setup/.agents/skills/jookoi-paper-trail/`.
+- The tool that maintains it: `toolboxes/my-global-setup/.agents/skills/jookoi-paper-trail/`.
 
 ---
 
@@ -128,7 +128,7 @@ When context contradicts the code, the code wins, and the context gets corrected
 
 Two scripts and one skill. All optional in principle, since the convention is readable and writable by hand.
 
-`jookoi-paper-trail` is the skill (`my-global-setup/.agents/skills/jookoi-paper-trail/`). It splits the labour along one line:
+`jookoi-paper-trail` is the skill (`toolboxes/my-global-setup/.agents/skills/jookoi-paper-trail/`). It splits the labour along one line:
 
 - The script owns bookkeeping: IDs, dating, priorities, roll-off to the archive, `NNN` allocation and the decision index, `updated:` checks, template instantiation.
 - The model owns judgement: what happened, where it belongs, and when to flush.
@@ -166,8 +166,8 @@ The only thing that crosses environments is this repo, which carries the mechani
 ## Adopting it
 
 1. Add `_jookoi-*` to your global gitignore (`git config --global core.excludesFile`).
-2. Copy `my-global-setup/.agents/` to `~/.agents/` for the global ruleset and the `jookoi-paper-trail` skill.
-3. In a new repo, start from `my-repo-setup/AGENTS.md` and create `_architecture/` with the file set above.
+2. Copy `toolboxes/my-global-setup/.agents/` to `~/.agents/` for the global ruleset and the `jookoi-paper-trail` skill.
+3. In a new repo, write a short `AGENTS.md` (see the `jookoi-agents-md-expert` skill) and create `_architecture/` with the file set above.
 4. Register the end-of-turn hook from `jookoi-paper-trail/hooks/config/` for your harness.
 5. Optionally, create an empty vault repo beside your checkouts and run `vault-sync.js`.
 

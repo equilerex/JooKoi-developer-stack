@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+favorites() {
+  local result_file result_file_windows command status
+
+  result_file=$(mktemp) || return 1
+  result_file_windows=$(cygpath -w "$result_file") || {
+    rm -f "$result_file"
+    return 1
+  }
+
+  FAVORITES_RESULT_FILE="$result_file_windows" node \
+    "C:/BB/Serenity/jookoi-vault/jookoi-corporate-env-personal-assistant/vault/shortcuts/favorites.mjs"
+  status=$?
+
+  if ((status == 0)) && [[ -s $result_file ]]; then
+    IFS= read -r command < "$result_file"
+    rm -f "$result_file"
+    eval "$command"
+    return $?
+  fi
+
+  rm -f "$result_file"
+  return "$status"
+}

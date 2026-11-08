@@ -14,7 +14,7 @@ I've felt that shift hard this past couple years — I've built more tools in th
 
 1. **Teaches** — `ai-tooling-crash-course-for-developers/` is a 16-topic reading path (context files, MCP, subagents, sandboxing, token economics, local models, supply chain). Each topic has a real research pass behind it.
 2. **Decides** — nothing gets added because it trended. Every pick needs a named practitioner, current docs, or repo-health signals behind it. A pick that needs long reasoning behind a rule is kept as a numbered footnote in `_architecture/plans/archived-decisions/`, linked from the doc that holds the rule.
-3. **Ships** — `my-global-setup/` and `my-repo-setup/` are copy-paste bundles. No installer, no generator. Copy the folder, done.
+3. **Ships** — `toolboxes/` holds copy-paste bundles (`my-global-setup/`, `angular-toolbox/`, `frontend-toolbox/`, `repo-tooling/`). No installer, no generator. Copy the folder, done.
 
 ## Core ideas
 
@@ -39,7 +39,7 @@ One rule decides what's public: the **`_jookoi-` prefix**. No prefix = committed
 
 | Layer | Lives at | Tracked | Travels |
 |---|---|---|---|
-| Personal / global | `~/.agents/` | in this repo, as `my-global-setup/` | every repo, every machine |
+| Personal / global | `~/.agents/` | in this repo, as `toolboxes/my-global-setup/` | every repo, every machine |
 | Repo, shared | `AGENTS.md`, `_architecture/`, `CONTEXT.md` | yes, in that repo | with the repo |
 | Repo, private | `_jookoi-architecture/`, `_jookoi-CONTEXT.md` | never | to the vault |
 | Vault | separate repo, one per environment | yes, in the vault | nowhere |
@@ -99,12 +99,18 @@ Repo identity = **leaf folder name**, so parallel checkouts under different grou
 
 | | |
 |---|---|
-| [`my-global-setup/`](./my-global-setup/) | → `~/.agents/`. Global `AGENTS.md`, gitignore snippet, portable skills. |
-| [`my-repo-setup/`](./my-repo-setup/) | → new repo's root. Seed-template `AGENTS.md`. |
+| [`toolboxes/my-global-setup/`](./toolboxes/my-global-setup/) | → `~/.agents/`. Global `AGENTS.md`, gitignore snippet, portable skills. |
+| [`toolboxes/angular-toolbox/`](./toolboxes/angular-toolbox/), [`frontend-toolbox/`](./toolboxes/frontend-toolbox/), [`repo-tooling/`](./toolboxes/repo-tooling/) | → skills and scripts for another repo. |
 | [`utility-scripts/`](./utility-scripts/) | Build tooling for *this* repo only. Not shipped. |
 | [`prompts/`](./prompts/) | Reusable ad-hoc prompts. Barely started. |
 
-Three separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.agents/AGENTS.md`, mirrored in `my-global-setup/.agents/`), this repo's own root [`AGENTS.md`](./AGENTS.md) (rules for developing this repo, not shippable), and the seed template in `my-repo-setup/`. Root [`CLAUDE.md`](./CLAUDE.md) imports `AGENTS.md` directly (`@AGENTS.md`) because Claude Code does not read `AGENTS.md` natively. A one-line import avoids symlinks (which require developer mode or administrator privileges on Windows) and pre-commit sync tools (which introduce unnecessary dependencies and build steps).
+**Toolboxes**
+
+| | |
+|---|---|
+| [`toolboxes/`](./toolboxes/README.md) | Pick-and-mix skill sets and personal tools, opened when the work calls for them instead of loaded globally. Includes the `jj` shortcut menu and terminal welcome screen in [`toolboxes/shortcuts/`](./toolboxes/shortcuts/CONTEXT.md). |
+
+Two separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.agents/AGENTS.md`, mirrored in `toolboxes/my-global-setup/.agents/`), this repo's own root [`AGENTS.md`](./AGENTS.md) (rules for developing this repo, not shippable). Root [`CLAUDE.md`](./CLAUDE.md) imports `AGENTS.md` directly (`@AGENTS.md`) because Claude Code does not read `AGENTS.md` natively. A one-line import avoids symlinks (which require developer mode or administrator privileges on Windows) and pre-commit sync tools (which introduce unnecessary dependencies and build steps).
 
 **The convention**
 
@@ -112,7 +118,7 @@ Three separate `AGENTS.md` files exist, don't confuse them: the global one (`~/.
 |---|---|
 | [`jookoi-paper-trail.md`](./jookoi-paper-trail.md) | Privacy switch, folder layout, pipeline, rules, tooling. Read this. |
 | [`_architecture/plans/archived-plans/2026-08-30-jookoi-paper-trail.md`](./_architecture/plans/archived-plans/2026-08-30-jookoi-paper-trail.md) | Why it's shaped this way, prior art checked, where the build diverged. |
-| [`my-global-setup/.agents/skills/jookoi-paper-trail/`](./my-global-setup/.agents/skills/jookoi-paper-trail/) | The skill that maintains it. |
+| [`toolboxes/my-global-setup/.agents/skills/jookoi-paper-trail/`](./toolboxes/my-global-setup/.agents/skills/jookoi-paper-trail/) | The skill that maintains it. |
 
 **This repo's own paper trail**
 

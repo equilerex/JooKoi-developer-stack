@@ -19,7 +19,8 @@
     "vault:pull:dry": "node utility-scripts/vault-sync.js pull --dry-run",
     "copy:skill": "node utility-scripts/copy-skill.js",
     "setup:jnote": "node utility-scripts/setup-jnote.js",
-    "jnote": "node utility-scripts/jnote.js"
+    "jnote": "node utility-scripts/jnote.js",
+    "setup:jj": "node toolboxes/shortcuts/setup-jj.mjs"
   },
   "devDependencies": {
     "@clack/prompts": "^1.8.1",

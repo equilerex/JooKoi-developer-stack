@@ -4,6 +4,7 @@
 // Flow: source -> skills -> destinations -> plan -> confirm -> copy. Nothing is written before the confirm.
 // Each copy replaces the destination skill folder in full: files the source no longer has are removed.
 // --dry-run stops after the plan (testing aid).
+// Non-interactive: --source <label> --skills <a,b|all> --to <label|global> [--to ...] --yes. Any flag left out is asked.
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -15,6 +16,13 @@ const home = os.homedir();
 const GLOBAL = '__global__';
 const EXCLUDE = new Set(['__pycache__', 'node_modules']);
 const dryRun = process.argv.includes('--dry-run');
+const autoConfirm = process.argv.includes('--yes');
+const flagValues = (name) =>
+  process.argv.flatMap((a, i) => (a === name && process.argv[i + 1] ? [process.argv[i + 1]] : []));
+const fail = (message) => {
+  p.cancel(message);
+  process.exit(1);
+};
 
 const cancelled = (v) => {
   if (p.isCancel(v)) {
@@ -150,12 +158,16 @@ async function main() {
     process.exit(1);
   }
 
-  const sourceLabel = cancelled(
-    await p.select({
-      message: 'Source',
-      options: sources.map((s) => ({ value: s.label, label: s.label, hint: s.dir })),
-    }),
-  );
+  const [sourceFlag] = flagValues('--source');
+  if (sourceFlag && !sources.some((s) => s.label === sourceFlag)) fail(`Unknown source: ${sourceFlag}`);
+  const sourceLabel =
+    sourceFlag ??
+    cancelled(
+      await p.select({
+        message: 'Source',
+        options: sources.map((s) => ({ value: s.label, label: s.label, hint: s.dir })),
+      }),
+    );
   const src = sources.find((s) => s.label === sourceLabel);
 
   const names = skillNames(src.dir);
@@ -168,16 +180,22 @@ async function main() {
   for (const s of sources) {
     for (const n of skillNames(s.dir)) owners.set(n, [...(owners.get(n) ?? []), s.label]);
   }
-  const chosen = cancelled(
-    await p.autocompleteMultiselect({
-      message: `Skills from ${src.label} (type to filter, space toggles, enter confirms)`,
-      options: names.map((n) => {
-        const others = (owners.get(n) ?? []).filter((l) => l !== src.label);
-        return { value: n, label: n, hint: others.length ? `also in ${others.join(', ')}` : undefined };
+  const [skillsFlag] = flagValues('--skills');
+  const flaggedSkills = skillsFlag === 'all' ? names : skillsFlag?.split(',').map((n) => n.trim());
+  const unknownSkill = flaggedSkills?.find((n) => !names.includes(n));
+  if (unknownSkill) fail(`Not a skill in ${src.label}: ${unknownSkill}`);
+  const chosen =
+    flaggedSkills ??
+    cancelled(
+      await p.autocompleteMultiselect({
+        message: `Skills from ${src.label} (type to filter, space toggles, enter confirms)`,
+        options: names.map((n) => {
+          const others = (owners.get(n) ?? []).filter((l) => l !== src.label);
+          return { value: n, label: n, hint: others.length ? `also in ${others.join(', ')}` : undefined };
+        }),
+        required: true,
       }),
-      required: true,
-    }),
-  );
+    );
 
   // Destination options: each indexed folder, plus the one global option that expands to both home folders.
   const options = usable(index.destinations, 'destination').map((d) => ({ label: d.label, dirs: [d.dir] }));
@@ -187,13 +205,21 @@ async function main() {
   const offered = options
     .map((o) => ({ ...o, dirs: o.dirs.filter((d) => !samePath(d, src.dir)) }))
     .filter((o) => o.dirs.length);
-  const picked = cancelled(
-    await p.multiselect({
-      message: 'Copy into',
-      options: offered.map((o, i) => ({ value: i, label: o.label, hint: o.dirs.join('  ') })),
-      required: true,
-    }),
-  );
+  const toFlags = flagValues('--to');
+  const flaggedTargets = toFlags.map((label) => {
+    const index = offered.findIndex((o) => (label === 'global' ? o.label.startsWith('global') : o.label === label));
+    if (index < 0) fail(`Unknown or unavailable destination: ${label}`);
+    return index;
+  });
+  const picked = toFlags.length
+    ? flaggedTargets
+    : cancelled(
+        await p.multiselect({
+          message: 'Copy into',
+          options: offered.map((o, i) => ({ value: i, label: o.label, hint: o.dirs.join('  ') })),
+          required: true,
+        }),
+      );
 
   const targets = [];
   for (const i of picked) {
@@ -226,12 +252,14 @@ async function main() {
     return;
   }
   const replaced = todo.filter((a) => a.status !== 'new').length;
-  const go = cancelled(
-    await p.confirm({
-      message: `Copy ${todo.length} folder(s)? ${replaced} existing folder(s) replaced in full; files not in the source are removed.`,
-      initialValue: false,
-    }),
-  );
+  const go = autoConfirm
+    ? true
+    : cancelled(
+        await p.confirm({
+          message: `Copy ${todo.length} folder(s)? ${replaced} existing folder(s) replaced in full; files not in the source are removed.`,
+          initialValue: false,
+        }),
+      );
   if (!go) {
     p.cancel('No changes made.');
     return;

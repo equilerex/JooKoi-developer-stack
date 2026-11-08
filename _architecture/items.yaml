@@ -17,7 +17,7 @@ items:
     body: |-
       Covers three small doc changes made together:
 
-      - Global `AGENTS.md` (`my-global-setup/.agents/AGENTS.md`) gained a `## Naming` section: semantic names, no cryptic acronyms or shortenings, no vague generic names past a small local scope. Directive-only, kept short on purpose.
+      - Global `AGENTS.md` (`toolboxes/my-global-setup/.agents/AGENTS.md`) gained a `## Naming` section: semantic names, no cryptic acronyms or shortenings, no vague generic names past a small local scope. Directive-only, kept short on purpose.
       - Root `README.md` rewritten for reading fatigue: shorter sentences, tighter tables, no rhetorical padding. Content and links unchanged, about 30% shorter.
       - Root `README.md` gained a "Why this exists" section stating the thesis: AI collapsed the cost of building a personal dev toolkit, so curating one is now every developer's job.
     ts_created: null
@@ -96,7 +96,7 @@ items:
     title: Wire up `jnote`'s missing half
     status: now
     priority: 14000
-    body: 'Wire up `jnote`''s missing half. The tool ships and works, but nothing tells an agent to use it, so it stays empty. Needs an instruction layer written into `my-global-setup/.agents/AGENTS.md` first, then copied out by hand to `~/.agents/AGENTS.md` on this machine (the manual copy-out decision 009 requires), naming the triggers concretely rather than as a vague "log anything useful": subagents spawned without need, a skill or method visibly heavy on tokens, context lost to an avoidable re-read, confusion traceable to a specific instruction, and the positive case that matters most, a prompt fragment that keeps preventing hallucination or drift and should be considered for promotion into a global instruction file. The whole point is telemetry on our own processes that only the running agent can see. Open alongside it: the review path. Entries accumulate in `_architecture/process-improvement/logs.jsonl` with nothing reading them, so it needs a way to surface and triage them (a digest command, a periodic read, something), and a call on whether triaged findings route into the working-set store, into a decision, or straight into an instruction-file edit'
+    body: 'Wire up `jnote`''s missing half. The tool ships and works, but nothing tells an agent to use it, so it stays empty. Needs an instruction layer written into `toolboxes/my-global-setup/.agents/AGENTS.md` first, then copied out by hand to `~/.agents/AGENTS.md` on this machine (the manual copy-out decision 009 requires), naming the triggers concretely rather than as a vague "log anything useful": subagents spawned without need, a skill or method visibly heavy on tokens, context lost to an avoidable re-read, confusion traceable to a specific instruction, and the positive case that matters most, a prompt fragment that keeps preventing hallucination or drift and should be considered for promotion into a global instruction file. The whole point is telemetry on our own processes that only the running agent can see. Open alongside it: the review path. Entries accumulate in `_architecture/process-improvement/logs.jsonl` with nothing reading them, so it needs a way to surface and triage them (a digest command, a periodic read, something), and a call on whether triaged findings route into the working-set store, into a decision, or straight into an instruction-file edit'
     ts_created: null
     ts_started: null
     ts_done: null
@@ -308,7 +308,7 @@ items:
 
       Splits into two skills by level, not one umbrella:
 
-      - **Computer-level (global/vault) setup skill.** Governs a machine's copy of the personal vault repo. At home there's already one running instance using the private non-commit (`_jookoi-`) path; work computers need this skill to bootstrap the same thing following that suffix/version convention. Scope: push-to-vault and pull-from-vault scripts, deduplication when multiple checkouts of the same repo name exist in different locations or on different branches, setting up or updating the AGENTS.md files, copying global skills and other global-setup content out from this repo's `my-global-setup/` into the machine's real global folders.
+      - **Computer-level (global/vault) setup skill.** Governs a machine's copy of the personal vault repo. At home there's already one running instance using the private non-commit (`_jookoi-`) path; work computers need this skill to bootstrap the same thing following that suffix/version convention. Scope: push-to-vault and pull-from-vault scripts, deduplication when multiple checkouts of the same repo name exist in different locations or on different branches, setting up or updating the AGENTS.md files, copying global skills and other global-setup content out from this repo's `toolboxes/my-global-setup/` into the machine's real global folders.
       - **Repo-level setup skill.** Governs one target repo's own scaffolding — paper-trail folders, per-repo AGENTS.md flavouring, whatever else a repo needs once the machine-level baseline already exists. Narrower and mostly already scoped by the existing TODO item on folding `_jookoi-architecture/` scaffolding into `jookoi-paper-trail.js` as a subcommand — that item is (or becomes) part of this skill, not a separate thing.
 
       Update-to-latest-version mode (fingerprinting a machine's last-synced state against this repo) is explicitly deferred — stretch goal, manual updates for now until there's a clearer read on what's actually needed.
@@ -464,7 +464,7 @@ items:
     body: |-
       The owner reported a repeated failure across LLM harnesses: agents say a decision is needed but omit the context or actual question. The old global rule asked for a question and options but did not require the agent to state what was checked, what step is blocked, or whether the answer is needed now.
 
-      Update the tracked `my-global-setup/.agents/AGENTS.md` and the live `~/.agents/AGENTS.md` and `~/.claude/CLAUDE.md` with an actionable-input rule. Verify the same rule appears once in each file and preserve all other content.
+      Update the tracked `toolboxes/my-global-setup/.agents/AGENTS.md` and the live `~/.agents/AGENTS.md` and `~/.claude/CLAUDE.md` with an actionable-input rule. Verify the same rule appears once in each file and preserve all other content.
     ts_created: 2026-09-27T18:03:22Z
     ts_started: 2026-09-27T18:03:22Z
     ts_done: 2026-09-27T18:04:08Z
@@ -473,7 +473,7 @@ items:
     title: Create `jookoi-agents-md-expert` skill
     status: done
     priority: 61000
-    body: Skill for writing, extending and auditing always-loaded instruction files (AGENTS.md / CLAUDE.md, global and repo). Admission test, placement table that redirects non-belonging content (skill, hook, doc, tracker, local file), size target (<200 lines, 500 hard ceiling), LLM-targeted writing rules, lazy vs eager linking. Built from `ai-tooling-crash-course-for-developers/topics/base-instruction-files.md` plus prompting/token-economics docs. Tracked at `my-global-setup/.agents/skills/jookoi-agents-md-expert/`, published to jookoi-ai-market, linked into `~/.agents/skills` and `~/.claude/skills`. Natural tool for t012 Fold agent-instruction-file findings into global `AGENTS.md`.
+    body: Skill for writing, extending and auditing always-loaded instruction files (AGENTS.md / CLAUDE.md, global and repo). Admission test, placement table that redirects non-belonging content (skill, hook, doc, tracker, local file), size target (<200 lines, 500 hard ceiling), LLM-targeted writing rules, lazy vs eager linking. Built from `ai-tooling-crash-course-for-developers/topics/base-instruction-files.md` plus prompting/token-economics docs. Tracked at `toolboxes/my-global-setup/.agents/skills/jookoi-agents-md-expert/`, published to jookoi-ai-market, linked into `~/.agents/skills` and `~/.claude/skills`. Natural tool for t012 Fold agent-instruction-file findings into global `AGENTS.md`.
     ts_created: 2026-10-09T20:18:55Z
     ts_started: 2026-10-09T20:18:55Z
     ts_done: 2026-10-09T20:19:00Z
@@ -485,13 +485,13 @@ items:
     body: |-
       Plan: `_architecture/plans/2026-10-09-skill-sync-copy-only.md`. Build steps 5 to 14 and 16 to 18 are implemented. Step 13 passed on the user's run.
 
-      Step 15, partly done: 21 broken home links unlinked; `~/.agents/skills` added to the index as source `home/.agents`. Still open: copy runs b1, b2, b3, c in the plan (user runs them), then the re-list check (d). Step 19 (move the plan) waits for that.
+      Step 15 done 06-11-2026: copy runs b1, b2, b3 and c were run by the assistant through new non-interactive flags on `utility-scripts/copy-skill.js` (`--source`, `--skills`, `--to`, `--yes`; the user asked not to run these by hand). The re-list check (d) found one link left: `~/.claude/skills/skillify`, a junction to an empty folder `~/.agents/skills/skillify` with no `SKILL.md`. Left in place, the user decides. The global `jookoi-directory-opus-skill` junction was removed (the skill is private, stays in `toolboxes/windows-toolbox`, see z6y4 Remove the Directory Opus skill from the public repo history).
 
-      Also open: copy the tracked `my-global-setup/.agents/AGENTS.md` to the live `~/.agents/AGENTS.md`, by the user.
+      Still open: step 19 (move the plan once the user confirms the check). Copy the tracked `toolboxes/my-global-setup/.agents/AGENTS.md` to the live `~/.agents/AGENTS.md`, by the user.
     ts_created: 2026-10-09T20:47:35Z
     ts_started: 2026-10-09T20:47:35Z
     ts_done: null
-    ts_touched: 2026-10-09T21:46:00Z
+    ts_touched: 2026-11-06T02:09:17Z
   bx68:
     title: Implement paper-trail plan-first lifecycle
     status: now
@@ -621,3 +621,166 @@ items:
     ts_started: 2026-10-09T23:19:41Z
     ts_done: 2026-10-09T23:19:42Z
     ts_touched: 2026-10-09T23:19:42Z
+  iw5o:
+    title: Replace Directory Opus profiles with one power-user default
+    status: now
+    priority: 72000
+    body: |-
+      Test run on 28-10-2026 showed the three layout profiles gave little beyond panel placement. User decided on one opinionated power-user default, no profile picker, no wizard naming, no extra config steps. Optimization Wizard and Ask or Build entries stay. Telemetry is not part of the default (skill may be shared); manual `telemetry-on` stays for the owner.
+
+      State: plan drafted with local research, waiting for user review. Plan: `_architecture/plans/2026-10-28-directory-opus-power-user-default.md`.
+      Next: user answers the remaining open questions in the plan (Back/Forward/Up buttons, overwrite behaviour, whether Smart Paste loses its bar button), then cowork forum pass, then build.
+    ts_created: 2026-10-28T20:27:10Z
+    ts_started: 2026-10-28T20:27:10Z
+    ts_done: null
+    ts_touched: 2026-10-28T20:48:29Z
+  ycd5:
+    title: Cowork forum pass for the Directory Opus power-user default
+    status: parked
+    priority: 73000
+    body: |-
+      Web research on resource.dopus.com goes through cowork (standing rule). Goal: find the buttons and scripts power users share most (rename helpers, group and flatten buttons, active-pane highlighting, context menu cleanup) and test them against the default's selection rule: understandable label, daily use, no external tool.
+
+      Source plan: `_architecture/plans/2026-10-28-directory-opus-power-user-default.md`. Not blocking the first build.
+    ts_created: 2026-10-28T20:48:29Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-10-28T20:48:29Z
+  u61n:
+    title: Add scripting reference and name-width recipe to the Directory Opus skill
+    status: done
+    priority: 74000
+    body: |-
+      Skill content added in `toolboxes/windows-toolbox/.agents/skills/jookoi-directory-opus-skill/`: `references/scripting-objects.md` (generated, grep only), `references/recipes/name-width-memory.md` plus `JooKoiNameWidth.js`, column-width syntax in `folder-formats.md`, relative-date-graph meaning in `kb/08`. `dopus.ps1` no longer sets `autosize` when it creates the default format, and the relative-date button label now says it is a bar. The generator lives in the test folder `D:\repos\Babylon-5\jookoi-directory-opus-skill-and-ai-support\tools\`, where the same skill folder was synced.
+
+      Related: the open item for the single power-user default profile still lists `appButtons` with the three apps the user removed by hand (VS Code, Cursor, 7-Zip), so a wizard re-run would add them back. Decision on that is pending.
+    ts_created: 2026-10-28T22:03:57Z
+    ts_started: 2026-10-28T22:03:57Z
+    ts_done: 2026-10-28T22:04:06Z
+    ts_touched: 2026-10-28T22:04:06Z
+  y4yt:
+    title: 'Directory Opus skill: no default app buttons, cmd button, build instead of ask'
+    status: now
+    priority: 75000
+    body: |-
+      Done: the default setup adds no app buttons and a `cmd` button. `SKILL.md` says a change request is built, not offered. Search examples are tool-neutral. Documentation audit applied (full `Set` argument text, aliases and quick-links recipe, config file shapes, outside pointers removed). Focus styling and breadcrumb arrow width are now wizard options (`focusHighlight`, `breadcrumbArrowWidth`) in `profiles/power-user.json`: the source pane's Location Bar is green, the destination grey, the unfocused pane faded. The colour format was learned from a published theme file read as data and is documented in `references/config-files.md`.
+
+      Open: confirm on screen that the green is strong enough (colours are in `apply-wizard` under `focusHighlight`). The breadcrumb drop-down content (Downloads, Documents) is not set: the first drop-down lists Desktop items; the manual's `Menus` page options have no known key. Remaining audit gaps: hotkey XML sample, evaluator column creation, label file shapes, rename preset elements, FTP address book storage.
+    ts_created: 2026-10-28T22:22:09Z
+    ts_started: 2026-10-28T22:22:09Z
+    ts_done: null
+    ts_touched: 2026-10-28T22:38:59Z
+  e5mo:
+    title: 'Name-width recipe: replace polling with event-driven apply and learn'
+    status: now
+    priority: 76000
+    body: |-
+      Incident 30-10-2026: the polling version of `JooKoiNameWidth.js` (from u61n Add scripting reference and name-width recipe to the Directory Opus skill) pushed `dopus.exe` to 35 GB private bytes and 819k handles over about 40 idle hours. Every read of `Tab.format` leaks about 4 handles and 150 KB, so a 700 ms poll leaked nonstop. A/B test: add-in on +86 handles per 14 s, off 0. Removing the per-tick file I/O did not help.
+
+      Fix: v2.0 applies on `OnAfterFolderChange` / `OnActivateTab` through a one-shot timer, and learns a hand resize on `OnBeforeFolderChange`, `OnActivateTab`, `OnCloseTab` and `OnCloseLister`. Idle growth measured flat. Rule is in the recipe doc: never poll `Tab.format`.
+
+      Next: the user tests by hand (resize, open another folder, check `name-width.txt` and the new folder's width). Mark done once that works.
+    ts_created: 2026-10-30T20:25:53Z
+    ts_started: 2026-10-30T20:28:07Z
+    ts_done: null
+    ts_touched: 2026-10-30T20:28:07Z
+  mcf9:
+    title: Port the `jj` shortcut menu to this machine
+    status: now
+    priority: 77000
+    body: |-
+      Adapted the favorites menu from the work machine into `toolboxes/shortcuts/` as `jj`. Usage and mechanism: that folder's `CONTEXT.md`.
+
+      Calls made:
+      - Menu content is config-driven (`jj.config.json`), not code.
+      - Clack comes from the repo devDependency.
+      - PowerShell, PowerShell 7, Git Bash and CMD. CMD uses `jj.cmd`, found through the user PATH that `setup:jj` edits.
+      - Configs group dropped.
+      - Apps lists the `.bat` files in the shortcuts folder: `viewer.bat`, `writher.bat`, `fluency.bat`, `paper-trail.bat`.
+      - npm scripts group added (06-11-2026). Lists the nearest `package.json` scripts.
+      - Not ported, because they are specific to the work machine or tied to a pinned Gemini version: Bluetooth watcher, resource monitor, telemetry, Gemini repair.
+
+      State: folder renamed `skill-toolboxes` -> `toolboxes` (06-11-2026). The `.claude/skills` link, the global Directory Opus junction and the `setup:jj` profile blocks and PATH entry were repointed. `jj` had silently stopped working in all shells until then.
+      Next:
+      - User deletes the old `shortcuts`, `shortcuts.bat` and `shortcuts.mjs`, and the finished one-off `_jookoi-architecture/rename-toolboxes.ps1`.
+      - User tests `jj` in PowerShell, PowerShell 7, Git Bash and CMD (new windows).
+      - Add-on ideas offered 06-11-2026 and not picked yet: project actions (start agent or editor after picking), recent picks first, edit-menu entry, open current folder, local model commands, quick jnote.
+    ts_created: 2026-11-05T22:51:33Z
+    ts_started: 2026-11-05T22:51:33Z
+    ts_done: null
+    ts_touched: 2026-11-05T23:56:00Z
+  k0ur:
+    title: Fix `setup-jnote.js` duplicating its profile block
+    status: parked
+    priority: 78000
+    body: |-
+      `upsertBlock` in `utility-scripts/setup-jnote.js` builds its regex from marker strings without escaping them. `(JooKoi-developer-stack)` becomes a capture group, so the old block never matches and every run appends another copy. The PS 5.1 profile has 3 copies, PS 7 has 2.
+
+      Fix: escape the markers the way `toolboxes/shortcuts/setup-jj.mjs` does, then re-run `npm run setup:jnote` once to collapse the duplicates.
+    ts_created: 2026-11-05T22:51:33Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-11-05T22:51:33Z
+  g6rr:
+    title: Terminal welcome screen
+    status: parked
+    priority: 79000
+    body: |-
+      A short screen printed when a terminal opens: the npm commands available in the current folder, common shortcuts (`jj` included), and a few extras. The user has a version on the work machine and will bring it over.
+
+      Planned home: `toolboxes/`, next to `shortcuts/`. Described in `toolboxes/README.md`. It can reuse `jj.mjs`'s nearest-`package.json` lookup and the profile-block installer in `setup-jj.mjs`.
+    ts_created: 2026-11-05T23:37:17Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-11-05T23:37:17Z
+  n30g:
+    title: Fold `my-repo-setup/` into toolboxes
+    status: done
+    priority: 80000
+    body: |-
+      `my-repo-setup/` is a copy-out bundle for new repos (Angular skills, seed `AGENTS.md`, `setup-scripts/`). A toolbox (for example an Angular box) from which all or part is copied into a project does the same job, so `my-repo-setup/` may become redundant.
+
+      Raised 06-11-2026. Depends on the plan `_architecture/plans/2026-11-06-toolbox-third-party-manifest.md` (box layout, placement). Needs its own plan: the copy-into-project step (`copy:skill` in `utility-scripts` does part of it), the fate of the seed `AGENTS.md` template and `setup-scripts/`, and the tracked mirrors described in `AGENTS.md`.
+
+      Open question, raised 06-11-2026: could `toolboxes/my-global-setup/` also become a box? Conflict: a box is opened on demand, the global folder is installed into `~/.agents` and loaded every session, and global installs were ruled out of toolboxes. Leaning: share the layout and the placement script (target = the box, or `~/.agents`), keep the folders separate, revisit the global folder after the placement script works. Waiting on the user's call.
+    ts_created: 2026-11-06T00:44:13Z
+    ts_started: null
+    ts_done: 2026-11-08T20:35:09Z
+    ts_touched: 2026-11-08T20:35:09Z
+  z6y4:
+    title: Remove the Directory Opus skill from the public repo history
+    status: now
+    priority: 81000
+    body: |-
+      The Directory Opus skill (`jookoi-directory-opus-skill`, 72 files) is not approved for release: the Directory Opus owners ban AI-made content. It was committed in `c70f057` and pushed to the public repo `equilerex/JooKoi-developer-stack` (last push 27-10-2026). Found 06-11-2026.
+
+      Done: `.gitignore` now ignores the skill folder and the box's `.claude/skills` under `toolboxes/windows-toolbox/`, so it is never added again. READMEs may still list it.
+
+      Not done, user's call: deleting it from the working tree commit does not remove it from history. Options: rewrite history (`git filter-repo --path skill-toolboxes/windows-toolbox --invert-paths`, then force push, which anyone who cloned keeps), or make the repo private. A forked or cloned copy cannot be recalled.
+
+      Also check: the plan `2026-10-28-directory-opus-power-user-default.md` and items iw5o Replace Directory Opus profiles with one power-user default, y4yt Directory Opus skill: no default app buttons, cmd button, build instead of ask and e5mo Name-width recipe: replace polling with event-driven apply and learn describe the skill and are tracked. The skill name cannot take the `_jookoi-` prefix (skill names allow lowercase letters, digits and hyphens), so privacy relies on the `.gitignore` entry.
+    ts_created: 2026-11-06T02:02:25Z
+    ts_started: 2026-11-06T02:02:25Z
+    ts_done: null
+    ts_touched: 2026-11-06T02:02:34Z
+  udc3:
+    title: 'Directory Opus skill: learn Folder Tree root-item config and tree collapse'
+    status: done
+    priority: 82000
+    body: |-
+      Done 2026-11-07. Tree set up through Preferences with keyboard and mouse input, after the user removed the skill's GUI-automation ban (SKILL.md Apply rules, onboarding rule list). Root order now Home, Favorites, profile (user name label), This PC (drives), Desktop, then the rest. Favorites, Favorites Bar, This PC and Libraries are pinned, so they stay expanded through the header Collapse and restarts. Downloads stays under the Favorites Bar and the profile folder, since no custom root type exists.
+
+      Learned formats (`treeroot.oxc`, pins in `Layouts\System\default.oll`, pin prefs bits) are in `references/config-files.md`.
+    ts_created: 2026-11-07T18:07:27Z
+    ts_started: null
+    ts_done: 2026-11-07T18:46:17Z
+    ts_touched: 2026-11-07T18:46:17Z
+  io2m:
+    title: Copy a toolbox's skills into a project
+    status: parked
+    priority: 83000
+    body: The folder consolidation is done, so a box (`angular-toolbox`, `frontend-toolbox`) is the source and a project repo the target. `copy:skill` with `--source <box label> --skills <names> --to <label>` covers it, but a destination label per project must be added to `_jookoi-skill-locations.json` by hand. Decide whether a box should instead get a small `copy-into-project` script in its `scripts/`. Raised 08-11-2026 when `n30g Fold my-repo-setup/ into toolboxes` closed.
+    ts_created: 2026-11-08T20:35:09Z
+    ts_started: null
+    ts_done: null
+    ts_touched: 2026-11-08T20:35:09Z

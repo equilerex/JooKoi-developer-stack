@@ -1,0 +1,42 @@
+{
+  "projectRoots": ["{repo}/../.."],
+  "groups": [
+    {
+      "label": "Folders",
+      "hint": "Jump to a folder",
+      "entries": [
+        { "label": "~/.agents", "hint": "Global agent setup: AGENTS.md and skills", "cd": "~/.agents" },
+        { "label": "~/.agents/skills", "hint": "Installed personal skills", "cd": "~/.agents/skills" },
+        { "label": "~/.claude", "hint": "Claude Code settings, hooks, memory", "cd": "~/.claude" },
+        { "label": "~/.gemini", "hint": "Gemini CLI settings", "cd": "~/.gemini" },
+        { "label": "JooKoi-developer-stack", "hint": "This repo", "cd": "{repo}" }
+      ]
+    },
+    {
+      "label": "Projects",
+      "hint": "Every git repo under projectRoots, type to filter",
+      "source": "projects"
+    },
+    {
+      "label": "npm scripts",
+      "hint": "Scripts of the package.json here or above, type to filter",
+      "source": "npm-scripts"
+    },
+    {
+      "label": "Apps",
+      "hint": "Start a .bat from the shortcuts folder in a new window",
+      "source": "bat-files",
+      "folder": "{shortcuts}"
+    },
+    {
+      "label": "Utils",
+      "hint": "Run a command in this terminal",
+      "entries": [
+        { "label": "Git status", "hint": "Show changed and untracked files in the current repo", "run": "git status" },
+        { "label": "Git root", "hint": "Print the top folder of the repo you are in", "run": "git rev-parse --show-toplevel" },
+        { "label": "npm: blocked install scripts", "hint": "List packages whose install scripts npm holds until you approve them", "run": "npm approve-scripts --allow-scripts-pending" },
+        { "label": "Developer-stack npm scripts", "hint": "List this repo's npm run commands with what each one does", "run": "npm --prefix \"{repo}\" run help" }
+      ]
+    }
+  ]
+}
